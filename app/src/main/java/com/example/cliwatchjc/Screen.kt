@@ -19,6 +19,7 @@ import com.example.cliwatchjc.modules.education.EducationScreen
 import com.example.cliwatchjc.modules.tracker.TrackerScreen
 import com.example.cliwatchjc.modules.tracker.CalculatorScreen
 import com.example.cliwatchjc.modules.tracker.PersonalGoalScreen
+import com.example.cliwatchjc.modules.tracker.SummaryScreen
 import com.example.cliwatchjc.ui.theme.GreenAwarenessTheme
 
 object Routes {
@@ -29,6 +30,7 @@ object Routes {
     const val TRACKER = "tracker"
     const val CALCULATOR = "calculator"
     const val PERSONAL_GOAL = "personalGoal"
+    const val SUMMARY = "summary"
     const val CHALLENGES = "challenges"
 
     val labels = mapOf(
@@ -39,6 +41,7 @@ object Routes {
         TRACKER to "Tracker Module",
         CALCULATOR to "Calculator",
         PERSONAL_GOAL to "Personal Goal",
+        SUMMARY to "Summary",
         CHALLENGES to "Challenges Module"
     )
 }
@@ -106,6 +109,7 @@ fun MyApp() {
                 composable(Routes.TRACKER) { TrackerScreen() }
                 composable(Routes.CALCULATOR) { CalculatorScreen() }
                 composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }
+                composable(Routes.SUMMARY) { SummaryScreen() }
                 composable(Routes.CHALLENGES) { ChallengesScreen() }
             }
         }

@@ -77,4 +77,7 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
 
+    //Chart
+    implementation ("com.diogobernardino:williamchart:3.10.1")
+
 }

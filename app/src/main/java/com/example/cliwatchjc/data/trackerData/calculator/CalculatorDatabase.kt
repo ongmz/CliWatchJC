@@ -1,4 +1,4 @@
-package com.example.cliwatchjc.data.trackerData
+package com.example.cliwatchjc.data.trackerData.calculator
 
 import android.content.Context
 import androidx.room.Database
@@ -17,7 +17,7 @@ abstract class CalculatorDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE : CalculatorDatabase? = null
 
-        fun getDatabase(context: Context): CalculatorDatabase{
+        fun getDatabase(context: Context): CalculatorDatabase {
 
             val tempInstance = INSTANCE
             if(tempInstance != null){
