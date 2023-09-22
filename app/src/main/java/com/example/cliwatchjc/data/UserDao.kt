@@ -7,7 +7,7 @@ import androidx.room.Update
 
 @Dao
 interface UserDao {
-    @Query("SELECT * FROM user WHERE id = :userId")
+    @Query("SELECT * FROM user WHERE userId = :userId")
     fun getUserById(userId: Int): User?
 
     @Insert
@@ -16,6 +16,6 @@ interface UserDao {
     @Update
     fun updateUser(user: User)
 
-    @Query("DELETE FROM user WHERE id = :userId")
+    @Query("DELETE FROM user WHERE userId = :userId")
     fun deleteUser(userId: Int)
 }

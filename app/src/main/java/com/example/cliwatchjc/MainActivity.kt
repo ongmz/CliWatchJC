@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
-import com.example.cliwatchjc.ui.theme.CliWatchJCTheme
 
 class MainActivity : ComponentActivity() {
 
