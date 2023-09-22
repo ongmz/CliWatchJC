@@ -4,8 +4,6 @@ import android.app.Activity
 import android.hardware.lights.Light
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
@@ -33,8 +31,8 @@ private val LightColorScheme = lightColorScheme(
     primary = Green500,
     onPrimary = Green700,
     secondary = GreenVariant,
-    background = Color.Black,
-    onBackground = Color.White
+    background = Color.White,
+    onBackground = Color.Black
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -49,7 +47,7 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun GreenAwarenessTheme(
-    darkTheme: Boolean = false,
+    darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
     val colorScheme =

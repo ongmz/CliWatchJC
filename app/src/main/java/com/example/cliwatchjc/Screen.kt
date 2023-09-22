@@ -1,7 +1,6 @@
 package com.example.cliwatchjc
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -13,17 +12,26 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.cliwatchjc.modules.challenges.ChallengesScreen
+import com.example.cliwatchjc.modules.education.ClimateNewsScreen
+import com.example.cliwatchjc.modules.education.EducationResourcesScreen
+import com.example.cliwatchjc.modules.education.EducationScreen
+import com.example.cliwatchjc.modules.tracker.TrackerScreen
 import com.example.cliwatchjc.ui.theme.GreenAwarenessTheme
 
 object Routes {
     const val MAIN_MENU = "mainMenu"
     const val EDUCATION = "education"
+    const val EDUCATION_RESOURCES = "educationResources"
+    const val CLIMATE_NEWS = "climateNews"
     const val TRACKER = "tracker"
     const val CHALLENGES = "challenges"
 
     val labels = mapOf(
         MAIN_MENU to "Main Menu",
         EDUCATION to "Education Module",
+        EDUCATION_RESOURCES to "Education Resources",
+        CLIMATE_NEWS to "Climate News",
         TRACKER to "Tracker Module",
         CHALLENGES to "Challenges Module"
     )
@@ -86,7 +94,9 @@ fun MyApp() {
         ) {
             NavHost(navController, startDestination = Routes.MAIN_MENU) {
                 composable(Routes.MAIN_MENU) { MainMenuScreen() }
-                composable(Routes.EDUCATION) { EducationScreen() }
+                composable(Routes.EDUCATION) { EducationScreen(navController) }
+                composable(Routes.EDUCATION_RESOURCES) { EducationResourcesScreen() }
+                composable(Routes.CLIMATE_NEWS) { ClimateNewsScreen() }
                 composable(Routes.TRACKER) { TrackerScreen() }
                 composable(Routes.CHALLENGES) { ChallengesScreen() }
             }
