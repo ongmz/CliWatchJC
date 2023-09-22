@@ -3,7 +3,7 @@ package com.example.cliwatchjc.data.education
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "article")
+@Entity
 data class Article(
     @PrimaryKey(autoGenerate = true)
     val articleId: Long = 0L,

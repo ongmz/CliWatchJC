@@ -5,7 +5,6 @@ import androidx.room.ForeignKey
 import com.example.cliwatchjc.data.User
 
 @Entity(
-    tableName = "user_quiz_score",
     foreignKeys = [
         ForeignKey(entity = User::class, parentColumns = ["userId"], childColumns = ["userId"]),
         ForeignKey(entity = Article::class, parentColumns = ["articleId"], childColumns = ["articleId"])

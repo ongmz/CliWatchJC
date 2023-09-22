@@ -42,11 +42,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.cliwatchjc.modules.challenges.ChallengesScreen
+import com.example.cliwatchjc.modules.education.ArticleViewModel
 import com.example.cliwatchjc.modules.education.ClimateNewsScreen
 import com.example.cliwatchjc.modules.education.EducationResourcesScreen
 import com.example.cliwatchjc.modules.education.EducationScreen

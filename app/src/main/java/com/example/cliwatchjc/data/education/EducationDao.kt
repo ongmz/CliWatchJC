@@ -8,16 +8,16 @@ import androidx.room.Query
 
 @Dao
 interface EducationDao {
-    @Query("SELECT * FROM article")
+    @Query("SELECT * FROM Article")
     fun getAllArticle(): List<Article>
 
-    @Query("SELECT * FROM article WHERE articleId = :id")
+    @Query("SELECT * FROM Article WHERE articleId = :id")
     fun getArticle(id: Long): Article
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertArticle(article: Article)
 
-    @Query("SELECT * FROM user_quiz_score WHERE userId = :userId AND articleId = :articleId")
+    @Query("SELECT * FROM UserQuizScore WHERE userId = :userId AND articleId = :articleId")
     fun getUserScoreForArticle(userId: Long, articleId: Long): UserQuizScore?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
