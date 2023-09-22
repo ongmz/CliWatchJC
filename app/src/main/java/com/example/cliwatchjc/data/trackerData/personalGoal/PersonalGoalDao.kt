@@ -11,18 +11,18 @@ import androidx.room.Update
 @Dao
 interface PersonalGoalDAO {
 
-    @Query("SELECT * FROM Goal order by id")
-    fun getAllGoals(): LiveData<List<Goal>>
+    @Query("SELECT * FROM PersonalGoal order by id")
+    fun getAllGoals(): LiveData<List<PersonalGoal>>
 
     @Insert(onConflict = REPLACE)
-    fun insertGoal(goal: Goal): Long
+    fun insertGoal(personalGoal: PersonalGoal): Long
 
     @Update
-    fun updateGoal(goal: Goal)
+    fun updateGoal(personalGoal: PersonalGoal)
 
-    @Query("UPDATE Goal SET isSelected = :isSelected")
+    @Query("UPDATE PersonalGoal SET isSelected = :isSelected")
     fun unSelectAllGoals(isSelected: Boolean)
 
     @Delete
-    fun deleteGoal(goal: Goal)
+    fun deleteGoal(personalGoal: PersonalGoal)
 }
