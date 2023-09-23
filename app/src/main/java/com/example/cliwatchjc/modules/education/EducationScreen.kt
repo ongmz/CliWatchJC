@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.cliwatchjc.Routes
-import com.example.cliwatchjc.ui.theme.GreenAwarenessTheme
+import com.example.compose.AppTheme
 
 @Composable
 fun EducationScreen(navController: NavController, modifier: Modifier = Modifier) {
@@ -49,7 +49,7 @@ fun EducationScreen(navController: NavController, modifier: Modifier = Modifier)
 @Preview(showBackground = true)
 @Composable
 fun EducationScreenPreview() {
-    GreenAwarenessTheme {
+    AppTheme {
         val navController = rememberNavController()
         EducationScreen(navController)
     }
