@@ -37,6 +37,6 @@ object AppModule {
     @Provides
     @Singleton
     fun provideChallengesRepository(database: AppDatabase): ChallengesRepository {
-        return ChallengesRepository(database.ChallengesDao())
+        return ChallengesRepository(database.challengesDao())
     }
 }

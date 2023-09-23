@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.cliwatchjc.data.challenges.Leaderboard
 import com.example.compose.AppTheme
 
 @Composable
@@ -64,16 +65,28 @@ fun ChallengesScreen() {
                 Screen1(lifecylce1)
             }
             composable(route = "Challenges Progress") {
-                Screen2(lifecylce2)
+//                val viewModel: ChallengesViewModel = viewModel()
+//                val getChallengesStatus: suspend (Long, Long) -> String? = { userId, challengesId ->
+//                    viewModel.getChallengeStatus(userId, challengesId)
+//                }
+//                Screen2(lifecylce2, getChallengesStatus, userId, challengesId)
             }
             composable(route = "Leaderboard") {
-                Screen3(lifecylce3)
+                Screen3(lifecylce3, leaderboardEntries = getSampleLeaderboardEntries())
             }
         }
     }
 
 }
 
+@Composable
+fun getSampleLeaderboardEntries(): List<Leaderboard> {
+    return listOf(
+        Leaderboard(userId = 1, challengesId = 1, userName = "User1", score = 100),
+        Leaderboard(userId = 2, challengesId = 1, userName = "User2", score = 90),
+        // Add more entries as needed
+    )
+}
 @Preview(showBackground = true)
 @Composable
 fun screenPreview() {
