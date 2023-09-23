@@ -1,9 +1,8 @@
-package com.example.cliwatchjc.data.trackerData.personalGoal
+package com.example.cliwatchjc.data.tracker.personalGoal
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.cliwatchjc.data.trackerData.personalGoal.PersonalGoal
 import java.util.*
 
 @Entity(

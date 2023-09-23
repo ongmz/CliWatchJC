@@ -53,6 +53,9 @@ import com.example.cliwatchjc.modules.education.ClimateNewsScreen
 import com.example.cliwatchjc.modules.education.EducationResourcesScreen
 import com.example.cliwatchjc.modules.education.EducationScreen
 import com.example.cliwatchjc.modules.tracker.TrackerScreen
+import com.example.cliwatchjc.modules.tracker.CalculatorScreen
+import com.example.cliwatchjc.modules.tracker.PersonalGoalScreen
+import com.example.cliwatchjc.modules.tracker.SummaryScreen
 import com.example.compose.AppTheme
 
 object Routes {
@@ -61,6 +64,9 @@ object Routes {
     const val EDUCATION_RESOURCES = "educationResources"
     const val CLIMATE_NEWS = "climateNews"
     const val TRACKER = "tracker"
+    const val CALCULATOR = "calculator"
+    const val PERSONAL_GOAL = "personalGoal"
+    const val SUMMARY = "summary"
     const val CHALLENGES = "challenges"
 
     val labels = mapOf(
@@ -69,6 +75,9 @@ object Routes {
         EDUCATION_RESOURCES to "Education Resources",
         CLIMATE_NEWS to "Climate News",
         TRACKER to "Tracker",
+        CALCULATOR to "Calculator",
+        PERSONAL_GOAL to "Personal Goal",
+        SUMMARY to "Summary",
         CHALLENGES to "Challenges"
     )
 }
@@ -148,6 +157,9 @@ fun MyApp() {
                     composable(Routes.EDUCATION_RESOURCES) { EducationResourcesScreen() }
                     composable(Routes.CLIMATE_NEWS) { ClimateNewsScreen() }
                     composable(Routes.TRACKER) { TrackerScreen() }
+                    composable(Routes.CALCULATOR) { CalculatorScreen() }
+                    composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }
+                    //composable(Routes.SUMMARY) { SummaryScreen(weeklyData = , monthlyData = )}
                     composable(Routes.CHALLENGES) { ChallengesScreen() }
                 }
                 if (showSideMenu) {

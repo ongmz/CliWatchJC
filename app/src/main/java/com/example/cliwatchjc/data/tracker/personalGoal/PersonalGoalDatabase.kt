@@ -1,4 +1,4 @@
-package com.example.cliwatchjc.data.trackerData.personalGoal
+package com.example.cliwatchjc.data.tracker.personalGoal
 
 import android.content.Context
 import androidx.room.Database
@@ -11,9 +11,9 @@ import com.example.cliwatchjc.modules.tracker.Converters
 @TypeConverters(Converters::class)
 abstract class PersonalGoalDatabase : RoomDatabase() {
 
-    abstract fun personalGoalDAO(): PersonalGoalDAO
+    abstract fun personalGoalDAO(): PersonalGoalDao
 
-    abstract fun personalGoalDetailsDAO(): PersonalGoalDetailsDAO
+    abstract fun personalGoalDetailsDAO(): PersonalGoalDetailsDao
 
     companion object {
         private var instance: PersonalGoalDatabase? = null

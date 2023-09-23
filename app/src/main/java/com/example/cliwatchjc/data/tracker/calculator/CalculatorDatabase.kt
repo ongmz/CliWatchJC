@@ -1,4 +1,4 @@
-package com.example.cliwatchjc.data.trackerData.calculator
+package com.example.cliwatchjc.data.tracker.calculator
 
 import android.content.Context
 import androidx.room.Database

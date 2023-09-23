@@ -83,6 +83,9 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     kapt("com.google.dagger:hilt-compiler:2.48")
 
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+
 }
 kapt {
     correctErrorTypes = true

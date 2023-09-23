@@ -1,6 +1,5 @@
-package com.example.cliwatchjc.data.trackerData.personalGoal
+package com.example.cliwatchjc.data.tracker.personalGoal
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -9,10 +8,10 @@ import androidx.room.Query
 import androidx.room.Update
 
 @Dao
-interface PersonalGoalDAO {
+interface PersonalGoalDao {
 
     @Query("SELECT * FROM PersonalGoal order by id")
-    fun getAllGoals(): LiveData<List<PersonalGoal>>
+    fun getAllGoals(): List<PersonalGoal>
 
     @Insert(onConflict = REPLACE)
     fun insertGoal(personalGoal: PersonalGoal): Long
