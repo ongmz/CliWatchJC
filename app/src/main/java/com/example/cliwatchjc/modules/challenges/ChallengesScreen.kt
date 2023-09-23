@@ -30,7 +30,7 @@ fun ChallengesScreen() {
 
     val lifecycleOwner = LocalLifecycleOwner.current
     val lifecylce1 = lifecycleOwner.lifecycle
-    val lifecylce2 = lifecycleOwner.lifecycle
+//    val lifecylce2 = lifecycleOwner.lifecycle
     val lifecylce3 = lifecycleOwner.lifecycle
 
     Scaffold(
@@ -89,7 +89,7 @@ fun getSampleLeaderboardEntries(): List<Leaderboard> {
 }
 @Preview(showBackground = true)
 @Composable
-fun screenPreview() {
+fun ScreenPreview() {
     AppTheme {
         ChallengesScreen()
     }
