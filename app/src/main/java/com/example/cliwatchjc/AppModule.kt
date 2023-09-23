@@ -3,6 +3,7 @@ package com.example.cliwatchjc
 import android.app.Application
 import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
+import com.example.cliwatchjc.data.challenges.repository.ChallengesRepository
 import com.example.cliwatchjc.data.education.repository.ArticleRepository
 import dagger.Module
 import dagger.Provides
@@ -31,5 +32,11 @@ object AppModule {
     @Singleton
     fun provideArticleRepository(database: AppDatabase): ArticleRepository {
         return ArticleRepository(database.educationDao())
+    }
+
+    @Provides
+    @Singleton
+    fun provideChallengesRepository(database: AppDatabase): ChallengesRepository {
+        return ChallengesRepository(database.ChallengesDao())
     }
 }

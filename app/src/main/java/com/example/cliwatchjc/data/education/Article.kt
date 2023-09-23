@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Article(
+data class  Article(
     @PrimaryKey(autoGenerate = true)
     val articleId: Long = 0L,
     val title: String,
