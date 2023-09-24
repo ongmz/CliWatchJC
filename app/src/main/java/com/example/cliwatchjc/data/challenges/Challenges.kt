@@ -11,5 +11,6 @@ data class Challenges(
     val challenges_desc:String,
     val challenges_duration:String,
     val Score: Int = 5,
-    val challengeStatus: String
+    val challengeStatus: String,
+    val userId: Long
 )

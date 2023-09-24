@@ -5,6 +5,8 @@ import androidx.room.Query
 
 @Dao
 interface ChallengesDao {
+
+
     @Query("SELECT * FROM Challenges")
     suspend fun getAllChallenges(): List<Challenges>
 
