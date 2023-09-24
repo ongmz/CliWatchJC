@@ -4,11 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.Slider
+import androidx.compose.material3.TextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -17,13 +16,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+
 
 @Composable
 fun CalculatorScreen() {
-    var transportation: Float by remember { mutableFloatStateOf(0.0f) }
-    var energyUsage: Float by remember { mutableFloatStateOf(0.0f) }
-    var waste: Float by remember { mutableFloatStateOf(0.0f) }
-    var carbonFootprint: Float by remember { mutableFloatStateOf(0.0f) }
+    val calculatorViewModel = hiltViewModel<CalculatorViewModel>()
+    var transportation by remember { mutableStateOf("") }
+    var energyUsage by remember { mutableStateOf("") }
+    var waste by remember { mutableStateOf("") }
+    var carbonFootprint by remember { mutableStateOf("") }
     var showResult by remember { mutableStateOf(false) }
 
     Column(
@@ -40,23 +42,36 @@ fun CalculatorScreen() {
             ),
             modifier = Modifier.padding(bottom = 16.dp)
         )
+
         // Transportation Input
-        Text("Transportation (in CO2e tons)")
-        Slider(value = transportation, onValueChange = { transportation = it })
+        TextField(
+            value = transportation,
+            onValueChange = { transportation = it },
+            label = { Text("Transportation (in CO2e tons)") }
+        )
 
         // Energy Usage Input
-        Text("Energy Usage (in CO2e tons)")
-        Slider(value = energyUsage, onValueChange = { energyUsage = it })
+        TextField(
+            value = energyUsage,
+            onValueChange = { energyUsage = it },
+            label = { Text("Energy Usage (in CO2e tons)") }
+        )
 
         // Waste Input
-        Text("Waste (in CO2e tons)")
-        Slider(value = waste, onValueChange = { waste = it })
+        TextField(
+            value = waste,
+            onValueChange = { waste = it },
+            label = { Text("Waste (in CO2e tons)") }
+        )
 
         // Calculate Button
         Button(
             onClick = {
                 // Calculate the carbon footprint
-                carbonFootprint = transportation + energyUsage + waste
+                val transportationValue = transportation.toFloatOrNull() ?: 0.0f
+                val energyUsageValue = energyUsage.toFloatOrNull() ?: 0.0f
+                val wasteValue = waste.toFloatOrNull() ?: 0.0f
+                calculatorViewModel.carbonFootprint = transportationValue + energyUsageValue + wasteValue
                 showResult = true // Show the result
             },
             modifier = Modifier.padding(top = 16.dp)
@@ -84,5 +99,3 @@ fun CalculatorScreen() {
 fun CalculatorPreview() {
     CalculatorScreen()
 }
-
-

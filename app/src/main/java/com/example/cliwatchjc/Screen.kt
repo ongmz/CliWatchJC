@@ -156,7 +156,7 @@ fun MyApp() {
                     composable(Routes.EDUCATION) { EducationScreen(navController) }
                     composable(Routes.EDUCATION_RESOURCES) { EducationResourcesScreen() }
                     composable(Routes.CLIMATE_NEWS) { ClimateNewsScreen() }
-                    composable(Routes.TRACKER) { TrackerScreen() }
+                    composable(Routes.TRACKER) { TrackerScreen(navController) }
                     composable(Routes.CALCULATOR) { CalculatorScreen() }
                     composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }
                     //composable(Routes.SUMMARY) { SummaryScreen(weeklyData = , monthlyData = )}

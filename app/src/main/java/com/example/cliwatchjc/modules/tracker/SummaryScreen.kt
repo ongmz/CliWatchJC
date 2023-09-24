@@ -1,63 +1,105 @@
 package com.example.cliwatchjc.modules.tracker
 
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.text.input.KeyboardType
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
 
 @Composable
 fun SummaryScreen(
     weeklyData: List<Float>,
     monthlyData: List<Float>
 ) {
+    var selectedTabIndex by remember { mutableStateOf(0) }
+
     Column(
         modifier = Modifier
-            .padding(16.dp)
             .fillMaxSize()
+            .background(Color.White) // Set the background color for the entire SummaryScreen
     ) {
-        // Weekly Bar Chart
-        BarChart(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
+        TabRow(
+            selectedTabIndex = selectedTabIndex,
+            contentColor = Color.Black
         ) {
-            val entries = weeklyData.mapIndexed { index, value ->
-                BarEntry(index.toFloat(), value)
-            }
-            val dataSet = BarDataSet(entries, "Weekly Data")
-            data = BarData(dataSet)
-
-            xAxis.position = XAxis.XAxisPosition.BOTTOM
-            xAxis.labelRotationAngle = 45f
-            xAxis.setDrawGridLines(false)
+            Tab(
+                text = { Text("Weekly") },
+                selected = selectedTabIndex == 0,
+                onClick = { selectedTabIndex = 0 }
+            )
+            Tab(
+                text = { Text("Monthly") },
+                selected = selectedTabIndex == 1,
+                onClick = { selectedTabIndex = 1 }
+            )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        when (selectedTabIndex) {
+            0 -> {
+                BarChart(
+                    data = weeklyData,
+                    barColor = Color.Blue
+                )
+            }
+            1 -> {
+                BarChart(
+                    data = monthlyData,
+                    barColor = Color.Green
+                )
+            }
+        }
+    }
+}
 
-        // Monthly Bar Chart
-        BarChart(
+
+@Composable
+fun BarChart(
+    data: List<Float>,
+    barColor: Color = Color.Blue,
+    barWidth: Float = 20f
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+            .padding(16.dp)
+    ) {
+        Canvas(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
+                .weight(1f)
         ) {
-            val entries = monthlyData.mapIndexed { index, value ->
-                BarEntry(index.toFloat(), value)
-            }
-            val dataSet = BarDataSet(entries, "Monthly Data")
-            data = BarData(dataSet)
+            val maxData = data.maxOrNull() ?: 1.0f
+            val barSpacing = 16.dp.toPx()
+            val availableWidth = size.width - (data.size + 1) * barSpacing
+            val barUnitWidth = availableWidth / data.size
 
-            xAxis.position = XAxis.XAxisPosition.BOTTOM
-            xAxis.labelRotationAngle = 45f
-            xAxis.setDrawGridLines(false)
+            data.forEachIndexed { index, value ->
+                val barHeight = (value / maxData) * size.height
+                val startX = (index * (barSpacing + barUnitWidth)) + barSpacing
+                val startY = size.height
+                val endX = startX + barUnitWidth
+                val endY = startY - barHeight
+
+                drawRect(
+                    color = barColor,
+                    topLeft = Offset(startX, endY),
+                    size = Size(barWidth, barHeight),
+                    style = Stroke(2.dp.toPx())
+                )
+            }
         }
     }
 }
