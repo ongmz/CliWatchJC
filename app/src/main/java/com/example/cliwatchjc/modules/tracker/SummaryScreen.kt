@@ -3,6 +3,7 @@ package com.example.cliwatchjc.modules.tracker
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -20,8 +21,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SummaryScreen(
+    monthlyData: List<Float>,
     weeklyData: List<Float>,
-    monthlyData: List<Float>
+    calculatorViewModel: CalculatorViewModel
 ) {
     var selectedTabIndex by remember { mutableStateOf(0) }
 
@@ -60,8 +62,19 @@ fun SummaryScreen(
                 )
             }
         }
+
+        // Add a button to reset the calculator inputs
+        Button(
+            onClick = {
+                calculatorViewModel.resetInputs()
+            },
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text("Reset Calculator Inputs")
+        }
     }
 }
+
 
 
 @Composable

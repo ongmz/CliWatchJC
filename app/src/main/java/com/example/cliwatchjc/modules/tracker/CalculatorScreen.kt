@@ -16,16 +16,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 
 
 @Composable
-fun CalculatorScreen() {
-    val calculatorViewModel = hiltViewModel<CalculatorViewModel>()
+fun CalculatorScreen(calculatorViewModel: CalculatorViewModel) {
     var transportation by remember { mutableStateOf("") }
     var energyUsage by remember { mutableStateOf("") }
     var waste by remember { mutableStateOf("") }
-    var carbonFootprint by remember { mutableStateOf("") }
     var showResult by remember { mutableStateOf(false) }
 
     Column(
@@ -71,7 +68,10 @@ fun CalculatorScreen() {
                 val transportationValue = transportation.toFloatOrNull() ?: 0.0f
                 val energyUsageValue = energyUsage.toFloatOrNull() ?: 0.0f
                 val wasteValue = waste.toFloatOrNull() ?: 0.0f
-                calculatorViewModel.carbonFootprint = transportationValue + energyUsageValue + wasteValue
+                calculatorViewModel.setTransportation(transportationValue)
+                calculatorViewModel.setEnergyUsage(energyUsageValue)
+                calculatorViewModel.setWaste(wasteValue)
+                calculatorViewModel.calculateCarbonFootprint()
                 showResult = true // Show the result
             },
             modifier = Modifier.padding(top = 16.dp)
@@ -81,6 +81,7 @@ fun CalculatorScreen() {
 
         // Display Carbon Footprint if showResult is true
         if (showResult) {
+            val carbonFootprint = calculatorViewModel.carbonFootprint.value
             Text("Carbon Footprint: $carbonFootprint CO2e tons")
             Button(
                 onClick = {
@@ -94,8 +95,9 @@ fun CalculatorScreen() {
     }
 }
 
+
 @Preview
 @Composable
 fun CalculatorPreview() {
-    CalculatorScreen()
+    CalculatorScreen(calculatorViewModel = CalculatorViewModel())
 }
