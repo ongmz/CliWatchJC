@@ -13,6 +13,9 @@ interface PersonalGoalDao {
     @Query("SELECT * FROM PersonalGoal order by id")
     fun getAllGoals(): List<PersonalGoal>
 
+    @Query("SELECT * FROM PersonalGoal WHERE id = :id")
+    fun getGoal(id: Long): PersonalGoal
+
     @Insert(onConflict = REPLACE)
     fun insertGoal(personalGoal: PersonalGoal): Long
 

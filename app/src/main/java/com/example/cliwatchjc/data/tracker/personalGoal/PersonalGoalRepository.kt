@@ -1,42 +1,50 @@
 package com.example.cliwatchjc.data.tracker.personalGoal
 
-import android.app.Application
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoal
+import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDao
+import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetails
+import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetailsDao
 
-class PersonalGoalRepository(application: Application) {
-    private val goalDAO: PersonalGoalDao
-
-    init {
-        val database: PersonalGoalDatabase = PersonalGoalDatabase.getInstance(application)
-        goalDAO = database.personalGoalDAO()
-    }
-
+class PersonalGoalRepository(
+    private val personalGoalDao: PersonalGoalDao,
+    private val personalGoalDetailsDao: PersonalGoalDetailsDao
+) {
+    // Methods for personal goals
     fun getAllGoals(): List<PersonalGoal> {
-        return goalDAO.getAllGoals()
+        return personalGoalDao.getAllGoals()
     }
 
-    suspend fun insertGoal(goal: PersonalGoal) {
-        withContext(Dispatchers.IO) {
-            goalDAO.insertGoal(goal)
-        }
+    fun getGoal(id: Long): PersonalGoal {
+        return personalGoalDao.getGoal(id)
     }
 
-    suspend fun updateGoal(goal: PersonalGoal) {
-        withContext(Dispatchers.IO) {
-            goalDAO.updateGoal(goal)
-        }
+    fun insertGoal(goal: PersonalGoal) {
+        personalGoalDao.insertGoal(goal)
     }
 
-    suspend fun unSelectAllGoals() {
-        withContext(Dispatchers.IO) {
-            goalDAO.unSelectAllGoals(false)
-        }
+    fun updateGoal(goal: PersonalGoal) {
+        personalGoalDao.updateGoal(goal)
     }
 
-    suspend fun deleteGoal(goal: PersonalGoal) {
-        withContext(Dispatchers.IO) {
-            goalDAO.deleteGoal(goal)
-        }
+    fun unSelectAllGoals() {
+        personalGoalDao.unSelectAllGoals(false)
+    }
+
+    fun deleteGoal(goal: PersonalGoal) {
+        personalGoalDao.deleteGoal(goal)
+    }
+
+    // Methods for personal goal details
+    fun getGoalDetails(goalId: Long): List<PersonalGoalDetails> {
+        return personalGoalDetailsDao.getGoalDetails(goalId)
+    }
+
+    fun insertGoalDetails(personalGoalDetails: PersonalGoalDetails) {
+        personalGoalDetailsDao.insertGoalDetails(personalGoalDetails)
+    }
+
+    fun updateGoalDetails(personalGoalDetails: PersonalGoalDetails) {
+        personalGoalDetailsDao.updateGoalDetails(personalGoalDetails)
     }
 }
+

@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
 import com.example.cliwatchjc.data.education.repository.ArticleRepository
+import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDao
+import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetailsDao
 import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalRepository
 import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetailsRepository
 import dagger.Module
@@ -28,7 +30,6 @@ object AppModule {
             .build()
     }
 
-
     @Provides
     @Singleton
     fun provideArticleRepository(database: AppDatabase): ArticleRepository {
@@ -37,9 +38,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePersonalGoalRepository(database: AppDatabase): PersonalGoalRepository {
-        return PersonalGoalRepository(database.personalGoalDao())
+    fun providePersonalGoalRepository(
+        personalGoalDao: PersonalGoalDao,
+        personalGoalDetailsDao: PersonalGoalDetailsDao
+    ): PersonalGoalRepository {
+        return PersonalGoalRepository(personalGoalDao, personalGoalDetailsDao)
     }
+
+    @Provides
+    @Singleton
+    fun providePersonalGoalDao(database: AppDatabase): PersonalGoalDao {
+        return database.personalGoalDao()
+    }
+
 
     @Provides
     @Singleton

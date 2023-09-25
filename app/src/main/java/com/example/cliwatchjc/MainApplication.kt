@@ -1,9 +1,10 @@
 package com.example.cliwatchjc
 
 import android.app.Application
-import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
 import com.example.cliwatchjc.data.education.Article
+import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoal
+import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetails
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,6 +29,18 @@ class MainApplication : Application() {
                     maxScore = 5
                 )
                 database.educationDao().insertArticle(exampleArticle)
+
+                val examplePersonalGoal = PersonalGoal(
+                    title = "Example Goal Title",
+                    description = "Example Goal Description"
+                )
+                database.personalGoalDao().insertGoal(examplePersonalGoal)
+
+                val examplePersonalGoalDetails = PersonalGoalDetails(
+                    goalId = examplePersonalGoal.id,
+                    notes = "Example Goal Details"
+                )
+                database.personalGoalDetailsDao().insertGoalDetails(examplePersonalGoalDetails)
             }
         }
     }

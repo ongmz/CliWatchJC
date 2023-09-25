@@ -1,17 +1,12 @@
 package com.example.cliwatchjc.data.tracker.personalGoal
 
-import android.app.Application
+import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetails
+import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetailsDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class PersonalGoalDetailsRepository(application: Application) {
-    private val personalGoalDetailsDAO: PersonalGoalDetailsDao
-
-    init {
-        val database: PersonalGoalDatabase = PersonalGoalDatabase.getInstance(application)
-        personalGoalDetailsDAO = database.personalGoalDetailsDAO()
-    }
-
+class PersonalGoalDetailsRepository(private val personalGoalDetailsDAO: PersonalGoalDetailsDao) {
+    // Methods for personal goal details
     suspend fun getGoalDetails(goalId: Long): List<PersonalGoalDetails> {
         return withContext(Dispatchers.IO) {
             personalGoalDetailsDAO.getGoalDetails(goalId)
@@ -30,3 +25,5 @@ class PersonalGoalDetailsRepository(application: Application) {
         }
     }
 }
+
+
