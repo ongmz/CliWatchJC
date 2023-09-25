@@ -1,13 +1,14 @@
 package com.example.cliwatchjc.data.tracker.personalGoal
 
+import android.app.Application
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class PersonalGoalDetailsRepository(application: PersonalGoalDetailsDao) {
+class PersonalGoalDetailsRepository(application: Application) {
     private val personalGoalDetailsDAO: PersonalGoalDetailsDao
 
     init {
-        val database: PersonalGoalDatabase = PersonalGoalDatabase.getInstance(application.applicationContext)
+        val database: PersonalGoalDatabase = PersonalGoalDatabase.getInstance(application)
         personalGoalDetailsDAO = database.personalGoalDetailsDAO()
     }
 

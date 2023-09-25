@@ -5,9 +5,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
 
 @HiltViewModel
-class CalculatorViewModel : ViewModel() {
+class CalculatorViewModel @Inject constructor() : ViewModel() {
     private val _transportation = MutableStateFlow(0.0f)
     private val transportation: StateFlow<Float> = _transportation.asStateFlow()
 
@@ -19,6 +20,26 @@ class CalculatorViewModel : ViewModel() {
 
     private val _carbonFootprint = MutableStateFlow(0.0f)
     val carbonFootprint: StateFlow<Float> = _carbonFootprint.asStateFlow()
+
+    // Weekly data properties
+    private val _weeklyTransportationData = MutableStateFlow<List<Float>>(emptyList())
+    val weeklyTransportationData: StateFlow<List<Float>> = _weeklyTransportationData.asStateFlow()
+
+    private val _weeklyEnergyUsageData = MutableStateFlow<List<Float>>(emptyList())
+    val weeklyEnergyUsageData: StateFlow<List<Float>> = _weeklyEnergyUsageData.asStateFlow()
+
+    private val _weeklyWasteData = MutableStateFlow<List<Float>>(emptyList())
+    val weeklyWasteData: StateFlow<List<Float>> = _weeklyWasteData.asStateFlow()
+
+    // Monthly data properties
+    private val _monthlyTransportationData = MutableStateFlow<List<Float>>(emptyList())
+    val monthlyTransportationData: StateFlow<List<Float>> = _monthlyTransportationData.asStateFlow()
+
+    private val _monthlyEnergyUsageData = MutableStateFlow<List<Float>>(emptyList())
+    val monthlyEnergyUsageData: StateFlow<List<Float>> = _monthlyEnergyUsageData.asStateFlow()
+
+    private val _monthlyWasteData = MutableStateFlow<List<Float>>(emptyList())
+    val monthlyWasteData: StateFlow<List<Float>> = _monthlyWasteData.asStateFlow()
 
     // Function to calculate the carbon footprint
     fun calculateCarbonFootprint() {

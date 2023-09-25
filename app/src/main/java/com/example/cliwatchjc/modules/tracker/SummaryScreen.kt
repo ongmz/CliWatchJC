@@ -8,8 +8,9 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -20,12 +21,22 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SummaryScreen(
-    monthlyData: List<Float>,
-    weeklyData: List<Float>,
-    calculatorViewModel: CalculatorViewModel
-) {
-    var selectedTabIndex by remember { mutableStateOf(0) }
+fun SummaryScreen(calculatorViewModel: CalculatorViewModel) {
+    var selectedTabIndex by remember { mutableIntStateOf(0) }
+
+    val weeklyData = when (selectedTabIndex) {
+        0 -> calculatorViewModel.weeklyTransportationData
+        1 -> calculatorViewModel.weeklyEnergyUsageData
+        2 -> calculatorViewModel.weeklyWasteData
+        else -> calculatorViewModel.weeklyTransportationData
+    }.collectAsState()
+
+    val monthlyData = when (selectedTabIndex) {
+        3 -> calculatorViewModel.monthlyTransportationData
+        4 -> calculatorViewModel.monthlyEnergyUsageData
+        5 -> calculatorViewModel.monthlyWasteData
+        else -> calculatorViewModel.monthlyTransportationData
+    }.collectAsState()
 
     Column(
         modifier = Modifier
@@ -37,28 +48,47 @@ fun SummaryScreen(
             contentColor = Color.Black
         ) {
             Tab(
-                text = { Text("Weekly") },
+                text = { Text("Transportation") },
                 selected = selectedTabIndex == 0,
                 onClick = { selectedTabIndex = 0 }
             )
             Tab(
-                text = { Text("Monthly") },
+                text = { Text("Energy Usage") },
                 selected = selectedTabIndex == 1,
                 onClick = { selectedTabIndex = 1 }
+            )
+            Tab(
+                text = { Text("Waste") },
+                selected = selectedTabIndex == 2,
+                onClick = { selectedTabIndex = 2 }
+            )
+            Tab(
+                text = { Text("Monthly Transportation") },
+                selected = selectedTabIndex == 3,
+                onClick = { selectedTabIndex = 3 }
+            )
+            Tab(
+                text = { Text("Monthly Energy Usage") },
+                selected = selectedTabIndex == 4,
+                onClick = { selectedTabIndex = 4 }
+            )
+            Tab(
+                text = { Text("Monthly Waste") },
+                selected = selectedTabIndex == 5,
+                onClick = { selectedTabIndex = 5 }
             )
         }
 
         when (selectedTabIndex) {
-            0 -> {
+            0, 1, 2, 3, 4, 5 -> {
                 BarChart(
-                    data = weeklyData,
-                    barColor = Color.Blue
-                )
-            }
-            1 -> {
-                BarChart(
-                    data = monthlyData,
-                    barColor = Color.Green
+                    data = if (selectedTabIndex < 3) weeklyData.value else monthlyData.value,
+                    barColor = when (selectedTabIndex) {
+                        0, 3 -> Color.Blue
+                        1, 4 -> Color.Green
+                        2, 5 -> Color.Red
+                        else -> Color.Blue
+                    }
                 )
             }
         }
@@ -75,11 +105,9 @@ fun SummaryScreen(
     }
 }
 
-
-
 @Composable
 fun BarChart(
-    data: List<Float>,
+    data: List<Float>, // Unwrap data from State using .value
     barColor: Color = Color.Blue,
     barWidth: Float = 20f
 ) {
@@ -116,3 +144,4 @@ fun BarChart(
         }
     }
 }
+
