@@ -5,7 +5,7 @@ import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDao
 import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetails
 import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetailsDao
 
-class PersonalGoalRepository(
+class PersonalGoalRepository (
     private val personalGoalDao: PersonalGoalDao,
     private val personalGoalDetailsDao: PersonalGoalDetailsDao
 ) {

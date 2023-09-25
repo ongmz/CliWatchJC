@@ -51,10 +51,15 @@ object AppModule {
         return database.personalGoalDao()
     }
 
-
     @Provides
     @Singleton
     fun providePersonalGoalDetailsRepository(database: AppDatabase): PersonalGoalDetailsRepository {
         return PersonalGoalDetailsRepository(database.personalGoalDetailsDao())
+    }
+
+    @Provides
+    @Singleton
+    fun providePersonalGoalDetailsDao(database: AppDatabase): PersonalGoalDetailsDao {
+        return database.personalGoalDetailsDao()
     }
 }
