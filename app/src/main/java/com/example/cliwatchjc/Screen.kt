@@ -1,6 +1,7 @@
 package com.example.cliwatchjc
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -20,6 +21,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults.containerColor
@@ -42,23 +44,33 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.cliwatchjc.modules.challenges.ChallengesScreen
+import com.example.cliwatchjc.modules.education.ArticleContentScreen
 import com.example.cliwatchjc.modules.education.ArticleViewModel
 import com.example.cliwatchjc.modules.education.ClimateNewsScreen
 import com.example.cliwatchjc.modules.education.EducationResourcesScreen
 import com.example.cliwatchjc.modules.education.EducationScreen
+import com.example.cliwatchjc.modules.education.QuizComplete
+import com.example.cliwatchjc.modules.education.QuizScreen
 import com.example.cliwatchjc.modules.tracker.TrackerScreen
+import com.example.cliwatchjc.ui.theme.typography
 import com.example.compose.AppTheme
 
 object Routes {
     const val MAIN_MENU = "mainMenu"
     const val EDUCATION = "education"
     const val EDUCATION_RESOURCES = "educationResources"
+    const val ARTICLE_CONTENT = "articleContent"
+    const val QUIZ = "quizScreen"
+    const val QUIZ_COMPLETE = "quizComplete/{score}/{totalQuestions}"
     const val CLIMATE_NEWS = "climateNews"
     const val TRACKER = "tracker"
     const val CHALLENGES = "challenges"
@@ -67,6 +79,9 @@ object Routes {
         MAIN_MENU to "Main Menu",
         EDUCATION to "Education",
         EDUCATION_RESOURCES to "Education Resources",
+        ARTICLE_CONTENT to "Article Content",
+        QUIZ to "Quiz",
+        QUIZ_COMPLETE to "quizComplete",
         CLIMATE_NEWS to "Climate News",
         TRACKER to "Tracker",
         CHALLENGES to "Challenges"
@@ -80,79 +95,111 @@ fun MyApp() {
     val navController = rememberNavController()
     var showSideMenu by remember { mutableStateOf(false) }
 
-    AppTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text("CliWatch") },
-                    navigationIcon = {
-                        IconButton(onClick = { showSideMenu = !showSideMenu }) {
-                            Icon(Icons.Default.Menu, contentDescription = "Open Side Menu")
-                        }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("CliWatch", fontSize = 24.sp) },
+                navigationIcon = {
+                    IconButton(onClick = { showSideMenu = !showSideMenu }) {
+                        Icon(Icons.Default.Menu, contentDescription = "Open Side Menu")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { /* TODO: Handle main menu click */ }) {
+                        Icon(
+                            Icons.Default.Home, contentDescription = "Main Menu",
+                            modifier = Modifier
+                                .size(32.dp)
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+            )
+        },
+
+        bottomBar = {
+            NavigationBar {
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
+
+                NavigationBarItem(
+                    label = { Text(Routes.labels[Routes.EDUCATION] ?: "", fontSize = 12.sp) },
+                    icon = {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_education),
+                            contentDescription = "",
+                            Modifier.size(32.dp),
+                        )
                     },
-                    actions = {
-                        IconButton(onClick = { /* TODO: Handle main menu click */ }) {
-                            Icon(
-                                Icons.Default.Home, contentDescription = "Main Menu",
-                                modifier = Modifier
-                                    .size(32.dp)
-                            )
+                    selected = currentRoute == Routes.EDUCATION ||
+                               currentRoute == Routes.EDUCATION_RESOURCES ||
+                               currentRoute?.startsWith(Routes.ARTICLE_CONTENT) == true ||
+                               currentRoute == Routes.CLIMATE_NEWS,
+                    onClick = {
+                        navController.navigate(Routes.EDUCATION) {
+                            launchSingleTop = true
                         }
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+                    }
                 )
-            },
-
-            bottomBar = {
-                NavigationBar {
-                    val navBackStackEntry by navController.currentBackStackEntryAsState()
-                    val currentRoute = navBackStackEntry?.destination?.route
-
-                    NavigationBarItem(
-                        label = { Text(Routes.labels[Routes.EDUCATION] ?: "", fontSize = 12.sp) },
-                        icon = { Icon(painter = painterResource(R.drawable.ic_education), contentDescription = "", Modifier.size(32.dp)) },
-                        selected = currentRoute == Routes.EDUCATION,
-                        onClick = {
-                            navController.navigate(Routes.EDUCATION) {
-                                launchSingleTop = true
-                            }
+                NavigationBarItem(
+                    label = { Text(Routes.labels[Routes.TRACKER] ?: "") },
+                    icon = { /* Placeholder */ },
+                    selected = currentRoute == Routes.TRACKER,
+                    onClick = {
+                        navController.navigate(Routes.TRACKER) {
+                            launchSingleTop = true
                         }
-                    )
-                    NavigationBarItem(
-                        label = { Text(Routes.labels[Routes.TRACKER] ?: "") },
-                        icon = { /* Placeholder */ },
-                        selected = currentRoute == Routes.TRACKER,
-                        onClick = {
-                            navController.navigate(Routes.TRACKER) {
-                                launchSingleTop = true
-                            }
+                    }
+                )
+                NavigationBarItem(
+                    label = { Text(Routes.labels[Routes.CHALLENGES] ?: "") },
+                    icon = { /* Placeholder */ },
+                    selected = currentRoute == Routes.CHALLENGES,
+                    onClick = {
+                        navController.navigate(Routes.CHALLENGES) {
+                            launchSingleTop = true
                         }
-                    )
-                    NavigationBarItem(
-                        label = { Text(Routes.labels[Routes.CHALLENGES] ?: "") },
-                        icon = { /* Placeholder */ },
-                        selected = currentRoute == Routes.CHALLENGES,
-                        onClick = {
-                            navController.navigate(Routes.CHALLENGES) {
-                                launchSingleTop = true
-                            }
-                        }
-                    )
-                }
+                    }
+                )
             }
-        ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                NavHost(navController, startDestination = Routes.MAIN_MENU) {
-                    composable(Routes.MAIN_MENU) { MainMenuScreen() }
-                    composable(Routes.EDUCATION) { EducationScreen(navController) }
-                    composable(Routes.EDUCATION_RESOURCES) { EducationResourcesScreen() }
-                    composable(Routes.CLIMATE_NEWS) { ClimateNewsScreen() }
-                    composable(Routes.TRACKER) { TrackerScreen() }
-                    composable(Routes.CHALLENGES) { ChallengesScreen() }
+        }
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            NavHost(navController, startDestination = Routes.MAIN_MENU) {
+                composable(Routes.MAIN_MENU) { MainMenuScreen() }
+                composable(Routes.EDUCATION) { EducationScreen(navController) }
+                composable(Routes.EDUCATION_RESOURCES) { EducationResourcesScreen(navController) }
+                composable("${Routes.ARTICLE_CONTENT}/{articleId}") { backStackEntry ->
+                    val articleIdString = backStackEntry.arguments?.getString("articleId")
+                    val articleId = articleIdString?.toLongOrNull() ?: 0L
+                    ArticleContentScreen(articleId, navController)
                 }
-                if (showSideMenu) {
-                    SideMenu(onClose = { showSideMenu = false })
+                composable("${Routes.QUIZ}/{articleId}") { backStackEntry ->
+                    val articleIdString = backStackEntry.arguments?.getString("articleId")
+                    val articleId = articleIdString?.toLongOrNull() ?: 0L
+                    QuizScreen(articleId, navController)
                 }
+                composable(
+                    route = Routes.QUIZ_COMPLETE,
+                    arguments = listOf(
+                        navArgument("score") {
+                            type = NavType.IntType
+                        },
+                        navArgument("totalQuestions") {
+                            type = NavType.IntType
+                        }
+                    )
+                ) { backStackEntry ->
+                    val scoreArg = backStackEntry.arguments?.getInt("score") ?: -1
+                    val totalQuestionsArg = backStackEntry.arguments?.getInt("totalQuestions") ?: -1
+                    QuizComplete(scoreArg, totalQuestionsArg, navController)
+                }
+                composable(Routes.CLIMATE_NEWS) { ClimateNewsScreen() }
+                composable(Routes.TRACKER) { TrackerScreen() }
+                composable(Routes.CHALLENGES) { ChallengesScreen() }
+            }
+            if (showSideMenu) {
+                SideMenu(onClose = { showSideMenu = false })
             }
         }
     }

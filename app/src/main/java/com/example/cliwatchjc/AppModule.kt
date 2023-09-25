@@ -2,6 +2,8 @@ package com.example.cliwatchjc
 
 import android.app.Application
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.cliwatchjc.data.AppDatabase
 import com.example.cliwatchjc.data.education.repository.ArticleRepository
 import dagger.Module
@@ -14,6 +16,12 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    @Singleton
+    @Provides
+    fun provideUserManager(): UserManager {
+        return UserManager()
+    }
+
     @Provides
     @Singleton
     fun provideAppDatabase(application: Application): AppDatabase {
@@ -23,9 +31,9 @@ object AppModule {
         )
             .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
             .build()
     }
-
 
     @Provides
     @Singleton
@@ -33,3 +41,4 @@ object AppModule {
         return ArticleRepository(database.educationDao())
     }
 }
+

@@ -19,6 +19,7 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        /*
         // Insert sample data in a coroutine (with checks if needed)
         runBlocking {
             launch(Dispatchers.IO) {
@@ -30,5 +31,6 @@ class MainApplication : Application() {
                 database.educationDao().insertArticle(exampleArticle)
             }
         }
+        */
     }
 }

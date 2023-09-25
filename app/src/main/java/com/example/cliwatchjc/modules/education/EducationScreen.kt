@@ -27,9 +27,7 @@ fun EducationScreen(navController: NavController, modifier: Modifier = Modifier)
         modifier = Modifier
             .fillMaxSize()
             .padding(start = 16.dp, top = 16.dp)
-    ) { Text(text = Routes.labels[Routes.EDUCATION] ?: "")
-
-        Spacer(modifier.height(16.dp))
+    ) { Spacer(modifier = Modifier.height(56.dp))
 
         Button(onClick = {
             navController.navigate(Routes.EDUCATION_RESOURCES)
@@ -42,7 +40,6 @@ fun EducationScreen(navController: NavController, modifier: Modifier = Modifier)
         }) {
             Text(text = Routes.labels[Routes.CLIMATE_NEWS] ?: "")
         }
-
     }
 }
 

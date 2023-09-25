@@ -7,6 +7,7 @@ import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
 import com.example.cliwatchjc.data.education.Article
 import com.example.cliwatchjc.data.education.repository.ArticleRepository
+import com.example.compose.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +24,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MyApp()
+            AppTheme{
+                MyApp()
+            }
         }
     }
 }
