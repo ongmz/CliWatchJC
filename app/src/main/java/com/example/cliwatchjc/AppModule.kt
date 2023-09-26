@@ -2,8 +2,6 @@ package com.example.cliwatchjc
 
 import android.app.Application
 import androidx.room.Room
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.cliwatchjc.data.AppDatabase
 import com.example.cliwatchjc.data.education.EducationDao
 import com.example.cliwatchjc.data.education.NewsApi
@@ -73,7 +71,7 @@ object AppModule {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)  // Use the OkHttp Client with interceptor
+            .client(okHttpClient)
             .build()
     }
 
