@@ -80,9 +80,9 @@ fun SummaryScreen() {
             in 0..2 -> {
                 BarChart(
                     data = when (selectedTabIndex) {
-                        0 -> weeklyData.value
-                        1 -> calculatorViewModel.weeklyEnergyUsageData.value
-                        2 -> calculatorViewModel.weeklyWasteData.value
+                        0 -> sampleWeeklyTransportationData
+                        1 -> sampleWeeklyEnergyUsageData
+                        2 -> sampleWeeklyWasteData
                         else -> emptyList() // Default case
                     },
                     barColor = when (selectedTabIndex) {
@@ -97,9 +97,9 @@ fun SummaryScreen() {
             in 3..5 -> {
                 BarChart(
                     data = when (selectedTabIndex) {
-                        3 -> monthlyData.value //Transportation
-                        4 -> calculatorViewModel.monthlyEnergyUsageData.value
-                        5 -> calculatorViewModel.monthlyWasteData.value
+                        3 -> sampleMonthlyTransportationData
+                        4 -> sampleMonthlyEnergyUsageData
+                        5 -> sampleMonthlyWasteData
                         else -> emptyList() // Default case
                     },
                     barColor = when (selectedTabIndex) {
