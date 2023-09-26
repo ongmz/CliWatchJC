@@ -9,14 +9,14 @@ class ChallengesRepository(private val challengesDao: ChallengesDao) {
         return challengesDao.getAllChallenges()
     }
 
-//    suspend fun setChallengeStatus(challengeId: Long, status: String) {
-//        challengesDao.setChallengeStatus(challengeId, status)
-//    }
-//
-//    // Method to get the status of a challenge for a specific user
-//    suspend fun getChallengeStatus(challengeId: Long): String? {
-//        return challengesDao.getChallengeStatus(challengeId)
-//    }
+    suspend fun setChallengeStatus(challengeId: Long, status: String) {
+        challengesDao.setChallengeStatus(challengeId, status)
+    }
+
+    // Method to get the status of a challenge for a specific user
+    suspend fun getChallengeStatus(challengeId: Long): String? {
+        return challengesDao.getChallengeStatus(challengeId)
+    }
 
     suspend fun insertChallenges(challenges: List<AddChallenges>){
         challengesDao.insertChallenges(challenges)

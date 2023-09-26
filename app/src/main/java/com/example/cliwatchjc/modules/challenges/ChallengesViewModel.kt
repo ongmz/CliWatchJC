@@ -31,16 +31,16 @@ class ChallengesViewModel @Inject constructor(
         _mutableCardData.emit(fetchedChallenges)
     }
 
-//    fun setChallengeStatus(challengeId: Long, challengeStatus: String) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            challengesRepository.setChallengeStatus(challengeId, challengeStatus)
-//        }
-//    }
+    fun setChallengeStatus(challengeId: Long, challengeStatus: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            challengesRepository.setChallengeStatus(challengeId, challengeStatus)
+        }
+    }
 
     // Method to get the status of a challenge for a specific user
-//    suspend fun getChallengeStatus(challengeId: Long): String? {
-//        return challengesRepository.getChallengeStatus(challengeId)
-//    }
+    suspend fun getChallengeStatus(challengeId: Long): String? {
+        return challengesRepository.getChallengeStatus(challengeId)
+    }
 
     fun insertSampleChallenges() {
         val sampleChallenges = listOf(
