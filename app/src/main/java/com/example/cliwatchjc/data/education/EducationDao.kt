@@ -42,6 +42,9 @@ interface EducationDao {
     @Delete
     fun deleteOption(option: Option)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertQuestionAndGetId(question: Question): Long
+
     // Methods for UserQuizScore
     @Query("SELECT * FROM UserQuizScore WHERE userId = :userId AND articleId = :articleId")
     fun getUserScoreForArticle(userId: Long, articleId: Long): UserQuizScore?

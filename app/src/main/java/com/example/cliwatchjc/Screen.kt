@@ -51,6 +51,7 @@ import com.example.cliwatchjc.modules.education.ArticleListScreen
 import com.example.cliwatchjc.modules.education.EducationScreen
 import com.example.cliwatchjc.modules.education.QuizComplete
 import com.example.cliwatchjc.modules.education.QuizScreen
+import com.example.cliwatchjc.modules.education.WebViewScreen
 import com.example.cliwatchjc.modules.tracker.TrackerScreen
 
 object Routes {
@@ -61,6 +62,7 @@ object Routes {
     const val QUIZ = "quizScreen"
     const val QUIZ_COMPLETE = "quizComplete/{score}/{totalQuestions}"
     const val CLIMATE_NEWS = "climateNews"
+    const val CLIMATE_NEWS_CONTENT = "webViewScreen?url={url}"
     const val TRACKER = "tracker"
     const val CHALLENGES = "challenges"
 
@@ -112,17 +114,19 @@ fun MyApp() {
                 val currentRoute = navBackStackEntry?.destination?.route
 
                 NavigationBarItem(
-                    label = { Text(Routes.labels[Routes.EDUCATION] ?: "", fontSize = 12.sp) },
+                    label = { Text(Routes.labels[Routes.EDUCATION] ?: "") },
                     icon = {
                         Icon(
                             painter = painterResource(R.drawable.ic_education),
-                            contentDescription = "",
-                            Modifier.size(32.dp),
+                            contentDescription = ""
                         )
                     },
                     selected = currentRoute == Routes.EDUCATION ||
                                currentRoute == Routes.EDUCATION_RESOURCES ||
                                currentRoute?.startsWith(Routes.ARTICLE_CONTENT) == true ||
+                               currentRoute == Routes.QUIZ ||
+                               currentRoute == Routes.QUIZ_COMPLETE ||
+                               currentRoute == Routes.CLIMATE_NEWS_CONTENT ||
                                currentRoute == Routes.CLIMATE_NEWS,
                     onClick = {
                         navController.navigate(Routes.EDUCATION) {
@@ -183,7 +187,15 @@ fun MyApp() {
                     val totalQuestionsArg = backStackEntry.arguments?.getInt("totalQuestions") ?: -1
                     QuizComplete(scoreArg, totalQuestionsArg, navController)
                 }
-                composable(Routes.CLIMATE_NEWS) { ClimateNewsScreen() }
+                composable(Routes.CLIMATE_NEWS) { ClimateNewsScreen(navController) }
+                composable(Routes.CLIMATE_NEWS_CONTENT) { backStackEntry ->
+                    val urlArg = backStackEntry.arguments?.getString("url")
+                    if (urlArg != null) {
+                        WebViewScreen(urlArg)
+                    } else {
+                        // Handle error, maybe pop back or show an error screen
+                    }
+                }
                 composable(Routes.TRACKER) { TrackerScreen() }
                 composable(Routes.CHALLENGES) { ChallengesScreen() }
             }

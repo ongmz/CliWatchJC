@@ -12,9 +12,12 @@ import com.example.cliwatchjc.data.education.UserQuizScore
 import com.example.cliwatchjc.data.education.repository.ArticleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,6 +42,13 @@ class ArticleViewModel @Inject constructor(
 
     init {
         loadArticles()
+    }
+
+    fun populateEducationEntity() {
+        viewModelScope.launch {
+            articleRepository.insertSampleArticles()
+            articleRepository.insertSampleQuestionsWithOptions()
+        }
     }
 
     fun loadUserScoreForArticle(articleId: Long) = viewModelScope.launch(Dispatchers.IO) {
@@ -76,11 +86,14 @@ class ArticleViewModel @Inject constructor(
         _userScore.emit(score)
     }
     */
-    fun loadUserScoreForArticle(userId: Long, articleId: Long) = viewModelScope.launch(Dispatchers.IO) {
-        val score = articleRepository.getUserScoreForArticle(userId, articleId)
-        Log.d("ArticleViewModel", "Loading user score for user $userId and article $articleId: $score")
-        _userScore.emit(score)
+    fun getUserScoreForArticle(userId: Long, articleId: Long): Flow<UserQuizScore?> {
+        return flow {
+            val score = articleRepository.getUserScoreForArticle(userId, articleId)
+            Log.d("ArticleViewModel", "Fetched user score for user $userId and article $articleId: $score")
+            emit(score)
+        }.flowOn(Dispatchers.IO)
     }
+
 
     fun updateUserScore(articleId: Long, score: Int) = viewModelScope.launch(Dispatchers.IO) {
         currentUser?.let { user ->

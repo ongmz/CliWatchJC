@@ -13,6 +13,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -22,7 +24,7 @@ import javax.inject.Singleton
 object AppModule {
 
     const val BASE_URL = "https://newsapi.org/v2/"
-    const val API_KEY = "YOUR_API_KEY"
+    const val API_KEY = "a9736382f93a4ca9814b0940d1c531d1"
 
     @Singleton
     @Provides
@@ -42,16 +44,41 @@ object AppModule {
             .build()
     }
 
+    // Provide OkHttp Client with interceptor
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+    fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor { chain ->
+                val original = chain.request()
+                val originalHttpUrl = original.url
+
+                val url = originalHttpUrl.newBuilder()
+                    .addQueryParameter("apiKey", API_KEY)
+                    .build()
+
+                val request = original.newBuilder()
+                    .url(url)
+                    .build()
+                chain.proceed(request)
+            }
+
             .build()
     }
 
     @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)  // Use the OkHttp Client with interceptor
+            .build()
+    }
+
+    @Provides
+    @Singleton
     fun provideEducationDao(database: AppDatabase): EducationDao {
         return database.educationDao()
     }

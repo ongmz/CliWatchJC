@@ -20,7 +20,7 @@ data class ClimateNews (
 data class NewsResponse(
     val status: String,
     val totalResults: Int,
-    val news: List<ClimateNews>
+    val articles: List<ClimateNews>
 )
 
 
