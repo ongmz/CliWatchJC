@@ -83,6 +83,10 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     kapt("com.google.dagger:hilt-compiler:2.48")
 
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.7.1")
+    implementation("com.squareup.retrofit2:converter-gson:2.7.1")
+
 }
 kapt {
     correctErrorTypes = true

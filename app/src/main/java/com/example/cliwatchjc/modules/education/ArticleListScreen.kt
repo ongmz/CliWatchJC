@@ -1,12 +1,9 @@
 package com.example.cliwatchjc.modules.education
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,25 +21,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.compose.rememberNavController
 import com.example.cliwatchjc.Routes
 import com.example.cliwatchjc.UserManager
 
 import com.example.cliwatchjc.data.education.Article
-import com.example.cliwatchjc.data.education.EducationDao
-import com.example.cliwatchjc.data.education.repository.ArticleRepository
 
 @Composable
-fun EducationResourcesScreen(navController: NavController) {
+fun ArticleListScreen(navController: NavController) {
     val articleViewModel: ArticleViewModel = hiltViewModel()
     val currentUser = articleViewModel.currentUser
 

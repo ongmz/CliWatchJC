@@ -61,5 +61,11 @@ interface EducationDao {
     """)
     fun getCorrectAnswersForArticle(userId: Long, articleId: Long): Int
 
+    // Methods for News
+    @Query("SELECT * FROM ClimateNews")
+    fun getAllNews(): List<ClimateNews>
+
+    @Insert
+    fun insert(news: ClimateNews)
 }
 

@@ -1,11 +1,7 @@
 package com.example.cliwatchjc.modules.education
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.cliwatchjc.UserManager
 import com.example.cliwatchjc.data.education.Article
@@ -20,12 +16,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class ArticleViewModel @Inject constructor(
-    private val educationRepository: ArticleRepository,
+    private val articleRepository: ArticleRepository,
     private val userManager: UserManager
 ) : ViewModel() {
 
@@ -48,13 +43,13 @@ class ArticleViewModel @Inject constructor(
 
     fun loadUserScoreForArticle(articleId: Long) = viewModelScope.launch(Dispatchers.IO) {
         currentUser?.let { user ->
-            val score = educationRepository.getUserScoreForArticle(user.userId, articleId)
+            val score = articleRepository.getUserScoreForArticle(user.userId, articleId)
             _userScore.emit(score)
         }
     }
 
     private fun loadArticles() = viewModelScope.launch(Dispatchers.IO) {
-        val fetchedArticles = educationRepository.getAllArticles()
+        val fetchedArticles = articleRepository.getAllArticles()
         _articles.emit(fetchedArticles)
     }
 
@@ -67,9 +62,9 @@ class ArticleViewModel @Inject constructor(
     }
 
     fun loadQuizDataForArticle(articleId: Long) = viewModelScope.launch(Dispatchers.IO) {
-        val questions = educationRepository.getQuestionsForArticle(articleId)
+        val questions = articleRepository.getQuestionsForArticle(articleId)
         val questionsWithOptions = questions.map { question ->
-            val options = educationRepository.getOptionsForQuestion(question.questionId)
+            val options = articleRepository.getOptionsForQuestion(question.questionId)
             QuestionWithOptions(question, options)
         }
         _quizData.emit(questionsWithOptions)
@@ -82,7 +77,7 @@ class ArticleViewModel @Inject constructor(
     }
     */
     fun loadUserScoreForArticle(userId: Long, articleId: Long) = viewModelScope.launch(Dispatchers.IO) {
-        val score = educationRepository.getUserScoreForArticle(userId, articleId)
+        val score = articleRepository.getUserScoreForArticle(userId, articleId)
         Log.d("ArticleViewModel", "Loading user score for user $userId and article $articleId: $score")
         _userScore.emit(score)
     }
@@ -90,7 +85,7 @@ class ArticleViewModel @Inject constructor(
     fun updateUserScore(articleId: Long, score: Int) = viewModelScope.launch(Dispatchers.IO) {
         currentUser?.let { user ->
             val userScore = UserQuizScore(user.userId, articleId, score)
-            educationRepository.insertOrUpdateUserScore(userScore)
+            articleRepository.insertOrUpdateUserScore(userScore)
             _userScore.emit(userScore)  // Update the score state for UI reflection
         }
     }
