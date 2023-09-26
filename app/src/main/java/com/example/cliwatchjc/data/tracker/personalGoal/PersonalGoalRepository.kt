@@ -7,7 +7,6 @@ import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetailsDao
 
 class PersonalGoalRepository (
     private val personalGoalDao: PersonalGoalDao,
-    private val personalGoalDetailsDao: PersonalGoalDetailsDao
 ) {
     // Methods for personal goals
     fun getAllGoals(): List<PersonalGoal> {
@@ -34,17 +33,5 @@ class PersonalGoalRepository (
         personalGoalDao.deleteGoal(goal)
     }
 
-    // Methods for personal goal details
-    fun getGoalDetails(goalId: Long): List<PersonalGoalDetails> {
-        return personalGoalDetailsDao.getGoalDetails(goalId)
-    }
-
-    fun insertGoalDetails(personalGoalDetails: PersonalGoalDetails) {
-        personalGoalDetailsDao.insertGoalDetails(personalGoalDetails)
-    }
-
-    fun updateGoalDetails(personalGoalDetails: PersonalGoalDetails) {
-        personalGoalDetailsDao.updateGoalDetails(personalGoalDetails)
-    }
 }
 
