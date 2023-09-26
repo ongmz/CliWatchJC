@@ -7,6 +7,8 @@ import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
 import com.example.cliwatchjc.data.education.Article
 import com.example.cliwatchjc.data.education.repository.ArticleRepository
+import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetailsRepository
+import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,6 +20,8 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var educationRepository: ArticleRepository
+    lateinit var personalGoalRepository: PersonalGoalRepository
+    lateinit var personalGoalDetailsRepository: PersonalGoalDetailsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

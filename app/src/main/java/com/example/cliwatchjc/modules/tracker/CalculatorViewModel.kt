@@ -74,5 +74,18 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
         _waste.value = 0.0f
         _carbonFootprint.value = 0.0f
     }
+
+    fun generateSampleWeeklyTransportationData(): List<Float> {
+        return listOf(10.0f, 15.0f, 12.0f, 8.0f, 20.0f, 18.0f, 13.0f)
+    }
+
+    fun generateSampleMonthlyTransportationData(): List<Float> {
+        return listOf(10.0f, 15.0f, 12.0f, 8.0f, 20.0f, 18.0f, 13.0f)
+    }
+
+    fun setWeeklyTransportationData(data: List<Float>) {
+        _weeklyTransportationData.value = data
+    }
+
 }
 

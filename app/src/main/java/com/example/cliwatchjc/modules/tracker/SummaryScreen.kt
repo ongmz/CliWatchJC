@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SummaryScreen(calculatorViewModel: CalculatorViewModel) {
+    //calculatorViewModel.setWeeklyTransportationData(generateSampleWeeklyTransportationData())
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     val weeklyData = when (selectedTabIndex) {
