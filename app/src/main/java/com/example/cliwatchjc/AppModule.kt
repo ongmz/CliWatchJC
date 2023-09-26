@@ -39,10 +39,9 @@ object AppModule {
     @Provides
     @Singleton
     fun providePersonalGoalRepository(
-        personalGoalDao: PersonalGoalDao,
-        personalGoalDetailsDao: PersonalGoalDetailsDao
+        personalGoalDao: PersonalGoalDao
     ): PersonalGoalRepository {
-        return PersonalGoalRepository(personalGoalDao, personalGoalDetailsDao)
+        return PersonalGoalRepository(personalGoalDao)
     }
 
     @Provides
