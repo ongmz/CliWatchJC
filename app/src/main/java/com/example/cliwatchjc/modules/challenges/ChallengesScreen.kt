@@ -12,12 +12,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cliwatchjc.data.challenges.Leaderboard
-import com.example.compose.AppTheme
 
 @Composable
 fun ChallengesScreen() {
@@ -96,12 +94,4 @@ fun getSampleLeaderboardEntries(): List<Leaderboard> {
         Leaderboard(userId = 1, challengesId = 1, userName = "User1", score = 100),
         Leaderboard(userId = 2, challengesId = 1, userName = "User2", score = 90)
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ScreenPreview() {
-    AppTheme {
-        ChallengesScreen()
-    }
 }

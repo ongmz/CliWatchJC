@@ -2,12 +2,18 @@ package com.example.cliwatchjc.data.challenges
 
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.ForeignKey
+import com.example.cliwatchjc.data.User
 
-@Entity(tableName = "ChallengeStatus")
+@Entity(
+    foreignKeys = [
+        ForeignKey(entity = User::class, parentColumns = ["userId"], childColumns = ["userId"]),
+        ForeignKey(entity = AddChallenges::class, parentColumns = ["challengesId"], childColumns = ["challengesId"])
+    ],
+    primaryKeys = ["userId", "challengesId"] // Define composite primary key here
+)
 data class ChallengeStatusEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0L,
-    val challengeId: Long,  // Reference to the challenge
+    val userId: Long,
+    val challengesId: Long,
     val challengeStatus: String
 )

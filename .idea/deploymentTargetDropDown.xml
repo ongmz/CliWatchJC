@@ -2,9 +2,6 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ScreenPreview">
-        <State />
-      </entry>
       <entry key="app">
         <State>
           <runningDeviceTargetsSelectedWithDialog>
@@ -30,12 +27,6 @@
             </Target>
           </targetsSelectedWithDialog>
         </State>
-      </entry>
-      <entry key="screen1Preview">
-        <State />
-      </entry>
-      <entry key="screenPreview">
-        <State />
       </entry>
     </value>
   </component>

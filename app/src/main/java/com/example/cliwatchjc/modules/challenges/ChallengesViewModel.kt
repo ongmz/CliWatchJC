@@ -37,7 +37,7 @@ class ChallengesViewModel @Inject constructor(
     }
 
     // Method to get the status of a challenge for a specific user
-    suspend fun getChallengeStatus(challengeId: Long): String? {
+    fun getChallengeStatus(challengeId: Long): String? {
         return challengesRepository.getChallengeStatus(challengeId)
     }
 
