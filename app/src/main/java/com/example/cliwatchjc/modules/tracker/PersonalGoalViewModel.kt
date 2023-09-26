@@ -2,8 +2,8 @@ package com.example.cliwatchjc.modules.tracker
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoal
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalRepository
+import com.example.cliwatchjc.data.tracker.PersonalGoal
+import com.example.cliwatchjc.data.tracker.repository.PersonalGoalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

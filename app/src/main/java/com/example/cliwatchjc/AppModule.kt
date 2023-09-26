@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
 import com.example.cliwatchjc.data.education.repository.ArticleRepository
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDao
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetailsDao
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalRepository
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetailsRepository
+import com.example.cliwatchjc.data.tracker.PersonalGoalDao
+import com.example.cliwatchjc.data.tracker.PersonalGoalDetailsDao
+import com.example.cliwatchjc.data.tracker.repository.PersonalGoalRepository
+import com.example.cliwatchjc.data.tracker.repository.PersonalGoalDetailsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

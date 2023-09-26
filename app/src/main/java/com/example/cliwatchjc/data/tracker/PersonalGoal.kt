@@ -1,4 +1,4 @@
-package com.example.cliwatchjc.data.tracker.personalGoal
+package com.example.cliwatchjc.data.tracker
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

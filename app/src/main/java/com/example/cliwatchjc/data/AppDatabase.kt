@@ -1,17 +1,15 @@
 package com.example.cliwatchjc.data
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.cliwatchjc.data.education.Article
 import com.example.cliwatchjc.data.education.EducationDao
 import com.example.cliwatchjc.data.education.UserQuizScore
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoal
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetails
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDao
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetailsDao
+import com.example.cliwatchjc.data.tracker.PersonalGoal
+import com.example.cliwatchjc.data.tracker.PersonalGoalDetails
+import com.example.cliwatchjc.data.tracker.PersonalGoalDao
+import com.example.cliwatchjc.data.tracker.PersonalGoalDetailsDao
 import com.example.cliwatchjc.modules.tracker.Converters
 
 @Database(entities = [User::class, Article::class, UserQuizScore::class,

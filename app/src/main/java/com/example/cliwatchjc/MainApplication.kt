@@ -3,8 +3,8 @@ package com.example.cliwatchjc
 import android.app.Application
 import com.example.cliwatchjc.data.AppDatabase
 import com.example.cliwatchjc.data.education.Article
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoal
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetails
+import com.example.cliwatchjc.data.tracker.PersonalGoal
+import com.example.cliwatchjc.data.tracker.PersonalGoalDetails
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

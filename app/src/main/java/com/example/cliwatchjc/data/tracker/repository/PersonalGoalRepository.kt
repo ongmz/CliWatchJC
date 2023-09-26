@@ -1,9 +1,7 @@
-package com.example.cliwatchjc.data.tracker.personalGoal
+package com.example.cliwatchjc.data.tracker.repository
 
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoal
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDao
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetails
-import com.example.cliwatchjc.data.tracker.personalGoal.PersonalGoalDetailsDao
+import com.example.cliwatchjc.data.tracker.PersonalGoal
+import com.example.cliwatchjc.data.tracker.PersonalGoalDao
 
 class PersonalGoalRepository (
     private val personalGoalDao: PersonalGoalDao,
