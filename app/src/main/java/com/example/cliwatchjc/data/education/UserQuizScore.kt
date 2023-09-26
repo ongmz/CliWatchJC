@@ -12,7 +12,7 @@ import com.example.cliwatchjc.data.User
     primaryKeys = ["userId", "articleId"]
 )
 data class UserQuizScore(
-    val userId: Long,
+    val userId: Int,
     val articleId: Long,
     val score: Int
 )

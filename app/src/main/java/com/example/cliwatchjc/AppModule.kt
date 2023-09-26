@@ -3,6 +3,7 @@ package com.example.cliwatchjc
 import android.app.Application
 import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
+import com.example.cliwatchjc.data.UserDao
 import com.example.cliwatchjc.data.education.EducationDao
 import com.example.cliwatchjc.data.education.NewsApi
 import com.example.cliwatchjc.data.education.repository.ArticleRepository
@@ -61,7 +62,6 @@ object AppModule {
                     .build()
                 chain.proceed(request)
             }
-
             .build()
     }
 
@@ -73,6 +73,12 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserDao(database: AppDatabase): UserDao {
+        return database.userDao()
     }
 
     @Provides

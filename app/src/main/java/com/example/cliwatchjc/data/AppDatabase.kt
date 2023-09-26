@@ -13,7 +13,7 @@ import com.example.cliwatchjc.data.education.UserQuestionAttempt
 import com.example.cliwatchjc.data.education.UserQuizScore
 
 @Database(entities = [User::class, Article::class, UserQuizScore::class, UserQuestionAttempt::class, Question::class, Option::class,
-                      ClimateNews::class], version = 6)
+                      ClimateNews::class], version = 7)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun educationDao(): EducationDao

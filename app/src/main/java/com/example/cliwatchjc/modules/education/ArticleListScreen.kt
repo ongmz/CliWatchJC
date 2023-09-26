@@ -32,7 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.cliwatchjc.Routes
 import com.example.cliwatchjc.UserManager
-
+import com.example.cliwatchjc.data.User
 import com.example.cliwatchjc.data.education.Article
 import com.example.cliwatchjc.data.education.EducationDao
 import com.example.cliwatchjc.data.education.UserQuizScore
@@ -40,7 +40,8 @@ import com.example.cliwatchjc.data.education.UserQuizScore
 @Composable
 fun ArticleListScreen(navController: NavController) {
     val articleViewModel: ArticleViewModel = hiltViewModel()
-    val currentUser = articleViewModel.currentUser
+
+    val currentUserState = articleViewModel.currentUser.collectAsState().value
     val articles = articleViewModel.articles.collectAsState().value
 
     Column(
@@ -48,12 +49,14 @@ fun ArticleListScreen(navController: NavController) {
             .fillMaxSize()
             .padding(top = 56.dp)
     ) {
-        ArticleList(articles, currentUser, articleViewModel, navController)
+        ArticleList(articles, currentUserState, articleViewModel, navController)
     }
 }
 
+
+
 @Composable
-fun ArticleList(articles: List<Article>, currentUser: UserManager.User?, articleViewModel: ArticleViewModel, navController: NavController) {
+fun ArticleList(articles: List<Article>, currentUser: User?, articleViewModel: ArticleViewModel, navController: NavController) {
     val userScore = articleViewModel.userScore.collectAsState().value
 
     LazyColumn {
@@ -66,7 +69,7 @@ fun ArticleList(articles: List<Article>, currentUser: UserManager.User?, article
 @Composable
 fun ArticleItem(
     article: Article,
-    currentUser: UserManager.User?,
+    currentUser: User?,
     articleViewModel: ArticleViewModel,
     navController: NavController
 ) {

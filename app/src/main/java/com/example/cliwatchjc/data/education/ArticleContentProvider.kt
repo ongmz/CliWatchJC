@@ -20,10 +20,34 @@ object ArticleContentProvider {
             ArticleContentComponent.BulletPoint("The chemistry of our oceans is changing, leading to acidification and endangering marine life."),
             ),
         2L to listOf(
-            ArticleContentComponent.Paragraph("Paragraph text for Article 2."),
-            ArticleContentComponent.BulletPoint("Bullet point text for Article 2."),
-            ArticleContentComponent.Paragraph("Another paragraph for Article 2."),
-            // ... other content components for this article
+            ArticleContentComponent.Paragraph("A few degrees might seem insignificant, but in the vast play of Earth's climate, even small temperature changes can have profound effects."),
+            ArticleContentComponent.Header("1. Not Just Hotter Summers:"),
+            ArticleContentComponent.Paragraph("Climate change isn't just about sweltering summer days. The rising temperatures can lead to erratic weather patterns. Regions accustomed to rainfall may face droughts, while others might encounter unprecedented flooding."),
+
+            ArticleContentComponent.Header("2. Rising Oceans:"),
+            ArticleContentComponent.Paragraph("Melting glaciers don't just affect polar bears; they lead to rising sea levels. This endangers coastal cities, causing increased flooding, threatening freshwater resources, and even potentially displacing populations."),
+
+            ArticleContentComponent.Header("3. Shifting Habitats and Loss of Biodiversity:"),
+            ArticleContentComponent.Paragraph("Many animals and plants have specific habitats. With changing climates, these habitats either shift or disappear, pushing many species towards extinction. Coral reefs, often dubbed the \"rainforests of the sea,\" are especially vulnerable, with rising temperatures causing damaging bleaching events.")
+        ),
+        3L to listOf(
+            ArticleContentComponent.Paragraph("As climate change accelerates, its consequences grow more apparent, challenging us to take deliberate and meaningful action. While the road might seem daunting, there are a plethora of strategies available to curtail its impact and pave the way for a more sustainable future."),
+
+            ArticleContentComponent.Header("1. Cutting Down the Carbon:"),
+            ArticleContentComponent.Paragraph("The release of carbon into the atmosphere, mainly from burning fossil fuels like coal, oil, and gas, is a primary driver of global warming. Addressing our carbon footprint requires a multipronged approach:"),
+            ArticleContentComponent.BulletPoint("Transitioning to Renewable Energy: Solar, wind, and hydroelectric power offer sustainable energy alternatives that reduce reliance on fossil fuels."),
+            ArticleContentComponent.BulletPoint("Energy Efficiency: Implementing energy-saving practices in homes, offices, and industries can drastically cut down emissions. Simple measures like LED lighting, energy-efficient appliances, and improved insulation can make a substantial difference."),
+            ArticleContentComponent.BulletPoint("Sustainable Transportation: Encouraging the use of electric vehicles, supporting public transport, and developing infrastructure for biking and walking can further reduce emissions."),
+
+            ArticleContentComponent.Header("2. The Green Revolution:"),
+            ArticleContentComponent.Paragraph("Nature has its own mechanisms to combat excess carbon, and trees play a pivotal role in this:"),
+            ArticleContentComponent.BulletPoint("Reforestation and Afforestation: Planting trees in areas where they were cut down or in places that were never forested can absorb vast amounts of CO2."),
+            ArticleContentComponent.BulletPoint("Urban Green Spaces: Parks, green rooftops, and community gardens not only provide recreational spaces but also contribute to carbon absorption and combat the \"urban heat island\" effect."),
+
+            ArticleContentComponent.Header("3. Policy & Innovation:"),
+            ArticleContentComponent.Paragraph("Mere recognition of the problem isn't enough; effective solutions require robust policy frameworks and technological breakthroughs:"),
+            ArticleContentComponent.BulletPoint("Governmental Policies: Governments can levy taxes on carbon emissions, offer incentives for green practices, and invest in research for sustainable technologies."),
+            ArticleContentComponent.BulletPoint("Green Technologies: Innovations like carbon capture and storage, sustainable agriculture practices, and biodegradable materials can make a profound impact on our environment.")
         )
     )
 

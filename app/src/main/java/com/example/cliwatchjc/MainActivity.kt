@@ -3,6 +3,8 @@ package com.example.cliwatchjc
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
 import com.example.cliwatchjc.data.education.Article

@@ -32,6 +32,9 @@ interface EducationDao {
     @Delete
     fun deleteQuestion(question: Question)
 
+    @Query("SELECT COUNT(*) FROM Question")
+    fun getQuestionsCount(): Int
+
     // Methods for Option
     @Query("SELECT * FROM Option WHERE questionId = :questionId")
     fun getOptionsForQuestion(questionId: Long): List<Option>
@@ -47,7 +50,10 @@ interface EducationDao {
 
     // Methods for UserQuizScore
     @Query("SELECT * FROM UserQuizScore WHERE userId = :userId AND articleId = :articleId")
-    fun getUserScoreForArticle(userId: Long, articleId: Long): UserQuizScore?
+    fun getUserScoreForArticle(userId: Int, articleId: Long): UserQuizScore?
+
+    @Query("SELECT SUM(score) FROM UserQuizScore WHERE userId = :userId")
+    fun getUserTotalScore(userId: Int): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrUpdateUserScore(userScore: UserQuizScore)
