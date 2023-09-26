@@ -19,7 +19,6 @@ class ChallengesViewModel @Inject constructor(
 
     private val _mutableCardData = MutableStateFlow<List<AddChallenges>>(emptyList())
 
-    // Public read-only state flow exposed to the outside
     val cardData: StateFlow<List<AddChallenges>> = _mutableCardData.asStateFlow()
 
     init {
@@ -42,46 +41,12 @@ class ChallengesViewModel @Inject constructor(
         return challengesRepository.getChallengeStatus(challengeId)
     }
 
+
     fun insertSampleChallenges() {
         val sampleChallenges = listOf(
             AddChallenges(
                 challenges_title = "Meatless Mondays",
                 challenges_desc = "Reduce your carbon footprint by cutting down on meat consumption, which has a significant environmental impact.",
-                challenges_duration = "Daily"
-            ),
-            AddChallenges(
-                challenges_title = "Zero Waste Lunches",
-                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
-                challenges_duration = "Daily"
-            ),
-            AddChallenges(
-                challenges_title = "Zero Waste Lunches",
-                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
-                challenges_duration = "Daily"
-            ),
-            AddChallenges(
-                challenges_title = "Zero Waste Lunches",
-                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
-                challenges_duration = "Daily"
-            ),
-            AddChallenges(
-                challenges_title = "Zero Waste Lunches",
-                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
-                challenges_duration = "Daily"
-            ),
-            AddChallenges(
-                challenges_title = "Zero Waste Lunches",
-                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
-                challenges_duration = "Daily"
-            ),
-            AddChallenges(
-                challenges_title = "Zero Waste Lunches",
-                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
-                challenges_duration = "Daily"
-            ),
-            AddChallenges(
-                challenges_title = "Zero Waste Lunches",
-                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
                 challenges_duration = "Daily"
             ),
             AddChallenges(

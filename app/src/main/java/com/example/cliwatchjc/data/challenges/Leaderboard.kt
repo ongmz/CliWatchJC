@@ -7,7 +7,7 @@ import com.example.cliwatchjc.data.User
 @Entity(
     foreignKeys = [
         ForeignKey(entity = User::class, parentColumns = ["userId"], childColumns = ["userId"]),
-        ForeignKey(entity = Challenges::class, parentColumns = ["challengesId"], childColumns = ["challengesId"])
+        ForeignKey(entity = AddChallenges::class, parentColumns = ["challengesId"], childColumns = ["challengesId"])
     ],
     primaryKeys = ["userId", "challengesId"]
 )

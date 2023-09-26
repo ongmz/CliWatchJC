@@ -21,6 +21,8 @@ class ChallengesRepository(private val challengesDao: ChallengesDao) {
     suspend fun insertChallenges(challenges: List<AddChallenges>){
         challengesDao.insertChallenges(challenges)
     }
+
+
 }
 
 

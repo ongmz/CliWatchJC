@@ -20,11 +20,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.example.cliwatchjc.data.challenges.LeaderboardEntity
+import com.example.cliwatchjc.data.challenges.Leaderboard
 
 @Composable
 fun Screen3(lifecycle: Lifecycle,
-            leaderboardEntries: List<LeaderboardEntity>,
+            leaderboardEntries: List<Leaderboard>,
             score: Int, // Pass the score as a parameter
             username: String, // Pass the username as a parameter
      ) {
@@ -78,7 +78,7 @@ fun Screen3(lifecycle: Lifecycle,
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(text = "UserID: ${entry.userId}")
-                        Text(text = "Name: ${entry.username}")
+                        Text(text = "Name: ${entry.userName}")
                         Text(text = "Score: ${entry.score}")
                     }
                 }

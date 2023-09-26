@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.cliwatchjc.data.challenges.LeaderboardEntity
+import com.example.cliwatchjc.data.challenges.Leaderboard
 import com.example.compose.AppTheme
 
 @Composable
@@ -91,10 +91,10 @@ fun ChallengesScreen() {
 
 
 @Composable
-fun getSampleLeaderboardEntries(): List<LeaderboardEntity> {
+fun getSampleLeaderboardEntries(): List<Leaderboard> {
     return listOf(
-        LeaderboardEntity(userId = 1, challengesId = 1, username = "User1", score = 100),
-        LeaderboardEntity(userId = 2, challengesId = 1, username = "User2", score = 90)
+        Leaderboard(userId = 1, challengesId = 1, userName = "User1", score = 100),
+        Leaderboard(userId = 2, challengesId = 1, userName = "User2", score = 90)
     )
 }
 

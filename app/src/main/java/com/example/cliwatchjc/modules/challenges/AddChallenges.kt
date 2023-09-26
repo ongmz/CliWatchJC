@@ -67,12 +67,14 @@ fun Screen1(lifecycle: Lifecycle){
     ){
         Spacer(modifier = Modifier.height(16.dp))
 
-        cardData.value.forEach { cardData ->
-            Card (
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(120.dp)
-            ) {
+        for(cardData in cardData.value){
+            Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp),
+
+            )
+            {
                 Column(
                     modifier = Modifier
                         .padding(16.dp)
