@@ -154,7 +154,7 @@ fun MyApp() {
                     composable(Routes.TRACKER) { TrackerScreen(navController) }
                     composable(Routes.CALCULATOR) { CalculatorScreen(calculatorViewModel = CalculatorViewModel()) }
                     composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }
-                    composable(Routes.SUMMARY) { SummaryScreen(calculatorViewModel = CalculatorViewModel())}
+                    composable(Routes.SUMMARY) { SummaryScreen()}
                     composable(Routes.CHALLENGES) { ChallengesScreen() }
                 }
                 if (showSideMenu) {

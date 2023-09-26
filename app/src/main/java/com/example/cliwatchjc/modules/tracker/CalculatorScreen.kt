@@ -1,5 +1,6 @@
 package com.example.cliwatchjc.modules.tracker
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun CalculatorScreen(calculatorViewModel: CalculatorViewModel) {
     var transportation by remember { mutableStateOf("") }

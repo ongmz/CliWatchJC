@@ -80,12 +80,23 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
     }
 
     fun generateSampleMonthlyTransportationData(): List<Float> {
-        return listOf(10.0f, 15.0f, 12.0f, 8.0f, 20.0f, 18.0f, 13.0f)
+        return listOf(50.0f, 55.0f, 42.0f, 38.0f, 60.0f, 58.0f, 53.0f)
     }
 
-    fun setWeeklyTransportationData(data: List<Float>) {
-        _weeklyTransportationData.value = data
+    fun generateSampleWeeklyEnergyUsageData(): List<Float> {
+        return listOf(30.0f, 25.0f, 32.0f, 28.0f, 35.0f, 40.0f, 37.0f)
     }
 
+    fun generateSampleMonthlyEnergyUsageData(): List<Float> {
+        return listOf(150.0f, 155.0f, 142.0f, 138.0f, 160.0f, 158.0f, 153.0f)
+    }
+
+    fun generateSampleWeeklyWasteData(): List<Float> {
+        return listOf(5.0f, 8.0f, 6.0f, 7.0f, 9.0f, 5.0f, 4.0f)
+    }
+
+    fun generateSampleMonthlyWasteData(): List<Float> {
+        return listOf(20.0f, 28.0f, 22.0f, 26.0f, 30.0f, 25.0f, 24.0f)
+    }
 }
 
