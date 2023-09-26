@@ -2,7 +2,7 @@ package com.example.cliwatchjc.modules.challenges
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cliwatchjc.data.challenges.Challenges
+import com.example.cliwatchjc.data.challenges.AddChallenges
 import com.example.cliwatchjc.data.challenges.repository.ChallengesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,10 +17,10 @@ class ChallengesViewModel @Inject constructor(
     private val challengesRepository: ChallengesRepository
 ) : ViewModel() {
 
-    private val _mutableCardData = MutableStateFlow<List<Challenges>>(emptyList())
+    private val _mutableCardData = MutableStateFlow<List<AddChallenges>>(emptyList())
 
     // Public read-only state flow exposed to the outside
-    val cardData: StateFlow<List<Challenges>> = _mutableCardData.asStateFlow()
+    val cardData: StateFlow<List<AddChallenges>> = _mutableCardData.asStateFlow()
 
     init {
         loadChallenges()
@@ -31,16 +31,76 @@ class ChallengesViewModel @Inject constructor(
         _mutableCardData.emit(fetchedChallenges)
     }
 
-    fun setChallengeStatus(userId: Long, challengeId: Long, status: String) {
+    fun setChallengeStatus(challengeId: Long, challengeStatus: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            challengesRepository.setChallengeStatus(userId, challengeId, status)
+            challengesRepository.setChallengeStatus(challengeId, challengeStatus)
         }
     }
 
     // Method to get the status of a challenge for a specific user
-    suspend fun getChallengeStatus(userId: Long, challengeId: Long): String? {
-        return challengesRepository.getChallengeStatus(userId, challengeId)
+    suspend fun getChallengeStatus(challengeId: Long): String? {
+        return challengesRepository.getChallengeStatus(challengeId)
     }
+
+    fun insertSampleChallenges() {
+        val sampleChallenges = listOf(
+            AddChallenges(
+                challenges_title = "Meatless Mondays",
+                challenges_desc = "Reduce your carbon footprint by cutting down on meat consumption, which has a significant environmental impact.",
+                challenges_duration = "Daily"
+            ),
+            AddChallenges(
+                challenges_title = "Zero Waste Lunches",
+                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
+                challenges_duration = "Daily"
+            ),
+            AddChallenges(
+                challenges_title = "Zero Waste Lunches",
+                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
+                challenges_duration = "Daily"
+            ),
+            AddChallenges(
+                challenges_title = "Zero Waste Lunches",
+                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
+                challenges_duration = "Daily"
+            ),
+            AddChallenges(
+                challenges_title = "Zero Waste Lunches",
+                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
+                challenges_duration = "Daily"
+            ),
+            AddChallenges(
+                challenges_title = "Zero Waste Lunches",
+                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
+                challenges_duration = "Daily"
+            ),
+            AddChallenges(
+                challenges_title = "Zero Waste Lunches",
+                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
+                challenges_duration = "Daily"
+            ),
+            AddChallenges(
+                challenges_title = "Zero Waste Lunches",
+                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
+                challenges_duration = "Daily"
+            ),
+            AddChallenges(
+                challenges_title = "Zero Waste Lunches",
+                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
+                challenges_duration = "Daily"
+            ),
+            AddChallenges(
+                challenges_title = "Zero Waste Lunches",
+                challenges_desc = "Eliminate single-use plastics and opt for reusable containers and utensils to reduce waste.",
+                challenges_duration = "Daily"
+            )
+        )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            challengesRepository.insertChallenges(sampleChallenges)
+        }
+    }
+
 }
 
 

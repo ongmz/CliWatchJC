@@ -20,14 +20,31 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.example.cliwatchjc.data.challenges.Leaderboard
+import com.example.cliwatchjc.data.challenges.LeaderboardEntity
 
 @Composable
-fun Screen3(lifecycle: Lifecycle, leaderboardEntries: List<Leaderboard>) {
+fun Screen3(lifecycle: Lifecycle,
+            leaderboardEntries: List<LeaderboardEntity>,
+            score: Int, // Pass the score as a parameter
+            username: String, // Pass the username as a parameter
+     ) {
     val onResumeEventObserver = remember(lifecycle) {
         object : LifecycleEventObserver {
             override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                // Your lifecycle event handling code here
+                if(event == Lifecycle.Event.ON_RESUME){
+
+                    println("onResume Screen1")
+                }else if (event == Lifecycle.Event.ON_PAUSE){
+                    println("onPause Screen1")
+                }else if (event == Lifecycle.Event.ON_CREATE){
+                    println("onCreate Screen1")
+                }else if (event == Lifecycle.Event.ON_START){
+                    println("onStart Screen1")
+                }else if (event == Lifecycle.Event.ON_STOP){
+                    println("onStop Screen1")
+                }else if (event == Lifecycle.Event.ON_DESTROY){
+                    println("onDestroy Screen1")
+                }
             }
         }
     }
@@ -45,37 +62,32 @@ fun Screen3(lifecycle: Lifecycle, leaderboardEntries: List<Leaderboard>) {
         horizontalAlignment = Alignment.Start
     ) {
         Spacer(modifier = Modifier.height(16.dp))
+        Text(text = "Your Score: $score")
+        Text(text = "Your Username: $username")
 
         LazyRow {
             itemsIndexed(leaderboardEntries) { index, entry ->
-                LeaderboardCard(entry = entry)
+                Card(
+                    modifier = Modifier
+                        .width(200.dp) // Adjust the width as needed
+                        .height(120.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "UserID: ${entry.userId}")
+                        Text(text = "Name: ${entry.username}")
+                        Text(text = "Score: ${entry.score}")
+                    }
+                }
+
                 if (index < leaderboardEntries.size - 1) {
                     Spacer(modifier = Modifier.width(16.dp)) // Add spacing between cards
                 }
             }
         }
-    }
-}
 
-@Composable
-fun LeaderboardCard(entry: Leaderboard) {
-    // You can create a Card composable here to display the leaderboard entry
-    // with the userID, name, and score.
-    // Customize the appearance of the card as needed.
-
-    Card(
-        modifier = Modifier
-            .width(200.dp) // Adjust the width as needed
-            .height(120.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(text = "UserID: ${entry.userId}")
-            Text(text = "Name: ${entry.userName}")
-            Text(text = "Score: ${entry.score}")
-        }
     }
 }

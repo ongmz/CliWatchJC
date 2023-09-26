@@ -24,14 +24,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.cliwatchjc.data.challenges.Challenges
+import com.example.cliwatchjc.data.challenges.AddChallenges
 
 
 @Composable
 fun Screen1(lifecycle: Lifecycle){
     val viewModel: ChallengesViewModel = viewModel()
     val cardData = viewModel.cardData.collectAsState(emptyList())
-    val selectedChallenge = remember{ mutableStateOf<Challenges?>(null) }
+    val selectedChallenge = remember{ mutableStateOf<AddChallenges?>(null) }
 
 
     val onResumeEventObserver = remember(lifecycle){
@@ -115,7 +115,7 @@ fun Screen1(lifecycle: Lifecycle){
 
 @Composable
 fun ChallengeDescriptionScreen(
-    challengeData: Challenges, // Pass the selected challenge data here
+    challengeData: AddChallenges, // Pass the selected challenge data here
     onCloseClick: () -> Unit
 ) {
     Card(

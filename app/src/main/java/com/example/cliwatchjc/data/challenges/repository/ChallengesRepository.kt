@@ -1,25 +1,28 @@
 package com.example.cliwatchjc.data.challenges.repository
 
-
-import com.example.cliwatchjc.data.challenges.Challenges
+import com.example.cliwatchjc.data.challenges.AddChallenges
 import com.example.cliwatchjc.data.challenges.ChallengesDao
 
 class ChallengesRepository(private val challengesDao: ChallengesDao) {
-    // Methods for articles
-    suspend fun getAllChallenges(): List<Challenges>{
+
+    suspend fun getAllChallenges(): List<AddChallenges> { // Update return type
         return challengesDao.getAllChallenges()
     }
-    suspend fun setChallengeStatus(userId: Long, challengeId: Long, status: String) {
-        challengesDao.setChallengeStatus(userId, challengeId, status)
+
+//    suspend fun setChallengeStatus(challengeId: Long, status: String) {
+//        challengesDao.setChallengeStatus(challengeId, status)
+//    }
+//
+//    // Method to get the status of a challenge for a specific user
+//    suspend fun getChallengeStatus(challengeId: Long): String? {
+//        return challengesDao.getChallengeStatus(challengeId)
+//    }
+
+    suspend fun insertChallenges(challenges: List<AddChallenges>){
+        challengesDao.insertChallenges(challenges)
     }
-
-    // Method to get the status of a challenge for a specific user
-    suspend fun getChallengeStatus(userId: Long, challengeId: Long): String? {
-        return challengesDao.getChallengeStatus(userId, challengeId)
-    }
-
-
 }
+
 
 /*
 class NewsRepository(private val educationDao: EducationDao) {
