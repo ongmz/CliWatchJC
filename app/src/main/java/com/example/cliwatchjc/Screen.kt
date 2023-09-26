@@ -43,21 +43,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.cliwatchjc.modules.challenges.ChallengesScreen
-import com.example.cliwatchjc.modules.education.ClimateNewsScreen
-import com.example.cliwatchjc.modules.education.EducationResourcesScreen
-import com.example.cliwatchjc.modules.education.EducationScreen
 import com.example.cliwatchjc.modules.tracker.TrackerScreen
 import com.example.cliwatchjc.modules.tracker.CalculatorScreen
 import com.example.cliwatchjc.modules.tracker.CalculatorViewModel
 import com.example.cliwatchjc.modules.tracker.PersonalGoalScreen
+import com.example.cliwatchjc.modules.tracker.PersonalGoalViewModel
 import com.example.cliwatchjc.modules.tracker.SummaryScreen
 import com.example.compose.AppTheme
 
 object Routes {
     const val MAIN_MENU = "mainMenu"
     const val EDUCATION = "education"
-    const val EDUCATION_RESOURCES = "educationResources"
-    const val CLIMATE_NEWS = "climateNews"
     const val TRACKER = "tracker"
     const val CALCULATOR = "calculator"
     const val PERSONAL_GOAL = "personalGoal"
@@ -67,8 +63,6 @@ object Routes {
     val labels = mapOf(
         MAIN_MENU to "Main Menu",
         EDUCATION to "Education",
-        EDUCATION_RESOURCES to "Education Resources",
-        CLIMATE_NEWS to "Climate News",
         TRACKER to "Tracker",
         CALCULATOR to "Calculator",
         PERSONAL_GOAL to "Personal Goal",
@@ -148,9 +142,6 @@ fun MyApp() {
             Box(modifier = Modifier.fillMaxSize()) {
                 NavHost(navController, startDestination = Routes.MAIN_MENU) {
                     composable(Routes.MAIN_MENU) { MainMenuScreen() }
-                    composable(Routes.EDUCATION) { EducationScreen(navController) }
-                    composable(Routes.EDUCATION_RESOURCES) { EducationResourcesScreen() }
-                    composable(Routes.CLIMATE_NEWS) { ClimateNewsScreen() }
                     composable(Routes.TRACKER) { TrackerScreen(navController) }
                     composable(Routes.CALCULATOR) { CalculatorScreen(calculatorViewModel = CalculatorViewModel()) }
                     composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }

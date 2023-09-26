@@ -15,9 +15,7 @@ class PersonalGoalRepository (
         return personalGoalDao.getGoal(id)
     }
 
-    fun insertGoal(goal: PersonalGoal) {
-        personalGoalDao.insertGoal(goal)
-    }
+    fun insertGoal(goal: PersonalGoal) = personalGoalDao.insertGoal(goal)
 
     fun updateGoal(goal: PersonalGoal) {
         personalGoalDao.updateGoal(goal)

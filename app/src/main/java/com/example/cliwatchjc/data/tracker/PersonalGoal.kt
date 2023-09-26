@@ -4,8 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity
+@Entity(tableName = "Tracker")
 data class PersonalGoal(
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0L,
     val title: String = "",
     val description: String,
     var completedDays: Int = 0,
@@ -13,11 +15,4 @@ data class PersonalGoal(
     var isSelected: Boolean = true,
     val hasNotes: Boolean = false,
     val createdDate: Date = Date()
-) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
-}
-
-fun PersonalGoal.isCompleted(): Boolean {
-    return this.completedDays == this.totalDays
-}
+)

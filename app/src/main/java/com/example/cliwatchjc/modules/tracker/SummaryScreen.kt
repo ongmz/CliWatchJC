@@ -57,6 +57,7 @@ fun SummaryScreen() {
 
     Column(
         modifier = Modifier
+            .padding(top = 60.dp)
             .fillMaxSize()
             .background(Color.White) // Set the background color for the entire SummaryScreen
     ) {

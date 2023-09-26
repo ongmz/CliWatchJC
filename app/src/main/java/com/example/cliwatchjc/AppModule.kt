@@ -3,7 +3,6 @@ package com.example.cliwatchjc
 import android.app.Application
 import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
-import com.example.cliwatchjc.data.education.repository.ArticleRepository
 import com.example.cliwatchjc.data.tracker.PersonalGoalDao
 import com.example.cliwatchjc.data.tracker.PersonalGoalDetailsDao
 import com.example.cliwatchjc.data.tracker.repository.PersonalGoalRepository
@@ -28,12 +27,6 @@ object AppModule {
             .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
             .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideArticleRepository(database: AppDatabase): ArticleRepository {
-        return ArticleRepository(database.educationDao())
     }
 
     @Provides

@@ -22,17 +22,16 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun PersonalGoalScreen() {
-    val personalGoalViewModel: PersonalGoalViewModel = hiltViewModel()
+fun PersonalGoalScreen(personalGoalViewModel: PersonalGoalViewModel = hiltViewModel()) {
     var goalText by remember { mutableStateOf("") }
     var isDialogVisible by remember { mutableStateOf(false) }
 
     // Observe the goals from the ViewModel
-    val goals by personalGoalViewModel.goals.collectAsState(emptyList())
+    val goals by personalGoalViewModel.goals.collectAsState()
 
     Column(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(top = 60.dp)
             .fillMaxSize()
     ) {
         // Title

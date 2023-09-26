@@ -2,7 +2,6 @@ package com.example.cliwatchjc
 
 import android.app.Application
 import com.example.cliwatchjc.data.AppDatabase
-import com.example.cliwatchjc.data.education.Article
 import com.example.cliwatchjc.data.tracker.PersonalGoal
 import com.example.cliwatchjc.data.tracker.PersonalGoalDetails
 import dagger.hilt.android.HiltAndroidApp
@@ -23,24 +22,11 @@ class MainApplication : Application() {
         // Insert sample data in a coroutine (with checks if needed)
         runBlocking {
             launch(Dispatchers.IO) {
-                val exampleArticle = Article(
-                    title = "Example Article Title",
-                    content = "Lorem ipsum dolor sit amet...",
-                    maxScore = 5
-                )
-                database.educationDao().insertArticle(exampleArticle)
-
                 val examplePersonalGoal = PersonalGoal(
-                    title = "Example Goal Title",
-                    description = "Example Goal Description"
+                    title = "Reduce using car to go to work",
+                    description = "Walk for this entire week"
                 )
                 database.personalGoalDao().insertGoal(examplePersonalGoal)
-
-                val examplePersonalGoalDetails = PersonalGoalDetails(
-                    goalId = examplePersonalGoal.id,
-                    notes = "Example Goal Details"
-                )
-                database.personalGoalDetailsDao().insertGoalDetails(examplePersonalGoalDetails)
             }
         }
     }

@@ -2,22 +2,22 @@ package com.example.cliwatchjc.data.tracker
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import com.example.cliwatchjc.data.User
 import java.util.*
 
 @Entity(
-    foreignKeys = [ForeignKey(
-        entity = PersonalGoal::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("goalId"),
-        onDelete = ForeignKey.CASCADE
-    )]
+    foreignKeys = [
+        ForeignKey(entity = User::class, parentColumns = ["userId"], childColumns = ["userId"]),
+        ForeignKey(entity = PersonalGoal::class, parentColumns = ["id"], childColumns = ["goalId"])
+    ],
+    primaryKeys = ["userId", "goalId"]
 )
 data class PersonalGoalDetails(
-    var goalId: Long = 0,
-    var notes: String = "",
+    val userId: Long,
+    var goalId: Long,
+    var notes: String,
     var date: Date = Date()
-) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
-}
+)
+
+
+

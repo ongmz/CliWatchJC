@@ -7,23 +7,14 @@ import kotlinx.coroutines.withContext
 
 class PersonalGoalDetailsRepository(private val personalGoalDetailsDAO: PersonalGoalDetailsDao) {
     // Methods for personal goal details
-    suspend fun getGoalDetails(goalId: Long): List<PersonalGoalDetails> {
-        return withContext(Dispatchers.IO) {
-            personalGoalDetailsDAO.getGoalDetails(goalId)
-        }
-    }
+    fun getGoalDetails(userId: Long, goalId: Long): List<PersonalGoalDetails> {
+        return personalGoalDetailsDAO.getGoalDetails(userId, goalId)
 
-    suspend fun insertGoalDetails(personalGoalDetails: PersonalGoalDetails) {
-        withContext(Dispatchers.IO) {
-            personalGoalDetailsDAO.insertGoalDetails(personalGoalDetails)
-        }
     }
+    fun updateGoalDetails(personalGoalDetails: PersonalGoalDetails) =
+        personalGoalDetailsDAO.updateGoalDetails(personalGoalDetails)
 
-    suspend fun updateGoalDetails(personalGoalDetails: PersonalGoalDetails) {
-        withContext(Dispatchers.IO) {
-            personalGoalDetailsDAO.updateGoalDetails(personalGoalDetails)
-        }
-    }
+
 }
 
 

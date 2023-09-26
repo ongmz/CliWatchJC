@@ -29,7 +29,7 @@ fun CalculatorScreen(calculatorViewModel: CalculatorViewModel) {
 
     Column(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(top = 60.dp)
             .fillMaxWidth()
     ) {
         // Title
