@@ -246,7 +246,6 @@ fun MyApp() {
                             // Handle error, maybe pop back or show an error screen
                         }
                     }
-                    composable(Routes.TRACKER) { TrackerScreen() }
                     composable(Routes.TRACKER) { TrackerScreen(navController) }
                     composable(Routes.CALCULATOR) { CalculatorScreen(calculatorViewModel = CalculatorViewModel()) }
                     composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }

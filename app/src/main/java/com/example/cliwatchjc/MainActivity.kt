@@ -20,6 +20,8 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var educationRepository: ArticleRepository
+    lateinit var personalGoalRepository: PersonalGoalRepository
+    lateinit var personalGoalDetailsRepository: PersonalGoalDetailsRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

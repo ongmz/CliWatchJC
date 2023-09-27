@@ -12,7 +12,6 @@ import com.example.cliwatchjc.data.education.Option
 import com.example.cliwatchjc.data.education.Question
 import com.example.cliwatchjc.data.education.UserQuestionAttempt
 import com.example.cliwatchjc.data.education.UserQuizScore
-import androidx.room.TypeConverters
 import com.example.cliwatchjc.data.tracker.PersonalGoal
 import com.example.cliwatchjc.data.tracker.PersonalGoalDetails
 import com.example.cliwatchjc.data.tracker.PersonalGoalDao
@@ -20,7 +19,7 @@ import com.example.cliwatchjc.data.tracker.PersonalGoalDetailsDao
 import com.example.cliwatchjc.modules.tracker.Converters
 
 @Database(entities = [User::class, Article::class, UserQuizScore::class, UserQuestionAttempt::class, Question::class, Option::class,
-                      ClimateNews::class, PersoanlGoal::class, PersonalGoalDetails::class], version = 7)
+                      ClimateNews::class, PersonalGoal::class, PersonalGoalDetails::class], version = 8)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao

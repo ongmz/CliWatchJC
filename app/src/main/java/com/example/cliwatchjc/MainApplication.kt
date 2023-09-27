@@ -18,18 +18,5 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        /*
-        // Insert sample data in a coroutine (with checks if needed)
-        runBlocking {
-            launch(Dispatchers.IO) {
-                val examplePersonalGoal = PersonalGoal(
-                    title = "Reduce using car to go to work",
-                    description = "Walk for this entire week"
-                )
-                database.personalGoalDao().insertGoal(examplePersonalGoal)
-            }
-        }
-        */
     }
 }

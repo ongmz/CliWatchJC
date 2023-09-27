@@ -1,5 +1,6 @@
 package com.example.cliwatchjc.modules.tracker
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cliwatchjc.data.tracker.PersonalGoal
@@ -19,7 +20,6 @@ class PersonalGoalViewModel @Inject constructor(
 
     private val _goals = MutableStateFlow<List<PersonalGoal>>(emptyList())
     val goals: StateFlow<List<PersonalGoal>> = _goals.asStateFlow()
-
 
     init {
         loadGoals()

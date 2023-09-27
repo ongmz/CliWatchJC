@@ -146,10 +146,9 @@ fun TrackerScreen(navController: NavController, modifier: Modifier = Modifier) {
                 }
             }
         }
+        item { Spacer(modifier = Modifier.height(96.dp).background(Color.Gray)) }
     }
 }
-
-
 
 @Preview(showBackground = true)
 @Composable

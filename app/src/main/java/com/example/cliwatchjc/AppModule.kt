@@ -3,7 +3,15 @@ package com.example.cliwatchjc
 import android.app.Application
 import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
+import com.example.cliwatchjc.data.UserDao
+import com.example.cliwatchjc.data.education.EducationDao
+import com.example.cliwatchjc.data.education.NewsApi
 import com.example.cliwatchjc.data.education.repository.ArticleRepository
+import com.example.cliwatchjc.data.education.repository.NewsRepository
+import com.example.cliwatchjc.data.tracker.PersonalGoalDao
+import com.example.cliwatchjc.data.tracker.PersonalGoalDetailsDao
+import com.example.cliwatchjc.data.tracker.repository.PersonalGoalDetailsRepository
+import com.example.cliwatchjc.data.tracker.repository.PersonalGoalRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +28,12 @@ object AppModule {
 
     const val BASE_URL = "https://newsapi.org/v2/"
     const val API_KEY = "a9736382f93a4ca9814b0940d1c531d1"
+
+    @Provides
+    @Singleton
+    fun provideUserDao(database: AppDatabase): UserDao {
+        return database.userDao()
+    }
 
     @Singleton
     @Provides
@@ -71,10 +85,17 @@ object AppModule {
             .build()
     }
 
+    //Ming Zheng
     @Provides
     @Singleton
-    fun provideUserDao(database: AppDatabase): UserDao {
-        return database.userDao()
+    fun provideArticleRepository(educationDao: EducationDao): ArticleRepository {
+        return ArticleRepository(educationDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsRepository(newsApi: NewsApi, educationDao: EducationDao): NewsRepository {
+        return NewsRepository(newsApi, educationDao)
     }
 
     @Provides
@@ -88,11 +109,11 @@ object AppModule {
     fun provideNewsApi(retrofit: Retrofit): NewsApi {
         return retrofit.create(NewsApi::class.java)
     }
+
+    //Natalie
     @Provides
     @Singleton
-    fun providePersonalGoalRepository(
-        personalGoalDao: PersonalGoalDao
-    ): PersonalGoalRepository {
+    fun providePersonalGoalRepository( personalGoalDao: PersonalGoalDao ): PersonalGoalRepository {
         return PersonalGoalRepository(personalGoalDao)
     }
 
@@ -106,12 +127,6 @@ object AppModule {
     @Singleton
     fun providePersonalGoalDetailsRepository(database: AppDatabase): PersonalGoalDetailsRepository {
         return PersonalGoalDetailsRepository(database.personalGoalDetailsDao())
-    }
-
-    @Provides
-    @Singleton
-    fun provideNewsRepository(newsApi: NewsApi, educationDao: EducationDao): NewsRepository {
-        return NewsRepository(newsApi, educationDao)
     }
 
     @Provides
