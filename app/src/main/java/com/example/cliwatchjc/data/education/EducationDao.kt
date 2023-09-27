@@ -77,4 +77,3 @@ interface EducationDao {
     @Insert
     fun insert(news: ClimateNews)
 }
-

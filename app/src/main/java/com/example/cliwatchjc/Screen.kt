@@ -81,6 +81,12 @@ import com.example.cliwatchjc.modules.education.WebViewScreen
 import com.example.cliwatchjc.modules.tracker.TrackerScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import com.example.cliwatchjc.modules.tracker.CalculatorScreen
+import com.example.cliwatchjc.modules.tracker.CalculatorViewModel
+import com.example.cliwatchjc.modules.tracker.PersonalGoalScreen
+import com.example.cliwatchjc.modules.tracker.PersonalGoalViewModel
+import com.example.cliwatchjc.modules.tracker.SummaryScreen
+import com.example.compose.AppTheme
 
 object Routes {
     const val MAIN_MENU = "mainMenu"
@@ -92,6 +98,9 @@ object Routes {
     const val CLIMATE_NEWS = "climateNews"
     const val CLIMATE_NEWS_CONTENT = "webViewScreen?url={url}"
     const val TRACKER = "tracker"
+    const val CALCULATOR = "calculator"
+    const val PERSONAL_GOAL = "personalGoal"
+    const val SUMMARY = "summary"
     const val CHALLENGES = "challenges"
 
     val labels = mapOf(
@@ -103,6 +112,9 @@ object Routes {
         QUIZ_COMPLETE to "quizComplete",
         CLIMATE_NEWS to "Climate News",
         TRACKER to "Tracker",
+        CALCULATOR to "Calculator",
+        PERSONAL_GOAL to "Personal Goal",
+        SUMMARY to "Summary",
         CHALLENGES to "Challenges"
     )
 }
@@ -235,6 +247,10 @@ fun MyApp() {
                         }
                     }
                     composable(Routes.TRACKER) { TrackerScreen() }
+                    composable(Routes.TRACKER) { TrackerScreen(navController) }
+                    composable(Routes.CALCULATOR) { CalculatorScreen(calculatorViewModel = CalculatorViewModel()) }
+                    composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }
+                    composable(Routes.SUMMARY) { SummaryScreen()}
                     composable(Routes.CHALLENGES) { ChallengesScreen() }
                 }
             }

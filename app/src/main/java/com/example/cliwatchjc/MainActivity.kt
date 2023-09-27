@@ -10,10 +10,9 @@ import com.example.cliwatchjc.data.AppDatabase
 import com.example.cliwatchjc.data.education.Article
 import com.example.cliwatchjc.data.education.repository.ArticleRepository
 import com.example.compose.AppTheme
+import com.example.cliwatchjc.data.tracker.repository.PersonalGoalDetailsRepository
+import com.example.cliwatchjc.data.tracker.repository.PersonalGoalRepository
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint

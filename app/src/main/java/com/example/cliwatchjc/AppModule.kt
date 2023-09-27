@@ -3,11 +3,7 @@ package com.example.cliwatchjc
 import android.app.Application
 import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
-import com.example.cliwatchjc.data.UserDao
-import com.example.cliwatchjc.data.education.EducationDao
-import com.example.cliwatchjc.data.education.NewsApi
 import com.example.cliwatchjc.data.education.repository.ArticleRepository
-import com.example.cliwatchjc.data.education.repository.NewsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -92,11 +88,24 @@ object AppModule {
     fun provideNewsApi(retrofit: Retrofit): NewsApi {
         return retrofit.create(NewsApi::class.java)
     }
+    @Provides
+    @Singleton
+    fun providePersonalGoalRepository(
+        personalGoalDao: PersonalGoalDao
+    ): PersonalGoalRepository {
+        return PersonalGoalRepository(personalGoalDao)
+    }
 
     @Provides
     @Singleton
-    fun provideArticleRepository(database: AppDatabase): ArticleRepository {
-        return ArticleRepository(database.educationDao())
+    fun providePersonalGoalDao(database: AppDatabase): PersonalGoalDao {
+        return database.personalGoalDao()
+    }
+
+    @Provides
+    @Singleton
+    fun providePersonalGoalDetailsRepository(database: AppDatabase): PersonalGoalDetailsRepository {
+        return PersonalGoalDetailsRepository(database.personalGoalDetailsDao())
     }
 
     @Provides
@@ -104,5 +113,10 @@ object AppModule {
     fun provideNewsRepository(newsApi: NewsApi, educationDao: EducationDao): NewsRepository {
         return NewsRepository(newsApi, educationDao)
     }
-}
 
+    @Provides
+    @Singleton
+    fun providePersonalGoalDetailsDao(database: AppDatabase): PersonalGoalDetailsDao {
+        return database.personalGoalDetailsDao()
+    }
+}
