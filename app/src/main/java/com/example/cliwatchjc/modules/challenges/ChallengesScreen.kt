@@ -6,7 +6,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.*
 import androidx.compose.ui.unit.dp
 import com.example.cliwatchjc.data.challenges.leaderboardData
 
@@ -14,7 +13,6 @@ import com.example.cliwatchjc.data.challenges.leaderboardData
 fun ChallengesScreen(viewModel: AddChallengesViewModel) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
-    val screens = listOf("Add Challenges", "Challenges Progress", "Leaderboard")
 
     Column (
         modifier = Modifier
