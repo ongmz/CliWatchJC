@@ -5,10 +5,15 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cliwatchjc.data.challenges.AddChallenges
 import com.example.cliwatchjc.data.challenges.repository.AddChallengesRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddChallengesViewModel(private val repository: AddChallengesRepository) : ViewModel() {
+@HiltViewModel
+class AddChallengesViewModel @Inject constructor(
+private val repository: AddChallengesRepository
+) : ViewModel() {
 
     val challenges: Flow<List<AddChallenges>> = repository.getAllChallenges()
 

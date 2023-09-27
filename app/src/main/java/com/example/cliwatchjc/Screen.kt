@@ -42,11 +42,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.cliwatchjc.modules.challenges.AddChallengesViewModel
 import com.example.cliwatchjc.modules.challenges.ChallengesScreen
 import com.example.compose.AppTheme
 
@@ -139,7 +141,7 @@ fun MyApp() {
             Box(modifier = Modifier.fillMaxSize()) {
                 NavHost(navController, startDestination = Routes.MAIN_MENU) {
                     composable(Routes.MAIN_MENU) { MainMenuScreen() }
-                    composable(Routes.CHALLENGES) { ChallengesScreen() }
+                    composable(Routes.CHALLENGES) { ChallengesScreen(viewModel = hiltViewModel()) }
                 }
                 if (showSideMenu) {
                     SideMenu(onClose = { showSideMenu = false })

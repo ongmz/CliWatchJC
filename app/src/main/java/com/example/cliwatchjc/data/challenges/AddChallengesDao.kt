@@ -6,14 +6,17 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
+
 @Dao
 interface AddChallengesDao {
 
     @Query("SELECT * FROM Challenges")
     fun getAllChallenges(): Flow<List<AddChallenges>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertChallenge(challenge: AddChallenges)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertChallenge(challenge: AddChallenges?)
+
+
 }
 
 
