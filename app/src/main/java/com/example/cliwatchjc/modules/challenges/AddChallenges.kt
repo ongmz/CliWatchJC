@@ -15,7 +15,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cliwatchjc.data.challenges.AddChallenges
+
 
 
 @Composable
@@ -28,12 +30,12 @@ fun AddChallengesTab(viewModel: AddChallengesViewModel) {
         items(challenges.size) { index ->
             val challenge = challenges[index]
             ChallengeCard(challenge = challenge) {
-                // Call the provided callback when the "Add Challenge" button is clicked
                 viewModel.insertChallenge(challenge)
             }
         }
     }
 }
+
 
 @Composable
 fun ChallengeCard(challenge: AddChallenges, onAddClicked: () -> Unit) {
@@ -53,7 +55,6 @@ fun ChallengeCard(challenge: AddChallenges, onAddClicked: () -> Unit) {
 
             Button(
                 onClick = {
-                    // Call the provided callback when the "Add Challenge" button is clicked
                     onAddClicked()
                 },
                 modifier = Modifier
@@ -65,8 +66,3 @@ fun ChallengeCard(challenge: AddChallenges, onAddClicked: () -> Unit) {
         }
     }
 }
-//@Preview
-//@Composable
-//fun SummaryPreview() {
-//    AddChallengesTab()
-//}
