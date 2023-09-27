@@ -58,4 +58,3 @@ fun ChallengesScreen() {
         }
     }
 }
-4
