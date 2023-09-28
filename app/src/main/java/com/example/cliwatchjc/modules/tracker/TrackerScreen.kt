@@ -90,7 +90,7 @@ fun TrackerScreen(navController: NavController, modifier: Modifier = Modifier) {
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_personal_goal),
+                        painter = painterResource(id = R.drawable.ic_personal_goals),
                         contentDescription = "Personal Goal Icon",
                         modifier = Modifier
                             .size(220.dp)
@@ -158,3 +158,4 @@ fun TrackerScreenPreview() {
         TrackerScreen(navController)
     }
 }
+
