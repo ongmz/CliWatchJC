@@ -90,9 +90,7 @@ import com.example.cliwatchjc.modules.tracker.SummaryScreen
 import com.example.compose.AppTheme
 
 object Routes {
-    const val WELCOME = "welcome"
     const val MAIN_AUTHENTICATION = "mainAuthentication"
-    const val AUTHENTICATION = "authentication"
     const val MAIN_MENU = "mainMenu"
     const val EDUCATION = "education"
     const val EDUCATION_RESOURCES = "educationResources"
@@ -108,9 +106,7 @@ object Routes {
     const val CHALLENGES = "challenges"
 
     val labels = mapOf(
-        WELCOME to "welcome",
         MAIN_AUTHENTICATION to "Main Authentication",
-        AUTHENTICATION to "Authentication",
         MAIN_MENU to "Main Menu",
         EDUCATION to "Education",
         EDUCATION_RESOURCES to "Education Resources",
@@ -144,9 +140,7 @@ fun MyApp() {
     }, drawerState = drawerState) {
         Scaffold(
             topBar = {
-                if (currentRoute != Routes.AUTHENTICATION &&
-                    currentRoute != Routes.WELCOME &&
-                    currentRoute != Routes.MAIN_AUTHENTICATION ) {
+                if ( currentRoute != Routes.MAIN_AUTHENTICATION ) {
                     val scope = rememberCoroutineScope()
                     TopAppBar(
                         title = { Text("CliWatch", fontSize = 24.sp) },
@@ -169,9 +163,7 @@ fun MyApp() {
                 }
             },
             bottomBar = {
-                if (currentRoute != Routes.AUTHENTICATION &&
-                    currentRoute != Routes.WELCOME &&
-                    currentRoute != Routes.MAIN_AUTHENTICATION ) {
+                if ( currentRoute != Routes.MAIN_AUTHENTICATION ) {
                     NavigationBar {
                         NavigationBarItem(
                             label = { Text(Routes.labels[Routes.EDUCATION] ?: "") },
@@ -220,21 +212,10 @@ fun MyApp() {
         )
         {
             Box(modifier = Modifier.fillMaxSize()) {
-                NavHost(navController, startDestination = Routes.WELCOME) {
-                    composable(Routes.WELCOME) {
-                        WelcomeScreen(onSwiped = {
-                            navController.navigate(Routes.AUTHENTICATION) {
-                                popUpTo(Routes.WELCOME) { inclusive = true }
-                            }
-                        })
-                    }
+                NavHost(navController, startDestination = Routes.MAIN_AUTHENTICATION) {
                     composable(Routes.MAIN_AUTHENTICATION) {
                         val userViewModel: UserViewModel = hiltViewModel()
                         MainAuthenticationScreen(navController, userViewModel)
-                    }
-                    composable(Routes.AUTHENTICATION) {
-                        val userViewModel: UserViewModel = hiltViewModel()
-                        AuthenticationScreen(navController, userViewModel)
                     }
                     composable(Routes.MAIN_MENU) { MainMenuScreen() }
                     composable(Routes.EDUCATION) { EducationScreen(navController) }
