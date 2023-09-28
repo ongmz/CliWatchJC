@@ -46,13 +46,11 @@ import com.example.cliwatchjc.data.education.Question
 fun QuizScreen(articleId: Long, navController: NavController) {
     val articleViewModel: ArticleViewModel = hiltViewModel()
     val quizData by articleViewModel.quizData.collectAsState()
-    val userScore by articleViewModel.userScore.collectAsState()
+    val userScores by articleViewModel.userScores.collectAsState()
+    val userScoreForThisArticle = userScores[articleId]
     val scrollState = rememberScrollState()
 
-    // State to track if quiz data has been loaded
     var isQuizDataLoaded by remember { mutableStateOf(false) }
-
-    // State to track selected options
     val selectedOptions = remember { mutableStateOf(mapOf<Long, Long>()) }
 
     if (!isQuizDataLoaded) {
@@ -61,12 +59,10 @@ fun QuizScreen(articleId: Long, navController: NavController) {
     }
 
     if (quizData.isNullOrEmpty()) {
-        // Display a message if no quiz data is found
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text(text = "Quiz not found.", fontSize = 20.sp, fontWeight = FontWeight.Bold)
         }
     } else {
-        // If quiz data is available, display the quiz questions and options
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -77,7 +73,7 @@ fun QuizScreen(articleId: Long, navController: NavController) {
             Spacer(modifier = Modifier.height(56.dp))
 
             // Display user's score if available
-            userScore?.let {
+            userScoreForThisArticle?.let {
                 Text(text = "Your score: ${it.score}", fontSize = 20.sp, fontWeight = FontWeight.Bold)
             }
 
@@ -105,6 +101,7 @@ fun QuizScreen(articleId: Long, navController: NavController) {
         }
     }
 }
+
 
 @Composable
 fun QuestionAndOptionsView(

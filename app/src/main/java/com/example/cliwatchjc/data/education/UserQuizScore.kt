@@ -27,6 +27,6 @@ data class UserQuizScore(
 data class UserQuestionAttempt(
     val userId: Long,
     val questionId: Long,
-    val selectedOptionId: Long, // This represents the option that user selected
-    val isCorrect: Boolean // Whether the user's attempt was correct or not
+    val selectedOptionId: Long,
+    val isCorrect: Boolean
 )

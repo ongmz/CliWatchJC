@@ -35,15 +35,18 @@ class ArticleViewModel @Inject constructor(
     private val _quizData = MutableStateFlow<List<QuestionWithOptions>>(emptyList())
     val quizData: StateFlow<List<QuestionWithOptions>> = _quizData.asStateFlow()
 
+    /*
     // This is to hold the user's score for a specific article's quiz
     private val _userScore = MutableStateFlow<UserQuizScore?>(null)
     val userScore: StateFlow<UserQuizScore?> = _userScore.asStateFlow()
+     */
+
+    private val _userScores = MutableStateFlow<Map<Long, UserQuizScore>>(emptyMap())
+    val userScores: StateFlow<Map<Long, UserQuizScore>> = _userScores.asStateFlow()
 
     val currentUser: StateFlow<User?> = userManager.currentUser
     val userTotalScore: StateFlow<Int> = MutableStateFlow(0)
     val totalQuestions: StateFlow<Int> = MutableStateFlow(0)
-
-
 
     init {
         loadArticles()
@@ -57,18 +60,22 @@ class ArticleViewModel @Inject constructor(
         }
     }
 
-    private fun loadArticles() = viewModelScope.launch(Dispatchers.IO) {
-        val fetchedArticles = articleRepository.getAllArticles()
-        _articles.emit(fetchedArticles)
+    private fun loadArticles() {
+        viewModelScope.launch {
+            val fetchedArticles = articleRepository.getAllArticles()
+            _articles.emit(fetchedArticles)
+        }
     }
 
-    private fun loadScoresAndQuestions() = viewModelScope.launch {
-        currentUser.value?.let {
-            val userScore = articleRepository.getUserTotalScore(it.userId.toInt())
-            (userTotalScore as MutableStateFlow).value = userScore
+    private fun loadScoresAndQuestions() {
+        viewModelScope.launch {
+            currentUser.value?.let {
+                val userScore = articleRepository.getUserTotalScore(it.userId)
+                (userTotalScore as MutableStateFlow).value = userScore
 
-            val questionsCount = articleRepository.getTotalQuestionsCount()
-            (totalQuestions as MutableStateFlow).value = questionsCount
+                val questionsCount = articleRepository.getTotalQuestionsCount()
+                (totalQuestions as MutableStateFlow).value = questionsCount
+            }
         }
     }
 
@@ -80,38 +87,50 @@ class ArticleViewModel @Inject constructor(
         return ArticleContentProvider.getContentByArticleId(articleId)
     }
 
-    fun loadQuizDataForArticle(articleId: Long) = viewModelScope.launch(Dispatchers.IO) {
-        val questions = articleRepository.getQuestionsForArticle(articleId)
-        val questionsWithOptions = questions.map { question ->
-            val options = articleRepository.getOptionsForQuestion(question.questionId)
-            QuestionWithOptions(question, options)
+    fun loadQuizDataForArticle(articleId: Long) {
+        viewModelScope.launch {
+            val questions = articleRepository.getQuestionsForArticle(articleId)
+            val questionsWithOptions = questions.map { question ->
+                val options = articleRepository.getOptionsForQuestion(question.questionId)
+                QuestionWithOptions(question, options)
+            }
+            _quizData.emit(questionsWithOptions)
         }
-        _quizData.emit(questionsWithOptions)
     }
 
-    /*
-    fun loadUserScoreForArticle(userId: Long, articleId: Long) = viewModelScope.launch(Dispatchers.IO) {
-        val score = educationRepository.getUserScoreForArticle(userId, articleId)
-        _userScore.emit(score)
-    }
-    */
-    fun getUserScoreForArticle(userId: Int, articleId: Long): Flow<UserQuizScore?> {
-        return flow {
+    fun fetchUserScoreForArticle(userId: Int, articleId: Long) {
+        viewModelScope.launch {
             val score = articleRepository.getUserScoreForArticle(userId, articleId)
             Log.d("ArticleViewModel", "Fetched user score for user $userId and article $articleId: $score")
-            emit(score)
-        }.flowOn(Dispatchers.IO)
-    }
 
-
-    fun updateUserScore(articleId: Long, score: Int) = viewModelScope.launch(Dispatchers.IO) {
-        val user = currentUser.value
-        user?.let {
-            val userScore = UserQuizScore(it.userId, articleId, score)
-            articleRepository.insertOrUpdateUserScore(userScore)
-            _userScore.emit(userScore)  // Update the score state for UI reflection
+            // Update the map with the new score.
+            val updatedScores = _userScores.value.toMutableMap()
+            if (score != null) {
+                updatedScores[articleId] = score
+            } else {
+                updatedScores.remove(articleId)
+            }
+            _userScores.emit(updatedScores)
         }
     }
+
+
+    fun updateUserScore(articleId: Long, score: Int) {
+        viewModelScope.launch {
+            val user = currentUser.value
+            user?.let {
+                val userScore = UserQuizScore(it.userId, articleId, score)
+                articleRepository.insertOrUpdateUserScore(userScore)
+
+                // Update the map with the new score.
+                val updatedScores = _userScores.value.toMutableMap()
+                updatedScores[articleId] = userScore
+                _userScores.emit(updatedScores)
+            }
+        }
+    }
+
+
     data class QuestionWithOptions(val question: Question, val options: List<Option>)
 }
 

@@ -8,14 +8,13 @@ import retrofit2.awaitResponse
 
 class NewsRepository(private val newsApi: NewsApi, private val educationDao: EducationDao) {
 
-    fun getClimateNews(): List<ClimateNews> {
+    suspend fun getClimateNews(): List<ClimateNews> {
         val call = newsApi.getClimateNews()
-        val response = call.execute() // synchronous call
+        val response = call.execute()
 
         if (response.isSuccessful) {
             return response.body()?.articles ?: listOf()
         } else {
-            // handle error or return empty list
             return listOf()
         }
     }

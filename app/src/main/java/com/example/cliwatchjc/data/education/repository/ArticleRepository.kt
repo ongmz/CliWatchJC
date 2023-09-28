@@ -10,53 +10,49 @@ import com.example.cliwatchjc.data.education.UserQuizScore
 class ArticleRepository(private val educationDao: EducationDao) {
 
     // Methods for articles
-    fun getAllArticles(): List<Article> = educationDao.getAllArticles()
+    suspend fun getAllArticles(): List<Article> = educationDao.getAllArticles()
 
-    fun getArticleById(id: Long): Article = educationDao.getArticleById(id)
+    suspend fun getArticleById(id: Long): Article = educationDao.getArticleById(id)
 
-    fun insertArticle(article: Article) = educationDao.insertArticle(article)
+    suspend fun insertArticle(article: Article) = educationDao.insertArticle(article)
 
-    fun deleteArticle(article: Article) = educationDao.deleteArticle(article)
+    suspend fun deleteArticle(article: Article) = educationDao.deleteArticle(article)
 
     // Methods for questions
-    fun getQuestionsForArticle(articleId: Long): List<Question> = educationDao.getQuestionsForArticle(articleId)
+    suspend fun getQuestionsForArticle(articleId: Long): List<Question> = educationDao.getQuestionsForArticle(articleId)
 
-    fun insertQuestion(question: Question) = educationDao.insertQuestion(question)
+    suspend fun insertQuestion(question: Question) = educationDao.insertQuestion(question)
 
-    fun deleteQuestion(question: Question) = educationDao.deleteQuestion(question)
+    suspend fun deleteQuestion(question: Question) = educationDao.deleteQuestion(question)
 
-    fun getTotalQuestionsCount(): Int {
-        return educationDao.getQuestionsCount()
-    }
+    suspend fun getTotalQuestionsCount(): Int = educationDao.getQuestionsCount()
 
     // Methods for options
-    fun getOptionsForQuestion(questionId: Long): List<Option> = educationDao.getOptionsForQuestion(questionId)
+    suspend fun getOptionsForQuestion(questionId: Long): List<Option> = educationDao.getOptionsForQuestion(questionId)
 
-    fun insertOption(option: Option) = educationDao.insertOption(option)
+    suspend fun insertOption(option: Option) = educationDao.insertOption(option)
 
-    fun deleteOption(option: Option) = educationDao.deleteOption(option)
+    suspend fun deleteOption(option: Option) = educationDao.deleteOption(option)
 
     // Methods for user quiz scores
-     fun getUserScoreForArticle(userId: Int, articleId: Long): UserQuizScore? {
+    suspend fun getUserScoreForArticle(userId: Int, articleId: Long): UserQuizScore? {
         val score = educationDao.getUserScoreForArticle(userId, articleId)
         Log.d("EducationRepository", "Fetched user score for user $userId and article $articleId: $score")
         return score
     }
 
-    fun getUserTotalScore(userId: Int): Int {
-        return educationDao.getUserTotalScore(userId)
-    }
+    suspend fun getUserTotalScore(userId: Int): Int = educationDao.getUserTotalScore(userId)
 
-    fun insertOrUpdateUserScore(userScore: UserQuizScore) = educationDao.insertOrUpdateUserScore(userScore)
+    suspend fun insertOrUpdateUserScore(userScore: UserQuizScore) = educationDao.insertOrUpdateUserScore(userScore)
 
-    fun deleteUserQuizScore(userScore: UserQuizScore) = educationDao.deleteUserQuizScore(userScore)
+    suspend fun deleteUserQuizScore(userScore: UserQuizScore) = educationDao.deleteUserQuizScore(userScore)
 
-    fun getTotalQuestionsForArticle(articleId: Long): Int = educationDao.getTotalQuestionsForArticle(articleId)
+    suspend fun getTotalQuestionsForArticle(articleId: Long): Int = educationDao.getTotalQuestionsForArticle(articleId)
 
-    fun getCorrectAnswersForArticle(userId: Long, articleId: Long): Int = educationDao.getCorrectAnswersForArticle(userId, articleId)
+    suspend fun getCorrectAnswersForArticle(userId: Long, articleId: Long): Int = educationDao.getCorrectAnswersForArticle(userId, articleId)
 
     // Function to insert default/sample articles into the database
-    fun insertSampleArticles() {
+    suspend fun insertSampleArticles() {
         val articles = listOf(
             Article(articleId = 1, title = "Climate Change Decoded", content = "The Basics and Beyond", maxScore = 3),
             Article(articleId = 2, title = "Ripples of a Warming World", content = "Far-reaching Consequences of Climate Change", maxScore = 3),
@@ -67,7 +63,7 @@ class ArticleRepository(private val educationDao: EducationDao) {
         }
     }
 
-    fun insertSampleQuestionsWithOptions() {
+    suspend fun insertSampleQuestionsWithOptions() {
         val questionsWithOptions = listOf(
             //Article 1
             Pair(
