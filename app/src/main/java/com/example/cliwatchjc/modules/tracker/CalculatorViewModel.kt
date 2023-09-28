@@ -1,5 +1,8 @@
 package com.example.cliwatchjc.modules.tracker
 
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -67,12 +70,61 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
         _waste.value = value
     }
 
+    fun setCarbonFootprint(value: Float) {
+        _carbonFootprint.value = value
+    }
+
     // Function to reset all inputs and the calculated carbon footprint
     fun resetInputs() {
         _transportation.value = 0.0f
         _energyUsage.value = 0.0f
         _waste.value = 0.0f
         _carbonFootprint.value = 0.0f
+        _weeklyTransportationData.value = emptyList()
+        _weeklyEnergyUsageData.value = emptyList()
+        _weeklyWasteData.value = emptyList()
+        _monthlyTransportationData.value = emptyList()
+        _monthlyEnergyUsageData.value = emptyList()
+        _monthlyWasteData.value = emptyList()
+    }
+
+    fun calculateTransportation(transportation: String, distance: String): Float {
+        val distanceInKm = distance.toFloatOrNull() ?: 0.0f
+        val transportationCO2ePerKm = when (transportation) {
+            "Car" -> 0.1f
+            "Motorcycle" -> 0.09f
+            "Public Transport" -> 0.25f
+            else -> 0.0f
+        }
+        return distanceInKm * transportationCO2ePerKm
+    }
+
+    fun calculateFood(diet: String, spending: String): Float {
+        val spendingPerWeek = spending.toFloatOrNull() ?: 0.0f
+        val foodCO2ePerDollar = when (diet) {
+            "Vegan" -> 0.03f
+            "Vegetarian" -> 0.04f
+            "Meat Lover" -> 0.05f
+            else -> 0.0f
+        }
+        return spendingPerWeek * foodCO2ePerDollar
+    }
+
+
+    fun calculateEnergy(electricity: String, naturalGas: String, firewood: String): Float {
+        val electricityUsageInKWh = electricity.toFloatOrNull() ?: 0.0f
+        val naturalGasUsageInMJ = naturalGas.toFloatOrNull() ?: 0.0f
+        val firewoodUsageInKg = firewood.toFloatOrNull() ?: 0.0f
+
+        val electricityCO2ePerKWh = 0.03f
+        val naturalGasCO2ePerMJ = 0.15f
+        val firewoodCO2ePerKg = 0.19f
+
+        val electricityCO2e = electricityUsageInKWh * electricityCO2ePerKWh
+        val naturalGasCO2e = naturalGasUsageInMJ * naturalGasCO2ePerMJ
+        val firewoodCO2e = firewoodUsageInKg * firewoodCO2ePerKg
+
+        return electricityCO2e + naturalGasCO2e + firewoodCO2e
     }
 
     fun generateSampleWeeklyTransportationData(): List<Float> {
