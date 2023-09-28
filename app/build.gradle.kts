@@ -72,6 +72,8 @@ dependencies {
 
     //Navigation
     implementation("androidx.navigation:navigation-compose:2.7.3")
+    implementation("com.google.accompanist:accompanist-pager:0.32.0")
+
 
     //Room
     val room_version = "2.5.2"

@@ -1,5 +1,6 @@
 package com.example.cliwatchjc
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,6 +42,7 @@ fun MainMenuScreen() {
     val userTotalScore by articleViewModel.userTotalScore.collectAsState()
     val totalQuestions by articleViewModel.totalQuestions.collectAsState()
 
+    BackHandler { }
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Card(
