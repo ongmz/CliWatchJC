@@ -253,7 +253,6 @@ fun ResultAndTipsSection(calculatorViewModel: CalculatorViewModel) {
         }
     }
 
-
 @Composable
 fun Tip(text: String) {
     Row(
@@ -275,7 +274,6 @@ val tipsList = listOf(
     "Try the train for your next holiday",
     "Limit and recycle your waste"
 )
-
 
 @Preview
 @Composable

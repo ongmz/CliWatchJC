@@ -146,7 +146,8 @@ fun MyApp() {
             topBar = {
                 if (currentRoute != Routes.AUTHENTICATION &&
                     currentRoute != Routes.WELCOME &&
-                    currentRoute != Routes.MAIN_AUTHENTICATION ) {
+                    currentRoute != Routes.MAIN_AUTHENTICATION
+                ) {
                     val scope = rememberCoroutineScope()
                     TopAppBar(
                         title = { Text("CliWatch", fontSize = 24.sp) },
@@ -171,7 +172,8 @@ fun MyApp() {
             bottomBar = {
                 if (currentRoute != Routes.AUTHENTICATION &&
                     currentRoute != Routes.WELCOME &&
-                    currentRoute != Routes.MAIN_AUTHENTICATION ) {
+                    currentRoute != Routes.MAIN_AUTHENTICATION
+                ) {
                     NavigationBar {
                         NavigationBarItem(
                             label = { Text(Routes.labels[Routes.EDUCATION] ?: "") },
@@ -196,7 +198,12 @@ fun MyApp() {
                         )
                         NavigationBarItem(
                             label = { Text(Routes.labels[Routes.TRACKER] ?: "") },
-                            icon = { /* Placeholder */ },
+                            icon = {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_tracker),
+                                    contentDescription = ""
+                                )
+                            },
                             selected = currentRoute == Routes.TRACKER,
                             onClick = {
                                 navController.navigate(Routes.TRACKER) {
@@ -261,7 +268,8 @@ fun MyApp() {
                         )
                     ) { backStackEntry ->
                         val scoreArg = backStackEntry.arguments?.getInt("score") ?: -1
-                        val totalQuestionsArg = backStackEntry.arguments?.getInt("totalQuestions") ?: -1
+                        val totalQuestionsArg =
+                            backStackEntry.arguments?.getInt("totalQuestions") ?: -1
                         QuizComplete(scoreArg, totalQuestionsArg, navController)
                     }
                     composable(Routes.CLIMATE_NEWS) { ClimateNewsScreen(navController) }
@@ -276,7 +284,7 @@ fun MyApp() {
                     composable(Routes.TRACKER) { TrackerScreen(navController) }
                     composable(Routes.CALCULATOR) { CalculatorScreen(calculatorViewModel = CalculatorViewModel()) }
                     composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }
-                    composable(Routes.SUMMARY) { SummaryScreen()}
+                    composable(Routes.SUMMARY) { SummaryScreen() }
                     composable(Routes.CHALLENGES) { ChallengesScreen() }
                 }
             }
@@ -312,7 +320,7 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
                     fontSize = 16.sp,
                     letterSpacing = 0.1.sp,
                     modifier = Modifier.padding(horizontal = 12.dp)
-                    )
+                )
             }
 
             item { Spacer(modifier = Modifier.height(20.dp)) }
@@ -332,9 +340,11 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
 
             item {
                 Column {
-                    Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
-                        .padding(horizontal = 40.dp, vertical = 16.dp)
-                        .fillMaxWidth()) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
+                            .padding(horizontal = 40.dp, vertical = 16.dp)
+                            .fillMaxWidth()
+                    ) {
                         Column {
                             Image(
                                 painterResource(id = R.drawable.img_leon),
@@ -376,7 +386,8 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
                     Row(
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
-                            .padding(top = 8.dp)) {
+                            .padding(top = 8.dp)
+                    ) {
                         Column {
                             Image(
                                 painterResource(id = R.drawable.img_leon),

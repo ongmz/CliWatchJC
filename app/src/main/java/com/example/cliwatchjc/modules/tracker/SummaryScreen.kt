@@ -32,26 +32,26 @@ fun SummaryScreen() {
     val sampleWeeklyEnergyUsageData =
         calculatorViewModel.generateSampleWeeklyEnergyUsageData()
     val sampleWeeklyWasteData =
-        calculatorViewModel.generateSampleWeeklyWasteData()
+        calculatorViewModel.generateSampleWeeklyFoodData()
     val sampleMonthlyTransportationData =
         calculatorViewModel.generateSampleMonthlyTransportationData()
     val sampleMonthlyEnergyUsageData =
         calculatorViewModel.generateSampleMonthlyEnergyUsageData()
     val sampleMonthlyWasteData =
-        calculatorViewModel.generateSampleMonthlyWasteData()
+        calculatorViewModel.generateSampleMonthlyFoodData()
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     val weeklyData = when (selectedTabIndex) {
         0 -> calculatorViewModel.weeklyTransportationData
         1 -> calculatorViewModel.weeklyEnergyUsageData
-        2 -> calculatorViewModel.weeklyWasteData
+        2 -> calculatorViewModel.weeklyFoodData
         else -> calculatorViewModel.weeklyTransportationData
     }.collectAsState()
 
     val monthlyData = when (selectedTabIndex) {
         3 -> calculatorViewModel.monthlyTransportationData
         4 -> calculatorViewModel.monthlyEnergyUsageData
-        5 -> calculatorViewModel.monthlyWasteData
+        5 -> calculatorViewModel.monthlyFoodData
         else -> calculatorViewModel.monthlyTransportationData
     }.collectAsState()
 

@@ -1,8 +1,5 @@
 package com.example.cliwatchjc.modules.tracker
 
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,8 +15,8 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
     private val _energyUsage = MutableStateFlow(0.0f)
     private val energyUsage: StateFlow<Float> = _energyUsage.asStateFlow()
 
-    private val _waste = MutableStateFlow(0.0f)
-    private val waste: StateFlow<Float> = _waste.asStateFlow()
+    private val _food = MutableStateFlow(0.0f)
+    private val food: StateFlow<Float> = _food.asStateFlow()
 
     private val _carbonFootprint = MutableStateFlow(0.0f)
     val carbonFootprint: StateFlow<Float> = _carbonFootprint.asStateFlow()
@@ -31,8 +28,8 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
     private val _weeklyEnergyUsageData = MutableStateFlow<List<Float>>(emptyList())
     val weeklyEnergyUsageData: StateFlow<List<Float>> = _weeklyEnergyUsageData.asStateFlow()
 
-    private val _weeklyWasteData = MutableStateFlow<List<Float>>(emptyList())
-    val weeklyWasteData: StateFlow<List<Float>> = _weeklyWasteData.asStateFlow()
+    private val _weeklyFoodData = MutableStateFlow<List<Float>>(emptyList())
+    val weeklyFoodData: StateFlow<List<Float>> = _weeklyFoodData.asStateFlow()
 
     // Monthly data properties
     private val _monthlyTransportationData = MutableStateFlow<List<Float>>(emptyList())
@@ -41,19 +38,8 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
     private val _monthlyEnergyUsageData = MutableStateFlow<List<Float>>(emptyList())
     val monthlyEnergyUsageData: StateFlow<List<Float>> = _monthlyEnergyUsageData.asStateFlow()
 
-    private val _monthlyWasteData = MutableStateFlow<List<Float>>(emptyList())
-    val monthlyWasteData: StateFlow<List<Float>> = _monthlyWasteData.asStateFlow()
-
-    // Function to calculate the carbon footprint
-    fun calculateCarbonFootprint() {
-        val transportationValue = transportation.value
-        val energyUsageValue = energyUsage.value
-        val wasteValue = waste.value
-
-        val calculatedFootprint = transportationValue + energyUsageValue + wasteValue
-
-        _carbonFootprint.value = calculatedFootprint
-    }
+    private val _monthlyFoodData = MutableStateFlow<List<Float>>(emptyList())
+    val monthlyFoodData: StateFlow<List<Float>> = _monthlyFoodData.asStateFlow()
 
     // Function to set the transportation input
     fun setTransportation(value: Float) {
@@ -65,9 +51,9 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
         _energyUsage.value = value
     }
 
-    // Function to set the waste input
-    fun setWaste(value: Float) {
-        _waste.value = value
+    // Function to set the food input
+    fun setFood(value: Float) {
+        _food.value = value
     }
 
     fun setCarbonFootprint(value: Float) {
@@ -78,14 +64,14 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
     fun resetInputs() {
         _transportation.value = 0.0f
         _energyUsage.value = 0.0f
-        _waste.value = 0.0f
+        _food.value = 0.0f
         _carbonFootprint.value = 0.0f
         _weeklyTransportationData.value = emptyList()
         _weeklyEnergyUsageData.value = emptyList()
-        _weeklyWasteData.value = emptyList()
+        _weeklyFoodData.value = emptyList()
         _monthlyTransportationData.value = emptyList()
         _monthlyEnergyUsageData.value = emptyList()
-        _monthlyWasteData.value = emptyList()
+        _monthlyFoodData.value = emptyList()
     }
 
     fun calculateTransportation(transportation: String, distance: String): Float {
@@ -143,11 +129,11 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
         return listOf(150.0f, 155.0f, 142.0f, 138.0f, 160.0f, 158.0f, 153.0f)
     }
 
-    fun generateSampleWeeklyWasteData(): List<Float> {
+    fun generateSampleWeeklyFoodData(): List<Float> {
         return listOf(5.0f, 8.0f, 6.0f, 7.0f, 9.0f, 5.0f, 4.0f)
     }
 
-    fun generateSampleMonthlyWasteData(): List<Float> {
+    fun generateSampleMonthlyFoodData(): List<Float> {
         return listOf(20.0f, 28.0f, 22.0f, 26.0f, 30.0f, 25.0f, 24.0f)
     }
 }

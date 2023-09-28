@@ -1,6 +1,5 @@
 package com.example.cliwatchjc.modules.tracker
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cliwatchjc.data.tracker.PersonalGoal
