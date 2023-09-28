@@ -37,12 +37,14 @@ class AddChallengesViewModel @Inject constructor(
         viewModelScope.launch {
             repository.insertChallenge(challenge)
         }
+
     }
+
 
     // Function to update challenge status and marks
     fun updateChallengeStatusAndMarks(challenge: AddChallenges, newStatus: String, marks: Int) {
         viewModelScope.launch {
-            repository.updateChallengeStatusAndMarks(challenge, newStatus, marks)
+            repository.updateChallengeStatusAndMarks(challenge.challengesId, newStatus, marks)
         }
     }
 }

@@ -18,6 +18,7 @@ import com.example.cliwatchjc.data.challenges.AddChallenges
 
 
 
+
 @Composable
 fun AddChallengesTab(viewModel: AddChallengesViewModel) {
     val challenges = viewModel.challenges.collectAsState(emptyList()).value
@@ -27,40 +28,34 @@ fun AddChallengesTab(viewModel: AddChallengesViewModel) {
     ) {
         items(challenges.size) { index ->
             val challenge = challenges[index]
-            ChallengeCard(challenge = challenge) {
-                viewModel.insertChallenge(challenge)
-            }
-        }
-    }
-}
 
-
-@Composable
-fun ChallengeCard(challenge: AddChallenges, onAddClicked: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-        ) {
-            Text(text = challenge.challenges_title, style = TextStyle(fontWeight = FontWeight.Bold))
-            Text(text = challenge.challenges_desc, modifier = Modifier.padding(top = 4.dp))
-            Text(text = "Duration: ${challenge.challenges_duration}", modifier = Modifier.padding(top = 4.dp))
-
-            Button(
-                onClick = {
-                    onAddClicked()
-                },
+            Card(
                 modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(top = 8.dp)
+                    .fillMaxWidth()
+                    .padding(8.dp)
             ) {
-                Text(text = "Add Challenge")
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth()
+                ) {
+                    Text(text = challenge.challenges_title, style = TextStyle(fontWeight = FontWeight.Bold))
+                    Text(text = challenge.challenges_desc, modifier = Modifier.padding(top = 4.dp))
+                    Text(text = "Duration: ${challenge.challenges_duration}", modifier = Modifier.padding(top = 4.dp))
+
+                    Button(
+                        onClick = {
+                            viewModel.insertChallenge(challenge)
+                        },
+                        modifier = Modifier
+                            .align(Alignment.End)
+                            .padding(top = 8.dp)
+                    ) {
+                        Text(text = "Add Challenge")
+                    }
+                }
             }
         }
     }
 }
+

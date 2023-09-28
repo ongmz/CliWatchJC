@@ -16,7 +16,8 @@ interface AddChallengesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertChallenge(challenge: AddChallenges?)
 
-
+    @Query("UPDATE Challenges SET challenges_status = :newStatus, marks = :marks WHERE challengesId = :challengeId")
+    fun updateChallengeStatusAndMarks(challengeId: Long, newStatus: String, marks: Int)
 }
 
 
