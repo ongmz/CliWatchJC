@@ -53,7 +53,6 @@ object AppModule {
             .build()
     }
 
-    // Provide OkHttp Client with interceptor
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {

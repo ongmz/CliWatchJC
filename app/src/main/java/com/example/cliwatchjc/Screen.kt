@@ -1,6 +1,7 @@
 package com.example.cliwatchjc
 
 import android.annotation.SuppressLint
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -89,6 +90,9 @@ import com.example.cliwatchjc.modules.tracker.SummaryScreen
 import com.example.compose.AppTheme
 
 object Routes {
+    const val WELCOME = "welcome"
+    const val MAIN_AUTHENTICATION = "mainAuthentication"
+    const val AUTHENTICATION = "authentication"
     const val MAIN_MENU = "mainMenu"
     const val EDUCATION = "education"
     const val EDUCATION_RESOURCES = "educationResources"
@@ -104,6 +108,9 @@ object Routes {
     const val CHALLENGES = "challenges"
 
     val labels = mapOf(
+        WELCOME to "welcome",
+        MAIN_AUTHENTICATION to "Main Authentication",
+        AUTHENTICATION to "Authentication",
         MAIN_MENU to "Main Menu",
         EDUCATION to "Education",
         EDUCATION_RESOURCES to "Education Resources",
@@ -127,8 +134,8 @@ fun MyApp() {
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
     val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
-    val userViewModel: UserViewModel = hiltViewModel()
-    userViewModel.createUser()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
     ModalNavigationDrawer(drawerContent = {
         AppDrawer(
@@ -137,31 +144,35 @@ fun MyApp() {
     }, drawerState = drawerState) {
         Scaffold(
             topBar = {
-                val scope = rememberCoroutineScope()
-                TopAppBar(
-                    title = { Text("CliWatch", fontSize = 24.sp) },
-                    navigationIcon = {
-                        IconButton(onClick = { scope.launch { drawerState.open() } }) {
-                            Icon(Icons.Default.Menu, contentDescription = "Open Side Menu")
-                        }
-                    },
-                    actions = {
-                        IconButton(onClick = { navController.navigate(Routes.MAIN_MENU) }) {
-                            Icon(
+                if (currentRoute != Routes.AUTHENTICATION &&
+                    currentRoute != Routes.WELCOME &&
+                    currentRoute != Routes.MAIN_AUTHENTICATION ) {
+                    val scope = rememberCoroutineScope()
+                    TopAppBar(
+                        title = { Text("CliWatch", fontSize = 24.sp) },
+                        navigationIcon = {
+                            IconButton(onClick = { scope.launch { drawerState.open() } }) {
+                                Icon(Icons.Default.Menu, contentDescription = "Open Side Menu")
+                            }
+                        },
+                        actions = {
+                            IconButton(onClick = { navController.navigate(Routes.MAIN_MENU) }) {
+                                Icon(
                                     Icons.Default.Home, contentDescription = "Main Menu",
                                     modifier = Modifier
-                                            .size(32.dp)
-                            )
-                        }
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-                )
+                                        .size(32.dp)
+                                )
+                            }
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+                    )
+                }
             },
-                bottomBar = {
+            bottomBar = {
+                if (currentRoute != Routes.AUTHENTICATION &&
+                    currentRoute != Routes.WELCOME &&
+                    currentRoute != Routes.MAIN_AUTHENTICATION ) {
                     NavigationBar {
-                        val navBackStackEntry by navController.currentBackStackEntryAsState()
-                        val currentRoute = navBackStackEntry?.destination?.route
-
                         NavigationBarItem(
                             label = { Text(Routes.labels[Routes.EDUCATION] ?: "") },
                             icon = {
@@ -171,12 +182,12 @@ fun MyApp() {
                                 )
                             },
                             selected = currentRoute == Routes.EDUCATION ||
-                                currentRoute == Routes.EDUCATION_RESOURCES ||
-                                currentRoute?.startsWith(Routes.ARTICLE_CONTENT) == true ||
-                                currentRoute == Routes.QUIZ ||
-                                currentRoute == Routes.QUIZ_COMPLETE ||
-                                currentRoute == Routes.CLIMATE_NEWS_CONTENT ||
-                                currentRoute == Routes.CLIMATE_NEWS,
+                                    currentRoute == Routes.EDUCATION_RESOURCES ||
+                                    currentRoute?.startsWith(Routes.ARTICLE_CONTENT) == true ||
+                                    currentRoute == Routes.QUIZ ||
+                                    currentRoute == Routes.QUIZ_COMPLETE ||
+                                    currentRoute == Routes.CLIMATE_NEWS_CONTENT ||
+                                    currentRoute == Routes.CLIMATE_NEWS,
                             onClick = {
                                 navController.navigate(Routes.EDUCATION) {
                                     launchSingleTop = true
@@ -205,10 +216,26 @@ fun MyApp() {
                         )
                     }
                 }
+            }
         )
         {
             Box(modifier = Modifier.fillMaxSize()) {
-                NavHost(navController, startDestination = Routes.MAIN_MENU) {
+                NavHost(navController, startDestination = Routes.WELCOME) {
+                    composable(Routes.WELCOME) {
+                        WelcomeScreen(onSwiped = {
+                            navController.navigate(Routes.AUTHENTICATION) {
+                                popUpTo(Routes.WELCOME) { inclusive = true }
+                            }
+                        })
+                    }
+                    composable(Routes.MAIN_AUTHENTICATION) {
+                        val userViewModel: UserViewModel = hiltViewModel()
+                        MainAuthenticationScreen(navController, userViewModel)
+                    }
+                    composable(Routes.AUTHENTICATION) {
+                        val userViewModel: UserViewModel = hiltViewModel()
+                        AuthenticationScreen(navController, userViewModel)
+                    }
                     composable(Routes.MAIN_MENU) { MainMenuScreen() }
                     composable(Routes.EDUCATION) { EducationScreen(navController) }
                     composable(Routes.EDUCATION_RESOURCES) { ArticleListScreen(navController) }
@@ -295,7 +322,9 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
                     text = "We are group of students from TARUMT, presenting our assignment of developing mobile application using Android Studio.",
                     textAlign = TextAlign.Justify,
                     fontSize = 16.sp,
-                    modifier = Modifier.align(Alignment.CenterHorizontally).padding(horizontal = 12.dp)
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(horizontal = 12.dp)
                 )
             }
 
@@ -303,7 +332,9 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
 
             item {
                 Column {
-                    Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.padding(horizontal = 40.dp, vertical = 16.dp).fillMaxWidth()) {
+                    Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
+                        .padding(horizontal = 40.dp, vertical = 16.dp)
+                        .fillMaxWidth()) {
                         Column {
                             Image(
                                 painterResource(id = R.drawable.img_leon),
@@ -343,7 +374,9 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
                     Spacer(modifier = Modifier.height(32.dp))
 
                     Row(
-                        modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 8.dp)) {
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .padding(top = 8.dp)) {
                         Column {
                             Image(
                                 painterResource(id = R.drawable.img_leon),
@@ -375,8 +408,8 @@ fun DrawerHeader() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
-                .background(MaterialTheme.colorScheme.secondary)
-                .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.secondary)
+            .fillMaxWidth()
     ) {
         Image(
             painterResource(id = R.drawable.img_drawer_header),
