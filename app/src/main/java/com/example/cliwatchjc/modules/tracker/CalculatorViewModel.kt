@@ -1,10 +1,13 @@
 package com.example.cliwatchjc.modules.tracker
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,6 +43,20 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
 
     private val _monthlyFoodData = MutableStateFlow<List<Float>>(emptyList())
     val monthlyFoodData: StateFlow<List<Float>> = _monthlyFoodData.asStateFlow()
+
+    private val _calculatorResultNavigation = MutableStateFlow<CalculatorScreenNavigation?>(null)
+    val calculatorResultNavigation: StateFlow<CalculatorScreenNavigation?> = _calculatorResultNavigation
+
+    sealed class CalculatorScreenNavigation {
+        data object CalculatorResult : CalculatorScreenNavigation()
+    }
+
+    fun navigateToResultScreen(navController: NavHostController) {
+        viewModelScope.launch {
+            _calculatorResultNavigation.value = CalculatorScreenNavigation.CalculatorResult
+        }
+    }
+
 
     // Function to set the transportation input
     fun setTransportation(value: Float) {

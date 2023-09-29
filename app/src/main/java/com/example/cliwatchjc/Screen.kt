@@ -64,11 +64,11 @@ import com.example.cliwatchjc.modules.education.EducationScreen
 import com.example.cliwatchjc.modules.education.QuizComplete
 import com.example.cliwatchjc.modules.education.QuizScreen
 import com.example.cliwatchjc.modules.education.WebViewScreen
+import com.example.cliwatchjc.modules.tracker.CalculatorResultScreen
 import com.example.cliwatchjc.modules.tracker.TrackerScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import com.example.cliwatchjc.modules.tracker.CalculatorScreen
-import com.example.cliwatchjc.modules.tracker.CalculatorViewModel
 import com.example.cliwatchjc.modules.tracker.PersonalGoalScreen
 import com.example.cliwatchjc.modules.tracker.SummaryScreen
 
@@ -84,6 +84,7 @@ object Routes {
     const val CLIMATE_NEWS_CONTENT = "webViewScreen?url={url}"
     const val TRACKER = "tracker"
     const val CALCULATOR = "calculator"
+    const val CALCULATOR_RESULT = "calculatorResult"
     const val PERSONAL_GOAL = "personalGoal"
     const val SUMMARY = "summary"
     const val CHALLENGES = "challenges"
@@ -99,6 +100,7 @@ object Routes {
         CLIMATE_NEWS to "Climate News",
         TRACKER to "Tracker",
         CALCULATOR to "Calculator",
+        CALCULATOR_RESULT to "Calculator Result",
         PERSONAL_GOAL to "Personal Goal",
         SUMMARY to "Summary",
         CHALLENGES to "Challenges"
@@ -238,7 +240,23 @@ fun MyApp() {
                         }
                     }
                     composable(Routes.TRACKER) { TrackerScreen(navController) }
-                    composable(Routes.CALCULATOR) { CalculatorScreen(calculatorViewModel = CalculatorViewModel()) }
+                    composable(Routes.CALCULATOR) {
+                        CalculatorScreen(
+                            calculatorViewModel = hiltViewModel(),
+                            navController = navController
+                        )
+                    }
+                    composable(
+                        route = "${Routes.CALCULATOR_RESULT}/{result}",
+                        arguments = listOf(
+                            navArgument("result") {
+                                type = NavType.FloatType
+                            }
+                        )
+                    ) { backStackEntry ->
+                        val result = backStackEntry.arguments?.getFloat("result") ?: 0.0f
+                        CalculatorResultScreen(result)
+                    }
                     composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }
                     composable(Routes.SUMMARY) { SummaryScreen()}
                     composable(Routes.CHALLENGES) { ChallengesScreen() }

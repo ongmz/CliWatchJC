@@ -3,6 +3,8 @@ package com.example.cliwatchjc.modules.tracker
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cliwatchjc.data.tracker.PersonalGoal
+import com.example.cliwatchjc.data.tracker.PersonalGoalDetails
+import com.example.cliwatchjc.data.tracker.repository.PersonalGoalDetailsRepository
 import com.example.cliwatchjc.data.tracker.repository.PersonalGoalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PersonalGoalViewModel @Inject constructor(
-    private val personalGoalRepository: PersonalGoalRepository
+    private val personalGoalRepository: PersonalGoalRepository,
+    private val personalGoalDetailsRepository: PersonalGoalDetailsRepository
 ) : ViewModel() {
 
     private val _goals = MutableStateFlow<List<PersonalGoal>>(emptyList())
@@ -54,4 +57,21 @@ class PersonalGoalViewModel @Inject constructor(
             loadGoals() // Reload the goals after deleting
         }
     }
+
+    // Function to get personal goal details
+    fun getGoalDetails(userId: Int, goalId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val details = personalGoalDetailsRepository.getGoalDetails(userId, goalId)
+            loadGoals()
+        }
+    }
+
+    // Function to update personal goal details
+    fun updateGoalDetails(personalGoalDetails: PersonalGoalDetails) {
+        viewModelScope.launch(Dispatchers.IO) {
+            personalGoalDetailsRepository.updateGoalDetails(personalGoalDetails)
+            loadGoals()
+        }
+    }
+
 }

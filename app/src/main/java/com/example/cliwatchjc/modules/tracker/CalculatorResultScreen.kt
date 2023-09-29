@@ -22,10 +22,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun CalculatorResultScreen(calculatorViewModel: CalculatorViewModel) {
+fun CalculatorResultScreen(result: Float) {
+    val calculatorViewModel: CalculatorViewModel = hiltViewModel()
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
@@ -88,9 +90,3 @@ val tipsList = listOf(
     "Try the train for your next holiday",
     "Limit and recycle your waste"
 )
-
-@Preview
-@Composable
-fun CalculatorResultPreview() {
-    CalculatorResultScreen(calculatorViewModel = CalculatorViewModel())
-}
