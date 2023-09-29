@@ -30,8 +30,8 @@ class PersonalGoalViewModel @Inject constructor(
     }
 
     // Function to set a new goal
-    fun setGoal(newGoalText: String) {
-        val newGoal = PersonalGoal(description = newGoalText)
+    fun setGoal(newGoalText: String, dueDate: Long?) {
+        val newGoal = PersonalGoal(description = newGoalText, dueDate = dueDate)
 
         viewModelScope.launch(Dispatchers.IO) {
             personalGoalRepository.insertGoal(newGoal)
@@ -39,4 +39,19 @@ class PersonalGoalViewModel @Inject constructor(
         }
     }
 
+    // Function to update a goal
+    fun updateGoal(updatedGoal: PersonalGoal) {
+        viewModelScope.launch(Dispatchers.IO) {
+            personalGoalRepository.updateGoal(updatedGoal)
+            loadGoals() // Reload the goals after updating
+        }
+    }
+
+    // Function to delete a goal
+    fun deleteGoal(goal: PersonalGoal) {
+        viewModelScope.launch(Dispatchers.IO) {
+            personalGoalRepository.deleteGoal(goal)
+            loadGoals() // Reload the goals after deleting
+        }
+    }
 }

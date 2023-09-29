@@ -6,6 +6,7 @@ import com.example.cliwatchjc.data.User
 import java.util.*
 
 @Entity(
+    tableName = "PersonalGoalDetails",
     foreignKeys = [
         ForeignKey(entity = User::class, parentColumns = ["userId"], childColumns = ["userId"]),
         ForeignKey(entity = PersonalGoal::class, parentColumns = ["id"], childColumns = ["goalId"])

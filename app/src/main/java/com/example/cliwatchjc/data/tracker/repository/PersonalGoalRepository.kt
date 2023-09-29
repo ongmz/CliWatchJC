@@ -7,25 +7,25 @@ class PersonalGoalRepository (
     private val personalGoalDao: PersonalGoalDao,
 ) {
     // Methods for personal goals
-    fun getAllGoals(): List<PersonalGoal> {
+    suspend fun getAllGoals(): List<PersonalGoal> {
         return personalGoalDao.getAllGoals()
     }
 
-    fun getGoal(id: Long): PersonalGoal {
+    suspend fun getGoal(id: Long): PersonalGoal {
         return personalGoalDao.getGoal(id)
     }
 
-    fun insertGoal(goal: PersonalGoal) = personalGoalDao.insertGoal(goal)
+    suspend fun insertGoal(goal: PersonalGoal) = personalGoalDao.insertGoal(goal)
 
-    fun updateGoal(goal: PersonalGoal) {
+    suspend fun updateGoal(goal: PersonalGoal) {
         personalGoalDao.updateGoal(goal)
     }
 
-    fun unSelectAllGoals() {
+    suspend fun unSelectAllGoals() {
         personalGoalDao.unSelectAllGoals(false)
     }
 
-    fun deleteGoal(goal: PersonalGoal) {
+    suspend fun deleteGoal(goal: PersonalGoal) {
         personalGoalDao.deleteGoal(goal)
     }
 

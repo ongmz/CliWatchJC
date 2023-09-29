@@ -19,7 +19,7 @@ import com.example.cliwatchjc.data.tracker.PersonalGoalDetailsDao
 import com.example.cliwatchjc.modules.tracker.Converters
 
 @Database(entities = [User::class, Article::class, UserQuizScore::class, UserQuestionAttempt::class, Question::class, Option::class,
-                      ClimateNews::class, PersonalGoal::class, PersonalGoalDetails::class], version = 9)
+                      ClimateNews::class, PersonalGoal::class, PersonalGoalDetails::class], version = 10)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao

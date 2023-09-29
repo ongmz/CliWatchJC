@@ -198,12 +198,7 @@ fun MyApp() {
                         )
                         NavigationBarItem(
                             label = { Text(Routes.labels[Routes.TRACKER] ?: "") },
-                            icon = {
-                                Icon(
-                                    painter = painterResource(R.drawable.ic_tracker),
-                                    contentDescription = ""
-                                )
-                            },
+                            icon = { /* Placeholder */ },
                             selected = currentRoute == Routes.TRACKER,
                             onClick = {
                                 navController.navigate(Routes.TRACKER) {
