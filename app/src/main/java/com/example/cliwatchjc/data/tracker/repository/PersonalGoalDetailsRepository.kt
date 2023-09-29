@@ -5,7 +5,7 @@ import com.example.cliwatchjc.data.tracker.PersonalGoalDetailsDao
 
 class PersonalGoalDetailsRepository(private val personalGoalDetailsDAO: PersonalGoalDetailsDao) {
     // Methods for personal goal details
-    suspend fun getGoalDetails(userId: Long, goalId: Long): List<PersonalGoalDetails> {
+    suspend fun getGoalDetails(userId: Int, goalId: Long): List<PersonalGoalDetails> {
         return personalGoalDetailsDAO.getGoalDetails(userId, goalId)
 
     }

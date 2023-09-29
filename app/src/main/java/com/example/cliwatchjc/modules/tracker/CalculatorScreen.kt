@@ -1,28 +1,19 @@
 package com.example.cliwatchjc.modules.tracker
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -54,7 +45,7 @@ fun CalculatorScreen(calculatorViewModel: CalculatorViewModel) {
             .fillMaxWidth()
     ) {
         item {
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(80.dp))
         }
 
         item {
@@ -203,77 +194,11 @@ fun CalculatorScreen(calculatorViewModel: CalculatorViewModel) {
 
             // Display Result and Tips
             if (showResult) {
-                ResultAndTipsSection(calculatorViewModel)
+                CalculatorResultScreen(calculatorViewModel)
             }
         }
     }
 }
-
-@SuppressLint("StateFlowValueCalledInComposition")
-@Composable
-fun ResultAndTipsSection(calculatorViewModel: CalculatorViewModel) {
-    Column(
-        modifier = Modifier.padding(16.dp)
-    ) {
-        // Display Carbon Footprint with larger text
-        val carbonFootprint = calculatorViewModel.carbonFootprint.value
-        Text(
-            text = "Carbon Footprint:",
-            style = TextStyle(
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-        Text(
-            text = "$carbonFootprint CO2e tons",
-            style = TextStyle(
-                fontSize = 36.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        // Add some spacing between the result and tips
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Tips Section
-        Text(
-            text = "Tips to Reduce Your Carbon Footprint:",
-            style = TextStyle(
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
-        )
-
-        // LazyColumn for displaying tips
-        LazyColumn {
-            items(tipsList) { tip ->
-                Tip(tip)
-            }
-        }
-        }
-    }
-
-@Composable
-fun Tip(text: String) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(4.dp)
-    ) {
-        Icon(
-            imageVector = Icons.Default.Info,
-            contentDescription = null,
-            modifier = Modifier.size(24.dp)
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(text = text)
-    }
-}
-
-val tipsList = listOf(
-    "Consume local and seasonal products",
-    "Try the train for your next holiday",
-    "Limit and recycle your waste"
-)
 
 @Preview
 @Composable

@@ -14,7 +14,7 @@ import java.util.*
     primaryKeys = ["userId", "goalId"]
 )
 data class PersonalGoalDetails(
-    val userId: Long,
+    val userId: Int,
     var goalId: Long,
     var notes: String,
     var date: Date = Date()

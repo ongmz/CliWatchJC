@@ -5,6 +5,9 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 @Dao
 interface PersonalGoalDao {
@@ -27,7 +30,9 @@ interface PersonalGoalDao {
     @Query("UPDATE PersonalGoal SET isSelected = :isSelected")
     suspend fun unSelectAllGoals(isSelected: Boolean)
 
+    @Query("UPDATE PersonalGoal SET description = :newDescription WHERE title = :title")
+    suspend fun updateGoal(title: String, newDescription: String)
+
     @Delete
     suspend fun deleteGoal(personalGoal: PersonalGoal)
-
 }
