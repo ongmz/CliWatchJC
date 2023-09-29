@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
@@ -53,11 +54,8 @@ fun ArticleListScreen(navController: NavController) {
     }
 }
 
-
-
 @Composable
 fun ArticleList(articles: List<Article>, currentUser: User?, articleViewModel: ArticleViewModel, navController: NavController) {
-    val userScore = articleViewModel.userScore.collectAsState().value
 
     LazyColumn {
         items(articles) { article ->
@@ -73,10 +71,17 @@ fun ArticleItem(
     articleViewModel: ArticleViewModel,
     navController: NavController
 ) {
-    val userScore = articleViewModel
-        .getUserScoreForArticle(currentUser?.userId ?: -1, article.articleId)
-        .collectAsState(initial = null).value
+    val currentArticle = rememberUpdatedState(article)
+    val currentUserId = rememberUpdatedState(currentUser?.userId)
 
+    LaunchedEffect(currentArticle, currentUserId) {
+        currentUser?.let {
+            articleViewModel.fetchUserScoreForArticle(it.userId, currentArticle.value.articleId)
+        }
+    }
+
+    val userScores = articleViewModel.userScores.collectAsState().value
+    val userScore = userScores[currentArticle.value.articleId]
     val score = userScore?.score ?: 0
 
     Card(

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.cliwatchjc.UserManager
 import com.example.cliwatchjc.data.education.repository.ArticleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,8 +18,6 @@ class UserViewModel @Inject constructor(
 	private val userManager: UserManager
 ) : ViewModel() {
 
-	val currentUser: StateFlow<User?> = userManager.currentUser
-
 	private val _feedback = MutableStateFlow<String?>(null)
 	val feedback: StateFlow<String?> = _feedback.asStateFlow()
 
@@ -30,7 +29,7 @@ class UserViewModel @Inject constructor(
 		_isAuthenticated.value = (userManager.currentUser.value != null)
 	}
 
-	fun registerUser(userName: String, password: String) = viewModelScope.launch {
+	fun registerUser(userName: String, password: String) = viewModelScope.launch(Dispatchers.IO) {
 		val existingUser = userDao.getUser(userName, password)
 		if (existingUser == null) {
 			val newUser = User(userName = userName, password = password)
@@ -44,8 +43,7 @@ class UserViewModel @Inject constructor(
 		}
 	}
 
-
-	fun loginUser(userName: String, password: String) = viewModelScope.launch {
+	fun loginUser(userName: String, password: String) = viewModelScope.launch(Dispatchers.IO) {
 		val user = userDao.getUser(userName, password)
 		if (user != null) {
 			userManager.setUser(user)

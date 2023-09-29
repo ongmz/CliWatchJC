@@ -90,9 +90,7 @@ import com.example.cliwatchjc.modules.tracker.SummaryScreen
 import com.example.compose.AppTheme
 
 object Routes {
-    const val WELCOME = "welcome"
     const val MAIN_AUTHENTICATION = "mainAuthentication"
-    const val AUTHENTICATION = "authentication"
     const val MAIN_MENU = "mainMenu"
     const val EDUCATION = "education"
     const val EDUCATION_RESOURCES = "educationResources"
@@ -108,9 +106,7 @@ object Routes {
     const val CHALLENGES = "challenges"
 
     val labels = mapOf(
-        WELCOME to "welcome",
         MAIN_AUTHENTICATION to "Main Authentication",
-        AUTHENTICATION to "Authentication",
         MAIN_MENU to "Main Menu",
         EDUCATION to "Education",
         EDUCATION_RESOURCES to "Education Resources",
@@ -144,10 +140,7 @@ fun MyApp() {
     }, drawerState = drawerState) {
         Scaffold(
             topBar = {
-                if (currentRoute != Routes.AUTHENTICATION &&
-                    currentRoute != Routes.WELCOME &&
-                    currentRoute != Routes.MAIN_AUTHENTICATION
-                ) {
+                if ( currentRoute != Routes.MAIN_AUTHENTICATION ) {
                     val scope = rememberCoroutineScope()
                     TopAppBar(
                         title = { Text("CliWatch", fontSize = 24.sp) },
@@ -170,10 +163,7 @@ fun MyApp() {
                 }
             },
             bottomBar = {
-                if (currentRoute != Routes.AUTHENTICATION &&
-                    currentRoute != Routes.WELCOME &&
-                    currentRoute != Routes.MAIN_AUTHENTICATION
-                ) {
+                if ( currentRoute != Routes.MAIN_AUTHENTICATION ) {
                     NavigationBar {
                         NavigationBarItem(
                             label = { Text(Routes.labels[Routes.EDUCATION] ?: "") },
@@ -222,21 +212,10 @@ fun MyApp() {
         )
         {
             Box(modifier = Modifier.fillMaxSize()) {
-                NavHost(navController, startDestination = Routes.WELCOME) {
-                    composable(Routes.WELCOME) {
-                        WelcomeScreen(onSwiped = {
-                            navController.navigate(Routes.AUTHENTICATION) {
-                                popUpTo(Routes.WELCOME) { inclusive = true }
-                            }
-                        })
-                    }
+                NavHost(navController, startDestination = Routes.MAIN_AUTHENTICATION) {
                     composable(Routes.MAIN_AUTHENTICATION) {
                         val userViewModel: UserViewModel = hiltViewModel()
                         MainAuthenticationScreen(navController, userViewModel)
-                    }
-                    composable(Routes.AUTHENTICATION) {
-                        val userViewModel: UserViewModel = hiltViewModel()
-                        AuthenticationScreen(navController, userViewModel)
                     }
                     composable(Routes.MAIN_MENU) { MainMenuScreen() }
                     composable(Routes.EDUCATION) { EducationScreen(navController) }
@@ -263,8 +242,7 @@ fun MyApp() {
                         )
                     ) { backStackEntry ->
                         val scoreArg = backStackEntry.arguments?.getInt("score") ?: -1
-                        val totalQuestionsArg =
-                            backStackEntry.arguments?.getInt("totalQuestions") ?: -1
+                        val totalQuestionsArg = backStackEntry.arguments?.getInt("totalQuestions") ?: -1
                         QuizComplete(scoreArg, totalQuestionsArg, navController)
                     }
                     composable(Routes.CLIMATE_NEWS) { ClimateNewsScreen(navController) }
@@ -279,7 +257,7 @@ fun MyApp() {
                     composable(Routes.TRACKER) { TrackerScreen(navController) }
                     composable(Routes.CALCULATOR) { CalculatorScreen(calculatorViewModel = CalculatorViewModel()) }
                     composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }
-                    composable(Routes.SUMMARY) { SummaryScreen() }
+                    composable(Routes.SUMMARY) { SummaryScreen()}
                     composable(Routes.CHALLENGES) { ChallengesScreen() }
                 }
             }
@@ -315,7 +293,7 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
                     fontSize = 16.sp,
                     letterSpacing = 0.1.sp,
                     modifier = Modifier.padding(horizontal = 12.dp)
-                )
+                    )
             }
 
             item { Spacer(modifier = Modifier.height(20.dp)) }
@@ -335,11 +313,9 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
 
             item {
                 Column {
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
-                            .padding(horizontal = 40.dp, vertical = 16.dp)
-                            .fillMaxWidth()
-                    ) {
+                    Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier
+                        .padding(horizontal = 40.dp, vertical = 16.dp)
+                        .fillMaxWidth()) {
                         Column {
                             Image(
                                 painterResource(id = R.drawable.img_leon),
@@ -381,8 +357,7 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
                     Row(
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
-                            .padding(top = 8.dp)
-                    ) {
+                            .padding(top = 8.dp)) {
                         Column {
                             Image(
                                 painterResource(id = R.drawable.img_leon),

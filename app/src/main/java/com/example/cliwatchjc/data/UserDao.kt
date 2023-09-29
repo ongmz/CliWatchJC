@@ -10,22 +10,17 @@ import androidx.room.Update
 @Dao
 interface UserDao {
 
-    @Transaction
-    fun registerUser(user: User): Long {
-        return insertUser(user)
-    }
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUser(user: User): Long
 
     @Query("SELECT * FROM User WHERE userId = :userId")
     fun getUserById(userId: Int): User?
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUser(user: User): Long
-
     @Update
-    fun updateUser(user: User)
+    suspend fun updateUser(user: User): Int
 
     @Query("DELETE FROM User WHERE userId = :userId")
-    fun deleteUser(userId: Int)
+    fun deleteUser(userId: Int): Int
 
     @Query("SELECT * FROM User WHERE userName = :userName AND password = :password")
     fun getUser(userName: String, password: String): User?

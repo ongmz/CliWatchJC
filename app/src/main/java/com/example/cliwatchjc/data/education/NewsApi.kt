@@ -5,5 +5,5 @@ import retrofit2.Call
 
 interface NewsApi {
     @GET("everything?q=climate")
-    fun getClimateNews(): Call<NewsResponse>
+    suspend fun getClimateNews(): Call<NewsResponse>
 }
