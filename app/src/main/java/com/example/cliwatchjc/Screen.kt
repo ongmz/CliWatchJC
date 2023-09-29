@@ -56,6 +56,7 @@ import com.example.cliwatchjc.modules.challenges.AddChallengesViewModel
 import com.example.cliwatchjc.modules.challenges.ChallengesProgressTab
 import com.example.cliwatchjc.modules.challenges.ChallengesScreen
 import com.example.cliwatchjc.modules.challenges.LeaderboardTab
+import com.example.cliwatchjc.modules.tracker.TrackerScreen
 import com.example.compose.AppTheme
 
 object Routes {
@@ -71,7 +72,8 @@ object Routes {
     val labels = mapOf(
         MAIN_MENU to "Main Menu",
         EDUCATION to "Education",
-        CHALLENGES_SCREEN to  "challengesScreen",
+        TRACKER to "tracker",
+        CHALLENGES to  "challengesScreen",
         ADD_CHALLENGES to "addChallenges",
         PROGRESS to "progress",
         LEADERBOARD to "leaderboard"
@@ -133,6 +135,7 @@ fun MyApp() {
                             }
                         }
                     )
+
                     NavigationBarItem(
                         label = { Text(Routes.labels[Routes.CHALLENGES] ?: "") },
                         icon = { /* Placeholder */ },
@@ -143,12 +146,14 @@ fun MyApp() {
                             }
                         }
                     )
+
                 }
             }
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 NavHost(navController, startDestination = Routes.MAIN_MENU) {
                     composable(Routes.MAIN_MENU) { MainMenuScreen() }
+                    composable(Routes.TRACKER) { TrackerScreen() }
 
                     composable(Routes.CHALLENGES) { ChallengesScreen(navController) }
 

@@ -40,7 +40,7 @@ fun ChallengesScreen(navController: NavController, modifier: Modifier = Modifier
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(280.dp)
+                    .height(180.dp)
                     .clickable { navController.navigate(Routes.ADD_CHALLENGES) },
                 elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
             ) {
@@ -50,15 +50,15 @@ fun ChallengesScreen(navController: NavController, modifier: Modifier = Modifier
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.add_icon),
-                        contentDescription = "Addn Challenges Icon",
+                        contentDescription = "Add Challenges Icon",
                         modifier = Modifier
-                            .size(220.dp)
-                            .padding(top = 48.dp)
+                            .size(120.dp)
+                            .padding(top = 16.dp)
                             .align(Alignment.TopCenter)
                     )
                     Text(
                         text = Routes.labels[Routes.ADD_CHALLENGES] ?: "",
-                        fontSize = 28.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFF313331),
                         modifier = Modifier
@@ -79,7 +79,7 @@ fun ChallengesScreen(navController: NavController, modifier: Modifier = Modifier
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(280.dp)
+                    .height(180.dp)
                     .clickable { navController.navigate(Routes.PROGRESS) },
                 elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
             ) {
@@ -91,13 +91,13 @@ fun ChallengesScreen(navController: NavController, modifier: Modifier = Modifier
                         painter = painterResource(id = R.drawable.progress_icon),
                         contentDescription = "Personal Goal Icon",
                         modifier = Modifier
-                            .size(220.dp)
-                            .padding(top = 48.dp)
+                            .size(120.dp)
+                            .padding(top = 16.dp)
                             .align(Alignment.TopCenter)
                     )
                     Text(
                         text = Routes.labels[Routes.PROGRESS] ?: "",
-                        fontSize = 28.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFF313331),
                         modifier = Modifier
@@ -118,7 +118,7 @@ fun ChallengesScreen(navController: NavController, modifier: Modifier = Modifier
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(280.dp)
+                    .height(180.dp)
                     .clickable { navController.navigate(Routes.LEADERBOARD) },
                 elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
             ) {
@@ -128,15 +128,15 @@ fun ChallengesScreen(navController: NavController, modifier: Modifier = Modifier
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.leaderboard_icon),
-                        contentDescription = "Summary Icon",
+                        contentDescription = "Leaderboard Icon",
                         modifier = Modifier
-                            .size(220.dp)
-                            .padding(top = 48.dp)
+                            .size(120.dp)
+                            .padding(top = 16.dp)
                             .align(Alignment.TopCenter)
                     )
                     Text(
                         text = Routes.labels[Routes.LEADERBOARD] ?: "",
-                        fontSize = 28.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFF313331),
                         modifier = Modifier
@@ -149,13 +149,3 @@ fun ChallengesScreen(navController: NavController, modifier: Modifier = Modifier
     }
 }
 
-
-
-@Preview(showBackground = true)
-@Composable
-fun ChallengesScreenPreview() {
-    AppTheme {
-        val navController = rememberNavController()
-        ChallengesScreen(navController)
-    }
-}

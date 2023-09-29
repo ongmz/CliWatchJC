@@ -59,7 +59,6 @@ fun ChallengeProgressCard(
             Text(text = challenge.challenges_title, style = TextStyle(fontWeight = FontWeight.Bold))
             Text(text = challenge.challenges_desc, modifier = Modifier.padding(top = 4.dp))
             Text(text = "Duration: ${challenge.challenges_duration}", modifier = Modifier.padding(top = 4.dp))
-            Text(text = "Status: ${challenge.challenges_status}", modifier = Modifier.padding(top = 4.dp))
 
             // Input field for marks
             var marks by remember { mutableStateOf(challenge.marks) }

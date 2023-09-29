@@ -22,26 +22,48 @@ class AddChallengesViewModel @Inject constructor(
         val challenge1 = AddChallenges(
             challengesId = 10001,
             challenges_title = "Green Commute Challenge",
-            challenges_desc = "Encourage employees to use eco-friendly transportation options such as cycling, carpooling, or public transit for their daily commute. Participants will track their green commutes for a month and share their experiences on social media using a dedicated hashtag.",
+            challenges_desc = " track their green commutes for a month and share their experiences on social media using a dedicated hashtag.track their green commutes for a month and share their experiences on social media using a dedicated hashtag.",
             challenges_duration = "Daily",
             challenges_status = "AVAILABLE",
             marks = 100
         )
-
+        val challenge2 = AddChallenges(
+            challengesId = 10002,
+            challenges_title = "Challenge1",
+            challenges_desc = "track their green commutes for a month and share their experiences on social media using a dedicated hashtag.",
+            challenges_duration = "Daily",
+            challenges_status = "AVAILABLE",
+            marks = 100
+        )
+        val challenge3 = AddChallenges(
+            challengesId = 10003,
+            challenges_title = "Challenge2",
+            challenges_desc = "track their green commutes for a month and share their experiences on social media using a dedicated hashtag.track their green commutes for a month and share their experiences on social media using a dedicated hashtag.track their green commutes for a month and share their experiences on social media using a dedicated hashtag.",
+            challenges_duration = "Daily",
+            challenges_status = "AVAILABLE",
+            marks = 100
+        )
         // Insert the sample data
         insertChallenge(challenge1)
+        insertChallenge(challenge2)
+        insertChallenge(challenge3)
     }
 
     // Function to insert a challenge
     fun insertChallenge(challenge: AddChallenges) {
         viewModelScope.launch {
-            repository.insertChallenge(challenge)
+            val isInserted = repository.insertChallenge(challenge)
+            if (isInserted) {
+                // Challenge was successfully added
+                println("Successfully added")
+            } else {
+                // Challenge insertion failed
+                println("Fail to add")
+            }
         }
-
     }
 
 
-    // Function to update challenge status and marks
     fun updateChallengeStatusAndMarks(challenge: AddChallenges, newStatus: String, marks: Int) {
         viewModelScope.launch {
             repository.updateChallengeStatusAndMarks(challenge.challengesId, newStatus, marks)
