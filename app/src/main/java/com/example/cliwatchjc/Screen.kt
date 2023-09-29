@@ -56,6 +56,7 @@ import com.example.cliwatchjc.modules.challenges.AddChallengesViewModel
 import com.example.cliwatchjc.modules.challenges.ChallengesProgressTab
 import com.example.cliwatchjc.modules.challenges.ChallengesScreen
 import com.example.cliwatchjc.modules.challenges.LeaderboardTab
+import com.example.cliwatchjc.modules.challenges.SharedChallengesViewModel
 import com.example.cliwatchjc.modules.tracker.TrackerScreen
 import com.example.compose.AppTheme
 
@@ -163,14 +164,15 @@ fun MyApp() {
                     }
 
                     composable(Routes.PROGRESS) {
-                        val viewModel: AddChallengesViewModel = hiltViewModel()
+                        val sharedViewModel: SharedChallengesViewModel = hiltViewModel() // Use the shared ViewModel
                         ChallengesProgressTab(
-                            challenges = viewModel.challenges.collectAsState(emptyList()).value,
-                            onStatusChange = { challenge, newStatus, marks ->
-                                viewModel.updateChallengeStatusAndMarks(challenge, newStatus, marks)
+                            sharedViewModel = sharedViewModel, // Pass the shared ViewModel
+                            onStatusChange = { challenge,    newStatus, marks ->
+                                sharedViewModel.updateChallengeStatusAndMarks(challenge, newStatus, marks) // Update the shared ViewModel
                             }
                         )
                     }
+
 
                     composable(Routes.LEADERBOARD) { LeaderboardTab(leaderboardData = leaderboardData) }
                 }

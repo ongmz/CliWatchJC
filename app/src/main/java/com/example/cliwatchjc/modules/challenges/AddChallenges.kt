@@ -34,7 +34,7 @@ import kotlinx.coroutines.delay
 
 
 @Composable
-fun AddChallengesTab(viewModel: AddChallengesViewModel) {
+fun AddChallengesTab(viewModel:AddChallengesViewModel, sharedViewModel: SharedChallengesViewModel) {
     val challenges = viewModel.challenges.collectAsState(emptyList()).value
     var toastMessage by remember { mutableStateOf<Pair<String, Color>?>(null) }
 

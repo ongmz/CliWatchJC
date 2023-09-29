@@ -24,22 +24,22 @@ import com.example.cliwatchjc.data.challenges.AddChallenges
 
 @Composable
 fun ChallengesProgressTab(
-    challenges: List<AddChallenges>,
+    sharedViewModel: SharedChallengesViewModel,
     onStatusChange: (AddChallenges, String, Int) -> Unit
 ) {
+    val challenges = sharedViewModel.challenges // Collect challenges from the shared ViewModel
+
     LazyColumn(
         modifier = Modifier.padding(16.dp)
     ) {
         items(challenges.size) { index ->
             val challenge = challenges[index]
             ChallengeProgressCard(challenge = challenge) { newStatus, marks ->
-                // Call the provided callback with status and marks
                 onStatusChange(challenge, newStatus, marks)
             }
         }
     }
 }
-
 
 @Composable
 fun ChallengeProgressCard(

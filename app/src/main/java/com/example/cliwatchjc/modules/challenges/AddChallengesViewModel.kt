@@ -11,7 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddChallengesViewModel @Inject constructor(
-    private val repository: AddChallengesRepository
+    private val repository: AddChallengesRepository,
+    private val sharedViewModel: SharedChallengesViewModel
 ) : ViewModel() {
 
     val challenges: Flow<List<AddChallenges>> = repository.getAllChallenges()
@@ -56,12 +57,14 @@ class AddChallengesViewModel @Inject constructor(
             if (isInserted) {
                 // Challenge was successfully added
                 println("Successfully added")
+                sharedViewModel.addChallenge(challenge) // Add challenge to the shared ViewModel
             } else {
                 // Challenge insertion failed
                 println("Fail to add")
             }
         }
     }
+
 
 
     fun updateChallengeStatusAndMarks(challenge: AddChallenges, newStatus: String, marks: Int) {
