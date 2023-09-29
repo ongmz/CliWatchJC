@@ -29,5 +29,10 @@ class PersonalGoalRepository (
         personalGoalDao.deleteGoal(goal)
     }
 
+    // Add additional methods to query by title or dueDate
+    suspend fun getGoalByTitle(title: String): PersonalGoal? {
+        return personalGoalDao.getGoalByTitle(title)
+    }
+
 }
 

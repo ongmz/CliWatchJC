@@ -15,6 +15,9 @@ interface PersonalGoalDao {
     @Query("SELECT * FROM PersonalGoal WHERE id = :id")
     suspend fun getGoal(id: Long): PersonalGoal
 
+    @Query("SELECT * FROM PersonalGoal WHERE title = :title")
+    suspend fun getGoalByTitle(title: String): PersonalGoal?
+
     @Insert
     suspend fun insertGoal(personalGoal: PersonalGoal): Long
 
