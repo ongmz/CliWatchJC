@@ -30,6 +30,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,25 +49,32 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.cliwatchjc.data.challenges.Leaderboard
+import com.example.cliwatchjc.data.challenges.leaderboardData
+import com.example.cliwatchjc.modules.challenges.AddChallengesTab
 import com.example.cliwatchjc.modules.challenges.AddChallengesViewModel
+import com.example.cliwatchjc.modules.challenges.ChallengesProgressTab
 import com.example.cliwatchjc.modules.challenges.ChallengesScreen
+import com.example.cliwatchjc.modules.challenges.LeaderboardTab
 import com.example.compose.AppTheme
 
 object Routes {
     const val MAIN_MENU = "mainMenu"
     const val EDUCATION = "education"
-    const val EDUCATION_RESOURCES = "educationResources"
-    const val CLIMATE_NEWS = "climateNews"
     const val TRACKER = "tracker"
     const val CHALLENGES = "challenges"
+    const val CHALLENGES_SCREEN = "challengesScreen"
+    const val ADD_CHALLENGES = "addChallenges"
+    const val PROGRESS = "progress"
+    const val LEADERBOARD = "leaderboard"
 
     val labels = mapOf(
         MAIN_MENU to "Main Menu",
         EDUCATION to "Education",
-        EDUCATION_RESOURCES to "Education Resources",
-        CLIMATE_NEWS to "Climate News",
-        TRACKER to "Tracker",
-        CHALLENGES to "Challenges"
+        CHALLENGES_SCREEN to  "challengesScreen",
+        ADD_CHALLENGES to "addChallenges",
+        PROGRESS to "progress",
+        LEADERBOARD to "leaderboard"
     )
 }
 
@@ -141,12 +149,33 @@ fun MyApp() {
             Box(modifier = Modifier.fillMaxSize()) {
                 NavHost(navController, startDestination = Routes.MAIN_MENU) {
                     composable(Routes.MAIN_MENU) { MainMenuScreen() }
-                    composable(Routes.CHALLENGES) { ChallengesScreen(viewModel = hiltViewModel()) }
+
+                    composable(Routes.CHALLENGES) { ChallengesScreen(navController) }
+
+                    composable(Routes.ADD_CHALLENGES) {
+                        val viewModel: AddChallengesViewModel = hiltViewModel()
+                        AddChallengesTab(viewModel = viewModel)
+                    }
+
+                    composable(Routes.PROGRESS) {
+                        val viewModel: AddChallengesViewModel = hiltViewModel()
+                        ChallengesProgressTab(
+                            challenges = viewModel.challenges.collectAsState(emptyList()).value,
+                            onStatusChange = { challenge, newStatus, marks ->
+                                viewModel.updateChallengeStatusAndMarks(challenge, newStatus, marks)
+                            }
+                        )
+                    }
+
+                    composable(Routes.LEADERBOARD) { LeaderboardTab(leaderboardData = leaderboardData) }
                 }
+
                 if (showSideMenu) {
                     SideMenu(onClose = { showSideMenu = false })
                 }
             }
+
+
         }
     }
 }

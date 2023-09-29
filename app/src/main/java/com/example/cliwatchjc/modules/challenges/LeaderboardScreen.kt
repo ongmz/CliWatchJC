@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,22 +18,30 @@ fun LeaderboardTab(leaderboardData: List<Leaderboard>) {
     // You can sort the leaderboard data by total marks in descending order
     val sortedLeaderboard = leaderboardData.sortedByDescending { it.totalMarks }
 
-    LazyColumn{
+    LazyColumn {
         items(sortedLeaderboard) { entry ->
-            LeaderboardEntryRow(entry)
+            LeaderboardCard(entry)
         }
     }
 }
+
 @Composable
-fun LeaderboardEntryRow(entry: Leaderboard) {
-    Row(
+fun LeaderboardCard(entry: Leaderboard) {
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+            .padding(16.dp)
     ) {
-        Text(text = entry.username)
-        Text(text = entry.totalMarks.toString())
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = entry.username)
+            Text(text = entry.totalMarks.toString())
+        }
     }
 }
+
 
