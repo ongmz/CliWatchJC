@@ -3,8 +3,6 @@ package com.example.cliwatchjc.data.tracker
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Update
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 @Dao
 interface PersonalGoalDetailsDao {

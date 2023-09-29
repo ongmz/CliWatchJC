@@ -30,7 +30,7 @@ import com.example.compose.AppTheme
 import androidx.compose.foundation.lazy.LazyColumn
 
 @Composable
-fun TrackerScreen(navController: NavController, modifier: Modifier = Modifier) {
+fun TrackerScreen(navController: NavController) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
