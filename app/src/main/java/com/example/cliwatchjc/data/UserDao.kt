@@ -8,8 +8,9 @@ import androidx.room.Update
 @Dao
 interface UserDao {
 
-    @Query("SELECT * FROM User WHERE userId = :userId")
-    fun getUserById(userId: Long): User?
+    @Query("SELECT * FROM user WHERE userId = :userId")
+    fun getUserById(userId: Long): User
+
 
 
     @Insert

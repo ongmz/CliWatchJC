@@ -39,4 +39,26 @@ class ChallengesViewModel @Inject constructor(private val challengesRepository: 
     fun getChallengeContent(challengeId: Long): List<ChallengesContentComponent>? {
         return ChallengeContentProvider.getContentByChallengesId(challengeId)
     }
+    fun takeChallenge(challenge: Challenges): Boolean {
+        try {
+            // Check if the challenge with the same ID already exists in the progress screen
+            val isChallengeAlreadyExist = _challenges.value.any { it.challengesId == challenge.challengesId }
+
+            if (isChallengeAlreadyExist) {
+                // Challenge with the same ID already exists in the progress screen
+                println("Challenge already exists")
+                return false
+            } else {
+                // Challenge does not exist, add it
+                val updatedChallenges = _challenges.value.toMutableList()
+                updatedChallenges.add(challenge)
+                _challenges.value = updatedChallenges
+
+                // Return true to indicate success.
+                return true
+            }
+        } catch (e: Exception) {
+            return false
+        }
+    }
 }

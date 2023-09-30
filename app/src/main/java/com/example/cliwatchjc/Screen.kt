@@ -52,6 +52,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.cliwatchjc.data.challenges.Challenges
 import com.example.cliwatchjc.modules.challenges.ChallengesContentScreen
 import com.example.cliwatchjc.modules.challenges.ChallengesListScreen
 import com.example.cliwatchjc.modules.challenges.ChallengesProgressTab
@@ -173,7 +174,16 @@ fun MyApp() {
                     }
 
 
-                    composable(Routes.PROGRESS) {ChallengesProgressTab()
+                    composable(Routes.PROGRESS) {
+                        // Assuming you have a list of challenges and an update function in your ViewModel
+                        val challengesViewModel: ChallengesViewModel = hiltViewModel()
+                        val challenges = challengesViewModel.challenges.collectAsState().value
+                        val updateChallengeStatus: (Challenges, String) -> Unit = { challenge, status ->
+                            // Define your logic to update the challenge status here
+                            // This function should be provided by your ViewModel
+                        }
+
+                        ChallengesProgressTab(challenges, updateChallengeStatus)
                     }
 
                 }
