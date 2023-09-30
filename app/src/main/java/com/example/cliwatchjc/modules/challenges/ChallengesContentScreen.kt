@@ -1,5 +1,6 @@
 package com.example.cliwatchjc.modules.challenges
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,7 +42,11 @@ fun ChallengesContentScreen(challengesId: Long, navController: NavController) {
     ) {
         Spacer(modifier = Modifier.height(56.dp))
 
-        if (challenges != null) {
+        Log.d("ChallengesContentScreen", "challengesId: $challengesId")
+        Log.d("ChallengesContentScreen", "challenges: $challenges")
+        Log.d("ChallengesContentScreen", "contentComponents: $contentComponents")
+
+        if (challenges != null && contentComponents != null) { // Check if both challenge and content are available
             Text(
                 text = challenges.title,
                 style = MaterialTheme.typography.titleLarge
@@ -49,7 +54,7 @@ fun ChallengesContentScreen(challengesId: Long, navController: NavController) {
             Divider(color = Color.Gray, thickness = 4.dp, modifier = Modifier.padding(vertical = 8.dp))
 
             // Display the article content components
-            contentComponents?.forEach { component ->
+            contentComponents.forEach { component ->
                 when (component) {
                     is ChallengesContentComponent.Paragraph -> Text(
                         text = component.text,
@@ -76,7 +81,7 @@ fun ChallengesContentScreen(challengesId: Long, navController: NavController) {
 
         } else {
             Text(
-                text = "Article not found.",
+                text = "Challenges not found.",
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
@@ -85,3 +90,5 @@ fun ChallengesContentScreen(challengesId: Long, navController: NavController) {
         Spacer(modifier = Modifier.height(80.dp))
     }
 }
+
+

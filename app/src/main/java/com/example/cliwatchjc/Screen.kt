@@ -1,6 +1,5 @@
 package com.example.cliwatchjc
 
-import ChallengesProgressTab
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -56,6 +55,7 @@ import androidx.navigation.navArgument
 import com.example.cliwatchjc.data.challenges.Challenges
 import com.example.cliwatchjc.modules.challenges.ChallengesContentScreen
 import com.example.cliwatchjc.modules.challenges.ChallengesListScreen
+import com.example.cliwatchjc.modules.challenges.ChallengesProgressTab
 import com.example.cliwatchjc.modules.challenges.ChallengesScreen
 import com.example.cliwatchjc.modules.challenges.ChallengesViewModel
 import com.example.cliwatchjc.modules.tracker.TrackerScreen

@@ -1,6 +1,16 @@
+package com.example.cliwatchjc.modules.challenges
+
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,12 +23,13 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.example.cliwatchjc.R
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,11 +43,15 @@ fun ChallengesProgressTab(
     challenges: List<Challenges>,
     updateChallengeStatus: (Challenges, String) -> Unit
 ) {
-    LazyColumn {
-        items(challenges) { challenge ->
-            if (selectedChallengeId == null || selectedChallengeId == challenge.challengesId) {
-                ChallengeDetailItem(challenge, updateChallengeStatus) // Pass the updateChallengeStatus function here
-            }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(start = 16.dp, end = 16.dp)
+    ) {
+        Spacer(modifier = Modifier.height(80.dp))
+        challenges.forEach { challenge ->
+            ChallengeCard(challenge, selectedChallengeId, updateChallengeStatus)
+            Spacer(modifier = Modifier.height(20.dp).background(Color.Gray))
         }
     }
 }
@@ -59,22 +74,22 @@ fun ProgressScreen(challengesViewModel: ChallengesViewModel, navController: NavC
 
 
 @Composable
-fun ChallengeDetailItem(
+fun ChallengeCard(
     challenge: Challenges,
-    updateChallengeStatus: (Challenges, String) -> Unit // Updated function signature
+    selectedChallengeId: Long?,
+    updateChallengeStatus: (Challenges, String) -> Unit
 ) {
-    var isButtonEnabled by remember { mutableStateOf(true) }
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
-        shape = RoundedCornerShape(4.dp)
+            .height(180.dp)
+            .clickable { /* Handle click, if needed */ },
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
         Column(
             modifier = Modifier
                 .padding(16.dp)
+                .fillMaxSize()
         ) {
             Text(
                 text = challenge.title,
@@ -104,10 +119,8 @@ fun ChallengeDetailItem(
                     onClick = {
                         val newStatus = toggleChallengeStatus(challenge)
                         updateChallengeStatus(challenge, newStatus) // Updated to pass newStatus as String
-                        isButtonEnabled = false
                     },
-                    modifier = Modifier.height(40.dp),
-                    enabled = isButtonEnabled
+                    modifier = Modifier.height(40.dp)
                 ) {
                     Text(text = buttonLabel(challenge))
                 }
@@ -115,7 +128,6 @@ fun ChallengeDetailItem(
         }
     }
 }
-
 private fun challengeStatusText(challenge: Challenges): String {
     return if (challenge.completed == "completed") "Completed" else "On-going"
 }
@@ -134,3 +146,5 @@ private fun toggleChallengeStatus(challenge: Challenges): String {
 private fun buttonLabel(challenge: Challenges): String {
     return if (challenge.completed == "completed") "Mark as On-going" else "Mark as Completed"
 }
+
+
