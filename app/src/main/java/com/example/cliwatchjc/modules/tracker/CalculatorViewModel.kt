@@ -2,7 +2,7 @@ package com.example.cliwatchjc.modules.tracker
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -31,9 +31,10 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
         data object CalculatorResult : CalculatorScreenNavigation()
     }
 
-    fun navigateToResultScreen(navController: NavHostController) {
+    fun navigateToResultScreen(result: Float) {
         viewModelScope.launch {
             _calculatorResultNavigation.value = CalculatorScreenNavigation.CalculatorResult
+            setCarbonFootprint(result) // Set the carbon footprint value
         }
     }
 

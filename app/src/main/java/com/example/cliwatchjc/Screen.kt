@@ -254,8 +254,8 @@ fun MyApp() {
                             }
                         )
                     ) { backStackEntry ->
-                        val result = backStackEntry.arguments?.getFloat("result") ?: 0.0f
-                        CalculatorResultScreen(result)
+                        val result = backStackEntry?.arguments?.getFloat("result") ?: 0.0f
+                        CalculatorResultScreen(navController, result)
                     }
                     composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }
                     composable(Routes.SUMMARY) { SummaryScreen()}

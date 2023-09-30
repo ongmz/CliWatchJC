@@ -22,12 +22,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
+import com.example.cliwatchjc.Routes
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalculatorScreen(calculatorViewModel: CalculatorViewModel, navController: NavHostController) {
+fun CalculatorScreen(calculatorViewModel: CalculatorViewModel, navController: NavController) {
     val transportationOptions = listOf("Car", "Motorcycle", "Public Transports")
     var selectedTransportation by remember { mutableStateOf(transportationOptions[0]) }
     var transportationDistance by remember { mutableStateOf("") }
@@ -189,7 +190,8 @@ fun CalculatorScreen(calculatorViewModel: CalculatorViewModel, navController: Na
                 calculatorViewModel.setCarbonFootprint(result)
                 showResult = true
                 // Navigate to the result screen and pass the result value
-                calculatorViewModel.navigateToResultScreen(navController)
+                navController.navigate("${Routes.CALCULATOR_RESULT}/$result")
+
             },
             modifier = Modifier.padding(top = 20.dp)
         ) {
@@ -198,13 +200,13 @@ fun CalculatorScreen(calculatorViewModel: CalculatorViewModel, navController: Na
 
         Spacer(modifier = Modifier.height(96.dp))
 
-        // Observe navigation state and navigate if there's a destination
-        val calculatorResultNavigation by calculatorViewModel.calculatorResultNavigation.collectAsState()
-        calculatorResultNavigation?.let { destination ->
-            when (destination) {
-                is CalculatorViewModel.CalculatorScreenNavigation.CalculatorResult -> {
-                    // Calculate the result here based on your logic
-                    CalculatorResultScreen(result)
+        // Use LaunchedEffect to handle navigation
+        LaunchedEffect(calculatorViewModel.calculatorResultNavigation) {
+            calculatorViewModel.calculatorResultNavigation.value?.let { destination ->
+                when (destination) {
+                    is CalculatorViewModel.CalculatorScreenNavigation.CalculatorResult -> {
+                        navController.navigate("${Routes.CALCULATOR_RESULT}/$result")
+                    }
                 }
             }
         }
