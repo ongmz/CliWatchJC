@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 
-sealed class ChallengesContentComponent {
+    sealed class ChallengesContentComponent {
     data class Paragraph(val text: String) : ChallengesContentComponent()
     data class BulletPoint(val text: String) : ChallengesContentComponent()
     data class Header(val text: String) : ChallengesContentComponent()

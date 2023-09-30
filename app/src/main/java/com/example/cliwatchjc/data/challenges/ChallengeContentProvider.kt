@@ -5,30 +5,29 @@ import com.example.cliwatchjc.modules.challenges.ChallengesContentComponent
 object ChallengeContentProvider{
     val challengesContent: Map<Long, List<ChallengesContentComponent>> = mapOf(
         1L to listOf(
-            ChallengesContentComponent.Paragraph("For decades, the phrase \"climate change\" has echoed through scientific discussions, policy debates, and global headlines. It's more than just a term; it's a reality, signaling long-term shifts and alterations in our planet's climate. But how did we get here?"),
+            ChallengesContentComponent.Header("Take Action to Reduce Emissions\n"),
+            ChallengesContentComponent.Paragraph("In this challenge, you'll take important steps to reduce your carbon footprint and minimize your impact on the environment. By adopting sustainable practices and making conscious choices, you can contribute to the fight against climate change.\n"),
 
-            ChallengesContentComponent.Header("1. The Natural and Enhanced Greenhouse Effect:"),
-            ChallengesContentComponent.Paragraph("The Earth has a set of atmospheric gases, such as water vapor, carbon dioxide, methane, and nitrous oxide, which act like a blanket, trapping the sun's heat. This is known as the greenhouse effect. While the natural greenhouse effect is essential for sustaining life, an excessive concentration of these gases from human activities has accelerated and intensified this effect. As a result, our planet's average temperature has been rising at an alarming rate."),
-
-            ChallengesContentComponent.Header("2. The Carbon Culprit:"),
-            ChallengesContentComponent.Paragraph("One primary offender in this scenario is carbon dioxide (CO2). Emitted largely from industrial processes, vehicle emissions, and deforestation, CO2 levels have surged over the past century, leading to heightened global warming."),
-
-            ChallengesContentComponent.Header("3. Observable Impacts:"),
-            ChallengesContentComponent.BulletPoint("Polar ice caps and glaciers are melting, contributing to rising sea levels."),
-            ChallengesContentComponent.BulletPoint("Extreme weather patterns, from scorching heatwaves to devastating floods, have become the new norm."),
-            ChallengesContentComponent.BulletPoint("Biodiversity loss is accelerated as habitats are disrupted."),
-            ChallengesContentComponent.BulletPoint("The chemistry of our oceans is changing, leading to acidification and endangering marine life."),
+            ChallengesContentComponent.BulletPoint("Use Energy Efficiently: Turn off lights and appliances when not in use, and consider switching to LED bulbs.\n"),
+            ChallengesContentComponent.BulletPoint("Choose Sustainable Transportation: Opt for public transportation, carpooling, or biking to reduce greenhouse gas emissions from personal vehicles.\n"),
+            ChallengesContentComponent.BulletPoint("Conserve Water: Be mindful of water usage and fix any leaks in your home.\n"),
+            ChallengesContentComponent.BulletPoint("Support Renewable Energy: Explore renewable energy sources like solar or wind power for your home.\n"),
         ),
         2L to listOf(
-            ChallengesContentComponent.Paragraph("A few degrees might seem insignificant, but in the vast play of Earth's climate, even small temperature changes can have profound effects."),
-            ChallengesContentComponent.Header("1. Not Just Hotter Summers:"),
-            ChallengesContentComponent.Paragraph("Climate change isn't just about sweltering summer days. The rising temperatures can lead to erratic weather patterns. Regions accustomed to rainfall may face droughts, while others might encounter unprecedented flooding."),
+            ChallengesContentComponent.Header("Plant a Tree for a Greener Future\n"),
+            ChallengesContentComponent.Paragraph("Join the movement to combat deforestation and promote a greener future. In this challenge, you'll have the opportunity to make a lasting impact by planting a tree in your community. Trees play a vital role in capturing carbon dioxide and enhancing air quality.\n"),
 
-            ChallengesContentComponent.Header("2. Rising Oceans:"),
-            ChallengesContentComponent.Paragraph("Melting glaciers don't just affect polar bears; they lead to rising sea levels. This endangers coastal cities, causing increased flooding, threatening freshwater resources, and even potentially displacing populations."),
+            ChallengesContentComponent.BulletPoint("Why Trees Matter: Trees absorb carbon dioxide, release oxygen, and provide habitat for wildlife.\n"),
+            ChallengesContentComponent.BulletPoint("Local Planting Events: Participate in tree-planting events organized by environmental groups or your community.\n"),
+            ChallengesContentComponent.BulletPoint("Tree Selection: Choose native tree species that thrive in your region for better sustainability.\n")
+        ),
+        3L to listOf(
+            ChallengesContentComponent.Header("Say No to Single-Use Plastics\n"),
+            ChallengesContentComponent.Paragraph("In this challenge, you'll commit to reducing the use of single-use plastics, which contribute significantly to environmental pollution. By adopting eco-friendly alternatives and raising awareness, you can make a positive impact on the planet.\n"),
 
-            ChallengesContentComponent.Header("3. Shifting Habitats and Loss of Biodiversity:"),
-            ChallengesContentComponent.Paragraph("Many animals and plants have specific habitats. With changing climates, these habitats either shift or disappear, pushing many species towards extinction. Coral reefs, often dubbed the \"rainforests of the sea,\" are especially vulnerable, with rising temperatures causing damaging bleaching events.")
+            ChallengesContentComponent.BulletPoint("Eco-Friendly Shopping: Bring your reusable bags when shopping and say no to plastic bags.\n"),
+            ChallengesContentComponent.BulletPoint("Reusable Containers: Invest in reusable water bottles and food containers to minimize plastic waste.\n"),
+            ChallengesContentComponent.BulletPoint("Support Plastic-Free Initiatives: Join campaigns advocating for reduced plastic use in your community.\n")
         )
     )
     fun getContentByChallengesId(challengesId: Long): List<ChallengesContentComponent>? {

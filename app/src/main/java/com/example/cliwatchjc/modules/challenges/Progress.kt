@@ -13,6 +13,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -62,6 +63,8 @@ fun ChallengeDetailItem(
     challenge: Challenges,
     updateChallengeStatus: (Challenges, String) -> Unit // Updated function signature
 ) {
+    var isButtonEnabled by remember { mutableStateOf(true) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -101,8 +104,10 @@ fun ChallengeDetailItem(
                     onClick = {
                         val newStatus = toggleChallengeStatus(challenge)
                         updateChallengeStatus(challenge, newStatus) // Updated to pass newStatus as String
+                        isButtonEnabled = false
                     },
-                    modifier = Modifier.height(40.dp)
+                    modifier = Modifier.height(40.dp),
+                    enabled = isButtonEnabled
                 ) {
                     Text(text = buttonLabel(challenge))
                 }
