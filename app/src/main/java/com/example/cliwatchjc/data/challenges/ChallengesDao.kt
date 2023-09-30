@@ -11,16 +11,16 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ChallengesDao {
     @Query("SELECT * FROM Challenges")
-    suspend fun getAllChallenges(): List<Challenges>
+    fun getAllChallenges(): List<Challenges>
 
     @Query("SELECT * FROM Challenges WHERE challengesId = :id")
-    suspend fun getChallengesById(id: Long): Challenges
+    fun getChallengesById(id: Long): Challenges
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertChallenges(challenges: Challenges)
+    fun insertChallenges(challenges: Challenges)
 
     @Delete
-    suspend fun deleteChallenges(challenges: Challenges)
+    fun deleteChallenges(article: Challenges)
 }
 
 

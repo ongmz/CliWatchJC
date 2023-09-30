@@ -28,8 +28,8 @@ class ChallengesViewModel @Inject constructor(private val challengesRepository: 
     }
     private fun loadChallenges(){
         viewModelScope.launch {
-            val fetchedArticles = challengesRepository.getAllChallenges()
-            _challenges.emit(fetchedArticles)
+            val fetchedChallenges = challengesRepository.getAllChallenges()
+            _challenges.emit(fetchedChallenges)
         }
     }
 

@@ -52,14 +52,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.cliwatchjc.data.challenges.Leaderboard
-import com.example.cliwatchjc.data.challenges.leaderboardData
 import com.example.cliwatchjc.modules.challenges.ChallengesContentScreen
 import com.example.cliwatchjc.modules.challenges.ChallengesListScreen
 import com.example.cliwatchjc.modules.challenges.ChallengesProgressTab
 import com.example.cliwatchjc.modules.challenges.ChallengesScreen
 import com.example.cliwatchjc.modules.challenges.ChallengesViewModel
-import com.example.cliwatchjc.modules.challenges.LeaderboardTab
 import com.example.cliwatchjc.modules.tracker.TrackerScreen
 import com.example.compose.AppTheme
 
@@ -68,10 +65,9 @@ object Routes {
     const val EDUCATION = "education"
     const val TRACKER = "tracker"
     const val CHALLENGES = "challenges"
-    const val CONTENT = "content"
     const val CHALLENGES_LIST = "challengesList"
+    const val CONTENT = "content"
     const val PROGRESS = "progress"
-    const val LEADERBOARD = "leaderboard"
 
     val labels = mapOf(
         MAIN_MENU to "Main Menu",
@@ -80,8 +76,7 @@ object Routes {
         CHALLENGES to  "challenges",
         CHALLENGES_LIST to  "challengesList",
         CONTENT to "content",
-        PROGRESS to "progress",
-        LEADERBOARD to "leaderboard"
+        PROGRESS to "progress"
     )
 }
 
@@ -144,7 +139,8 @@ fun MyApp() {
                     NavigationBarItem(
                         label = { Text(Routes.labels[Routes.CHALLENGES] ?: "") },
                         icon = { /* Placeholder */ },
-                        selected = currentRoute == Routes.CHALLENGES,
+                        selected = currentRoute == Routes.CHALLENGES ||
+                                currentRoute == Routes.CHALLENGES_LIST ,
                         onClick = {
                             navController.navigate(Routes.CHALLENGES) {
                                 launchSingleTop = true
@@ -163,28 +159,22 @@ fun MyApp() {
                     composable(Routes.CHALLENGES) { ChallengesScreen(navController) }
 
                     composable(Routes.CHALLENGES_LIST) {
-                        val viewModel: ChallengesViewModel = hiltViewModel()
                         ChallengesListScreen(navController)
                     }
 
                     composable(
-                        route = "${Routes.CONTENT}/{challengeId}",
-                        arguments = listOf(navArgument("challengeId") { type = NavType.LongType })
-                    ) { backStackEntry ->
-                        val challengeId = backStackEntry.arguments?.getLong("challengeId")
-                        if (challengeId != null) {
-                            ChallengesContentScreen(challengeId, navController)
-                        } else {
-                            // Handle invalid or missing challengeId
-                        }
+                        route = "${Routes.CONTENT}/{challengeId}")
+                    { backStackEntry ->
+                        val challengesIdSTring = backStackEntry.arguments?.getString("challengesId")
+                        val challengesId = challengesIdSTring?.toLongOrNull() ?: 0L
+                        ChallengesContentScreen(challengesId, navController)
+
                     }
 
 
-                    composable(Routes.PROGRESS) {
+                    composable(Routes.PROGRESS) {ChallengesProgressTab()
                     }
 
-
-                    composable(Routes.LEADERBOARD) { LeaderboardTab(leaderboardData = leaderboardData) }
                 }
 
                 if (showSideMenu) {
