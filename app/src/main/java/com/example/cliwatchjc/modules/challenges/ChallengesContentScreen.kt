@@ -18,8 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.cliwatchjc.data.challenges.ChallengeContentProvider
 
-    sealed class ChallengesContentComponent {
+sealed class ChallengesContentComponent {
     data class Paragraph(val text: String) : ChallengesContentComponent()
     data class BulletPoint(val text: String) : ChallengesContentComponent()
     data class Header(val text: String) : ChallengesContentComponent()
@@ -30,7 +31,7 @@ import androidx.navigation.NavController
 fun ChallengesContentScreen(challengesId: Long, navController: NavController) {
     val challengesViewModel: ChallengesViewModel = hiltViewModel()
     val challenges = challengesViewModel.getChallenge(challengesId)
-    val contentComponents = challengesViewModel.getChallengeContent(challengesId)
+    val contentComponents = ChallengeContentProvider.getContentByChallengesId(challengesId)
 
     val scrollState = rememberScrollState()
 
@@ -41,18 +42,10 @@ fun ChallengesContentScreen(challengesId: Long, navController: NavController) {
             .padding(start = 16.dp, top = 16.dp, end = 16.dp)
     ) {
         Spacer(modifier = Modifier.height(56.dp))
-
         Log.d("ChallengesContentScreen", "challengesId: $challengesId")
         Log.d("ChallengesContentScreen", "challenges: $challenges")
         Log.d("ChallengesContentScreen", "contentComponents: $contentComponents")
-
-        if (challenges != null && contentComponents != null) { // Check if both challenge and content are available
-            Text(
-                text = challenges.title,
-                style = MaterialTheme.typography.titleLarge
-            )
-            Divider(color = Color.Gray, thickness = 4.dp, modifier = Modifier.padding(vertical = 8.dp))
-
+        if (contentComponents != null) {
             // Display the article content components
             contentComponents.forEach { component ->
                 when (component) {
@@ -75,7 +68,7 @@ fun ChallengesContentScreen(challengesId: Long, navController: NavController) {
                         )
                         Divider(color = Color.Gray, thickness = 1.dp, modifier = Modifier.padding(bottom = 4.dp))
                     }
-                    // TODO : Image
+                    // Handle other content types (e.g., images) if needed
                 }
             }
 

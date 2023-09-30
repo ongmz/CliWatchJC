@@ -165,7 +165,7 @@ fun MyApp() {
                     }
 
                     composable(
-                        route = "${Routes.CONTENT}/{challengeId}")
+                        route = "${Routes.CONTENT}/{challengesId}")
                     { backStackEntry ->
                         val challengesIdSTring = backStackEntry.arguments?.getString("challengesId")
                         val challengesId = challengesIdSTring?.toLongOrNull() ?: 0L

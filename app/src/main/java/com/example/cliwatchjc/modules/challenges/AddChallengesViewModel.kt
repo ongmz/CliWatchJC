@@ -36,11 +36,11 @@ class ChallengesViewModel @Inject constructor(private val challengesRepository: 
         }
     }
 
-    fun getChallenge(challengeId: Long): Challenges? {
-        return _challenges.value.find { it.challengesId == challengeId }
+    fun getChallenge(challengesId: Long): Challenges? {
+        return _challenges.value.find { it.challengesId == challengesId }
     }
-    fun getChallengeContent(challengeId: Long): List<ChallengesContentComponent>? {
-        return ChallengeContentProvider.getContentByChallengesId(challengeId)
+    fun getChallengeContent(challengesId: Long): List<ChallengesContentComponent>? {
+        return ChallengeContentProvider.getContentByChallengesId(challengesId)
     }
     fun takeChallenge(challenge: Challenges): Boolean {
         try {
@@ -64,8 +64,8 @@ class ChallengesViewModel @Inject constructor(private val challengesRepository: 
             return false
         }
     }
-    fun setSelectedChallenge(challengeId: Long) {
-        _selectedChallengeId.value = challengeId
+    fun setSelectedChallenge(challengesId: Long) {
+        _selectedChallengeId.value = challengesId
     }
 
     // Add a function to update the challenge status

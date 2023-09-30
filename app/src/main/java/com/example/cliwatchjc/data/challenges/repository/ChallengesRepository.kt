@@ -15,9 +15,9 @@ class ChallengesRepository(private val challengesDao: ChallengesDao) {
 
     fun insertSampleChallenges() {
         val challenges = listOf(
-            Challenges(challengesId = 1, title = "Reduce Your Carbon Footprint", content = "using public transportation in your daily life.", "Available"),
-            Challenges(challengesId = 2, title = "Plant a Tree for a Greener Future", content = "planting a tree in your community", "Available"),
-            Challenges(challengesId = 3, title = "Reduce Single-Use Plastics", content = "Commit to reducing single-use plastics", "Available")
+            Challenges(challengesId = 1L, title = "Reduce Your Carbon Footprint", content = "using public transportation in your daily life.", "Available"),
+            Challenges(challengesId = 2L, title = "Plant a Tree for a Greener Future", content = "planting a tree in your community", "Available"),
+            Challenges(challengesId = 3L, title = "Reduce Single-Use Plastics", content = "Commit to reducing single-use plastics", "Available")
         )
         for (challenge in challenges) {
             challengesDao.insertChallenges(challenge)
