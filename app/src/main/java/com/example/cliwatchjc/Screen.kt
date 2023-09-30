@@ -140,7 +140,8 @@ fun MyApp() {
                         label = { Text(Routes.labels[Routes.CHALLENGES] ?: "") },
                         icon = { /* Placeholder */ },
                         selected = currentRoute == Routes.CHALLENGES ||
-                                currentRoute == Routes.CHALLENGES_LIST ,
+                                currentRoute == Routes.CHALLENGES_LIST ||
+                                currentRoute?.startsWith(Routes.CONTENT) == true,
                         onClick = {
                             navController.navigate(Routes.CHALLENGES) {
                                 launchSingleTop = true

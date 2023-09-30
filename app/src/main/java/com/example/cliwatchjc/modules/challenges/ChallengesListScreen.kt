@@ -65,7 +65,7 @@ fun ChallengesItem(challenges: Challenges,
             .padding(16.dp)
             .fillMaxWidth()
             .clickable {
-                navController.navigate("${Routes.CHALLENGES_LIST}/${challenges.challengesId}")
+                navController.navigate("${Routes.CONTENT}/${challenges.challengesId}")
             },
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
         shape = RoundedCornerShape(4.dp)
@@ -95,6 +95,7 @@ fun ChallengesItem(challenges: Challenges,
                     modifier = Modifier
                         .padding(start = 8.dp)
                 )
+
             }
 
         }
