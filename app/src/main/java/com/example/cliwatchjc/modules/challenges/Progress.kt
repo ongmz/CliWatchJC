@@ -1,5 +1,3 @@
-package com.example.cliwatchjc.modules.challenges
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,39 +12,55 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.cliwatchjc.data.challenges.Challenges
-
-
+import com.example.cliwatchjc.modules.challenges.ChallengesViewModel
 
 @Composable
 fun ChallengesProgressTab(
-    challenges: List<Challenges>, // List of added challenges
-    updateChallengeStatus: (Challenges, String) -> Unit // Function to update challenge status
+    selectedChallengeId: Long?,
+    challenges: List<Challenges>,
+    updateChallengeStatus: (Challenges, String) -> Unit
 ) {
     LazyColumn {
         items(challenges) { challenge ->
-            ChallengeDetailItem(challenge, updateChallengeStatus)
+            if (selectedChallengeId == null || selectedChallengeId == challenge.challengesId) {
+                ChallengeDetailItem(challenge, updateChallengeStatus) // Pass the updateChallengeStatus function here
+            }
         }
     }
 }
 
+
+
+
+
+@Composable
+fun ProgressScreen(challengesViewModel: ChallengesViewModel, navController: NavController) {
+    val selectedChallengeId by challengesViewModel.selectedChallengeId.collectAsState()
+    val challenges = challengesViewModel.challenges.collectAsState().value
+
+    ChallengesProgressTab(selectedChallengeId, challenges) { challenge, status ->
+        challengesViewModel.updateChallengeStatus(challenge, status)
+    }
+}
+
+
+
+
 @Composable
 fun ChallengeDetailItem(
     challenge: Challenges,
-    updateChallengeStatus: (Challenges, String) -> Unit
+    updateChallengeStatus: (Challenges, String) -> Unit // Updated function signature
 ) {
     Card(
         modifier = Modifier
@@ -86,7 +100,7 @@ fun ChallengeDetailItem(
                 Button(
                     onClick = {
                         val newStatus = toggleChallengeStatus(challenge)
-                        updateChallengeStatus(challenge.copy(completed = !challenge.completed), newStatus)
+                        updateChallengeStatus(challenge, newStatus) // Updated to pass newStatus as String
                     },
                     modifier = Modifier.height(40.dp)
                 ) {
@@ -97,28 +111,21 @@ fun ChallengeDetailItem(
     }
 }
 
-
-// Function to check if a challenge is already in progress
-
-// Function to get the challenge status text based on its completion status
 private fun challengeStatusText(challenge: Challenges): String {
-    return if (challenge.completed) "Completed" else "On-going"
+    return if (challenge.completed == "completed") "Completed" else "On-going"
 }
 
 // Function to get the color for the challenge status text
 private fun challengeStatusColor(challenge: Challenges): Color {
-    return if (challenge.completed) Color.Green else Color.Red
+    return if (challenge.completed == "completed") Color.Green else Color.Red
 }
 
 // Function to toggle the challenge completion status
 private fun toggleChallengeStatus(challenge: Challenges): String {
-    return if (challenge.completed) "on-going" else "completed"
+    return if (challenge.completed == "completed") "on-going" else "completed"
 }
 
 // Function to get the label for the button based on challenge completion status
 private fun buttonLabel(challenge: Challenges): String {
-    return if (challenge.completed) "Mark as On-going" else "Mark as Completed"
+    return if (challenge.completed == "completed") "Mark as On-going" else "Mark as Completed"
 }
-
-
-

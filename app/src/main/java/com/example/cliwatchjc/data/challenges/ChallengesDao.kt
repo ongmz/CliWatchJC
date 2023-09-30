@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 
@@ -20,7 +21,9 @@ interface ChallengesDao {
     fun insertChallenges(challenges: Challenges)
 
     @Delete
-    fun deleteChallenges(article: Challenges)
+    fun deleteChallenges(challenges: Challenges)
+    @Update
+    fun updateChallenge(challenges: Challenges)
 }
 
 

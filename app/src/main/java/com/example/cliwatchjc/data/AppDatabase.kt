@@ -10,7 +10,7 @@ import com.example.cliwatchjc.data.challenges.Challenges
 import com.example.cliwatchjc.data.challenges.ChallengesDao
 
 
-@Database(entities = [User::class,  Challenges::class], version = 4, exportSchema = false)
+@Database(entities = [User::class,  Challenges::class], version = 6)
 
 
 abstract class AppDatabase : RoomDatabase() {

@@ -1,5 +1,6 @@
 package com.example.cliwatchjc
 
+import ChallengesProgressTab
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -55,7 +56,6 @@ import androidx.navigation.navArgument
 import com.example.cliwatchjc.data.challenges.Challenges
 import com.example.cliwatchjc.modules.challenges.ChallengesContentScreen
 import com.example.cliwatchjc.modules.challenges.ChallengesListScreen
-import com.example.cliwatchjc.modules.challenges.ChallengesProgressTab
 import com.example.cliwatchjc.modules.challenges.ChallengesScreen
 import com.example.cliwatchjc.modules.challenges.ChallengesViewModel
 import com.example.cliwatchjc.modules.tracker.TrackerScreen
@@ -177,14 +177,20 @@ fun MyApp() {
                     composable(Routes.PROGRESS) {
                         // Assuming you have a list of challenges and an update function in your ViewModel
                         val challengesViewModel: ChallengesViewModel = hiltViewModel()
+                        val selectedChallengeId by challengesViewModel.selectedChallengeId.collectAsState()
                         val challenges = challengesViewModel.challenges.collectAsState().value
+
+                        // Define your updateChallengeStatus function here
                         val updateChallengeStatus: (Challenges, String) -> Unit = { challenge, status ->
                             // Define your logic to update the challenge status here
                             // This function should be provided by your ViewModel
+                            challengesViewModel.updateChallengeStatus(challenge, status)
                         }
 
-                        ChallengesProgressTab(challenges, updateChallengeStatus)
+                        ChallengesProgressTab(selectedChallengeId, challenges, updateChallengeStatus)
                     }
+
+
 
                 }
 

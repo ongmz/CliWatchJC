@@ -9,6 +9,5 @@ data class Challenges(
     val challengesId: Long = 0L,
     val title: String,
     val content: String,
-    val maxScore: Int = 5,
-    val completed: Boolean = false
+    val completed: String
 )
