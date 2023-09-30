@@ -49,7 +49,6 @@ fun CalculatorScreen(calculatorViewModel: CalculatorViewModel, navController: Na
             .fillMaxWidth()
             .padding(start = 28.dp, end = 28.dp)
             .verticalScroll(state = scrollState)
-
     ) {
         Spacer(modifier = Modifier.height(80.dp))
         // Title

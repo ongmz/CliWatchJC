@@ -13,36 +13,16 @@ import javax.inject.Inject
 @HiltViewModel
 class CalculatorViewModel @Inject constructor() : ViewModel() {
     private val _transportation = MutableStateFlow(0.0f)
-    private val transportation: StateFlow<Float> = _transportation.asStateFlow()
+    val transportation: StateFlow<Float> = _transportation.asStateFlow()
 
     private val _energyUsage = MutableStateFlow(0.0f)
-    private val energyUsage: StateFlow<Float> = _energyUsage.asStateFlow()
+    val energyUsage: StateFlow<Float> = _energyUsage.asStateFlow()
 
     private val _food = MutableStateFlow(0.0f)
-    private val food: StateFlow<Float> = _food.asStateFlow()
+    val food: StateFlow<Float> = _food.asStateFlow()
 
     private val _carbonFootprint = MutableStateFlow(0.0f)
     val carbonFootprint: StateFlow<Float> = _carbonFootprint.asStateFlow()
-
-    // Weekly data properties
-    private val _weeklyTransportationData = MutableStateFlow<List<Float>>(emptyList())
-    val weeklyTransportationData: StateFlow<List<Float>> = _weeklyTransportationData.asStateFlow()
-
-    private val _weeklyEnergyUsageData = MutableStateFlow<List<Float>>(emptyList())
-    val weeklyEnergyUsageData: StateFlow<List<Float>> = _weeklyEnergyUsageData.asStateFlow()
-
-    private val _weeklyFoodData = MutableStateFlow<List<Float>>(emptyList())
-    val weeklyFoodData: StateFlow<List<Float>> = _weeklyFoodData.asStateFlow()
-
-    // Monthly data properties
-    private val _monthlyTransportationData = MutableStateFlow<List<Float>>(emptyList())
-    val monthlyTransportationData: StateFlow<List<Float>> = _monthlyTransportationData.asStateFlow()
-
-    private val _monthlyEnergyUsageData = MutableStateFlow<List<Float>>(emptyList())
-    val monthlyEnergyUsageData: StateFlow<List<Float>> = _monthlyEnergyUsageData.asStateFlow()
-
-    private val _monthlyFoodData = MutableStateFlow<List<Float>>(emptyList())
-    val monthlyFoodData: StateFlow<List<Float>> = _monthlyFoodData.asStateFlow()
 
     private val _calculatorResultNavigation = MutableStateFlow<CalculatorScreenNavigation?>(null)
     val calculatorResultNavigation: StateFlow<CalculatorScreenNavigation?> = _calculatorResultNavigation
@@ -57,38 +37,50 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    fun setSampleData() {
+        // Sample data
+        val transportationDistance = 100.0f // 100 km traveled
+        val energyElectricity = 500.0f // 500 kWh electricity
+        val energyNaturalGas = 500.0f // 500 MJ natural gas
+        val energyFirewood = 100.0f // 100 kg firewood
+        val foodSpending = 70.0f // $70 spent on food per week
 
-    // Function to set the transportation input
-    fun setTransportation(value: Float) {
-        _transportation.value = value
-    }
+        // Calculate carbon footprint based on sample data
+        val maxTransportationCO2e = calculateTransportation("Car", transportationDistance.toString())
+        val maxEnergyCO2e = calculateEnergy(energyElectricity.toString(), energyNaturalGas.toString(), energyFirewood.toString())
+        val maxFoodCO2e = calculateFood("Meat Lover", foodSpending.toString())
 
-    // Function to set the energy usage input
-    fun setEnergyUsage(value: Float) {
-        _energyUsage.value = value
-    }
+        // Calculate total carbon footprint based on sample data
+        val totalMaxCO2e = maxTransportationCO2e + maxEnergyCO2e + maxFoodCO2e
 
-    // Function to set the food input
-    fun setFood(value: Float) {
-        _food.value = value
+        // Calculate percentages within 0-100% inclusive range
+        val transportationPercentage = (maxTransportationCO2e / totalMaxCO2e) * 100
+        val energyPercentage = (maxEnergyCO2e / totalMaxCO2e) * 100
+        val foodPercentage = (maxFoodCO2e / totalMaxCO2e) * 100
+
+        // Ensure percentages add up to 100%
+        val totalPercentage = transportationPercentage + energyPercentage + foodPercentage
+
+        if (totalPercentage < 100f) {
+            // If total percentage is less than 100%, distribute the remaining percentage equally
+            val remainingPercentage = 100f - totalPercentage
+            val equalDistribution = remainingPercentage / 3
+            _transportation.value = (transportationPercentage + equalDistribution).coerceIn(0f, 100f)
+            _energyUsage.value = (energyPercentage + equalDistribution).coerceIn(0f, 100f)
+            _food.value = (foodPercentage + equalDistribution).coerceIn(0f, 100f)
+        } else {
+            // If total percentage is more than 100%, reduce percentages proportionally
+            _transportation.value = transportationPercentage.coerceIn(0f, 100f)
+            _energyUsage.value = energyPercentage.coerceIn(0f, 100f)
+            _food.value = foodPercentage.coerceIn(0f, 100f)
+        }
+
+        // Set total carbon footprint
+        _carbonFootprint.value = totalMaxCO2e
     }
 
     fun setCarbonFootprint(value: Float) {
         _carbonFootprint.value = value
-    }
-
-    // Function to reset all inputs and the calculated carbon footprint
-    fun resetInputs() {
-        _transportation.value = 0.0f
-        _energyUsage.value = 0.0f
-        _food.value = 0.0f
-        _carbonFootprint.value = 0.0f
-        _weeklyTransportationData.value = emptyList()
-        _weeklyEnergyUsageData.value = emptyList()
-        _weeklyFoodData.value = emptyList()
-        _monthlyTransportationData.value = emptyList()
-        _monthlyEnergyUsageData.value = emptyList()
-        _monthlyFoodData.value = emptyList()
     }
 
     fun calculateTransportation(transportation: String, distance: String): Float {
@@ -113,7 +105,6 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
         return spendingPerWeek * foodCO2ePerDollar
     }
 
-
     fun calculateEnergy(electricity: String, naturalGas: String, firewood: String): Float {
         val electricityUsageInKWh = electricity.toFloatOrNull() ?: 0.0f
         val naturalGasUsageInMJ = naturalGas.toFloatOrNull() ?: 0.0f
@@ -130,28 +121,5 @@ class CalculatorViewModel @Inject constructor() : ViewModel() {
         return electricityCO2e + naturalGasCO2e + firewoodCO2e
     }
 
-    fun generateSampleWeeklyTransportationData(): List<Float> {
-        return listOf(10.0f, 15.0f, 12.0f, 8.0f, 20.0f, 18.0f, 13.0f)
-    }
-
-    fun generateSampleMonthlyTransportationData(): List<Float> {
-        return listOf(50.0f, 55.0f, 42.0f, 38.0f, 60.0f, 58.0f, 53.0f)
-    }
-
-    fun generateSampleWeeklyEnergyUsageData(): List<Float> {
-        return listOf(30.0f, 25.0f, 32.0f, 28.0f, 35.0f, 40.0f, 37.0f)
-    }
-
-    fun generateSampleMonthlyEnergyUsageData(): List<Float> {
-        return listOf(150.0f, 155.0f, 142.0f, 138.0f, 160.0f, 158.0f, 153.0f)
-    }
-
-    fun generateSampleWeeklyFoodData(): List<Float> {
-        return listOf(5.0f, 8.0f, 6.0f, 7.0f, 9.0f, 5.0f, 4.0f)
-    }
-
-    fun generateSampleMonthlyFoodData(): List<Float> {
-        return listOf(20.0f, 28.0f, 22.0f, 26.0f, 30.0f, 25.0f, 24.0f)
-    }
 }
 
