@@ -45,18 +45,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.cliwatchjc.data.challenges.Leaderboard
 import com.example.cliwatchjc.data.challenges.leaderboardData
-import com.example.cliwatchjc.modules.challenges.AddChallengesTab
-import com.example.cliwatchjc.modules.challenges.AddChallengesViewModel
+import com.example.cliwatchjc.modules.challenges.ChallengesContentScreen
+import com.example.cliwatchjc.modules.challenges.ChallengesListScreen
 import com.example.cliwatchjc.modules.challenges.ChallengesProgressTab
 import com.example.cliwatchjc.modules.challenges.ChallengesScreen
+import com.example.cliwatchjc.modules.challenges.ChallengesViewModel
 import com.example.cliwatchjc.modules.challenges.LeaderboardTab
-import com.example.cliwatchjc.modules.challenges.SharedChallengesViewModel
 import com.example.cliwatchjc.modules.tracker.TrackerScreen
 import com.example.compose.AppTheme
 
@@ -65,8 +68,8 @@ object Routes {
     const val EDUCATION = "education"
     const val TRACKER = "tracker"
     const val CHALLENGES = "challenges"
-    const val CHALLENGES_SCREEN = "challengesScreen"
-    const val ADD_CHALLENGES = "addChallenges"
+    const val CONTENT = "content"
+    const val CHALLENGES_LIST = "challengesList"
     const val PROGRESS = "progress"
     const val LEADERBOARD = "leaderboard"
 
@@ -74,8 +77,9 @@ object Routes {
         MAIN_MENU to "Main Menu",
         EDUCATION to "Education",
         TRACKER to "tracker",
-        CHALLENGES to  "challengesScreen",
-        ADD_CHALLENGES to "addChallenges",
+        CHALLENGES to  "challenges",
+        CHALLENGES_LIST to  "challengesList",
+        CONTENT to "content",
         PROGRESS to "progress",
         LEADERBOARD to "leaderboard"
     )
@@ -158,19 +162,25 @@ fun MyApp() {
 
                     composable(Routes.CHALLENGES) { ChallengesScreen(navController) }
 
-                    composable(Routes.ADD_CHALLENGES) {
-                        val viewModel: AddChallengesViewModel = hiltViewModel()
-                        AddChallengesTab(viewModel = viewModel)
+                    composable(Routes.CHALLENGES_LIST) {
+                        val viewModel: ChallengesViewModel = hiltViewModel()
+                        ChallengesListScreen(navController)
                     }
 
+                    composable(
+                        route = "${Routes.CONTENT}/{challengeId}",
+                        arguments = listOf(navArgument("challengeId") { type = NavType.LongType })
+                    ) { backStackEntry ->
+                        val challengeId = backStackEntry.arguments?.getLong("challengeId")
+                        if (challengeId != null) {
+                            ChallengesContentScreen(challengeId, navController)
+                        } else {
+                            // Handle invalid or missing challengeId
+                        }
+                    }
+
+
                     composable(Routes.PROGRESS) {
-                        val sharedViewModel: SharedChallengesViewModel = hiltViewModel() // Use the shared ViewModel
-                        ChallengesProgressTab(
-                            sharedViewModel = sharedViewModel, // Pass the shared ViewModel
-                            onStatusChange = { challenge,    newStatus, marks ->
-                                sharedViewModel.updateChallengeStatusAndMarks(challenge, newStatus, marks) // Update the shared ViewModel
-                            }
-                        )
                     }
 
 

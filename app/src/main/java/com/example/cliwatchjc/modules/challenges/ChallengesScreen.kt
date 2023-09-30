@@ -41,7 +41,7 @@ fun ChallengesScreen(navController: NavController, modifier: Modifier = Modifier
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(180.dp)
-                    .clickable { navController.navigate(Routes.ADD_CHALLENGES) },
+                    .clickable { navController.navigate(Routes.CHALLENGES_LIST) },
                 elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
             ) {
                 Box(
@@ -57,7 +57,7 @@ fun ChallengesScreen(navController: NavController, modifier: Modifier = Modifier
                             .align(Alignment.TopCenter)
                     )
                     Text(
-                        text = Routes.labels[Routes.ADD_CHALLENGES] ?: "",
+                        text = Routes.labels[Routes.CHALLENGES_LIST] ?: "",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFF313331),
