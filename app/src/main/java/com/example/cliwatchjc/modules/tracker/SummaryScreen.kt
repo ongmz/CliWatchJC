@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -148,7 +147,7 @@ fun BarChart(
         val paint = Paint()
 
         // Draw y-axis labels and lines
-        val yLabelSpace = 3.dp.toPx() // Adjust this value to your needs
+        val yLabelSpace = 3.dp.toPx()
         for (i in 0..4) {
             val labelText = (i * 20).toString()
             val textWidth = paint.measureText(labelText)
@@ -203,11 +202,5 @@ fun BarChart(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun SummaryPreview() {
-    SummaryScreen()
 }
 

@@ -189,7 +189,6 @@ fun CalculatorScreen(calculatorViewModel: CalculatorViewModel, navController: Na
                 result = transportationValue + foodValue + energyValue // Calculate the result here
                 calculatorViewModel.setCarbonFootprint(result)
                 showResult = true
-                // Navigate to the result screen and pass the result value
                 navController.navigate("${Routes.CALCULATOR_RESULT}/$result")
 
             },

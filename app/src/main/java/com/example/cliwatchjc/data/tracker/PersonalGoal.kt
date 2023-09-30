@@ -10,8 +10,8 @@ data class PersonalGoal(
     var id: Long = 0L,
     val title: String = "",
     val description: String,
-    val dueDate: Long? = null, // Add dueDate field
-    var completed: Boolean = false, // Add a completed property
+    val dueDate: Long? = null,
+    var completed: Boolean = false,
     var completedDays: Int = 0,
     val totalDays: Int = 0,
     var isSelected: Boolean = true,

@@ -19,14 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.cliwatchjc.R
 import com.example.cliwatchjc.Routes
-import com.example.compose.AppTheme
 import androidx.compose.foundation.lazy.LazyColumn
 
 @Composable
@@ -147,15 +144,6 @@ fun TrackerScreen(navController: NavController) {
             }
         }
         item { Spacer(modifier = Modifier.height(96.dp).background(Color.Gray)) }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TrackerScreenPreview() {
-    AppTheme {
-        val navController = rememberNavController()
-        TrackerScreen(navController)
     }
 }
 
