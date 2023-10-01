@@ -376,7 +376,7 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
                         }
                         Column {
                             Image(
-                                painterResource(id = R.drawable.img_leon),
+                                painterResource(id = R.drawable.img_natalie),
                                 contentDescription = "",
                                 modifier = Modifier
                                     .size(96.dp)
@@ -384,7 +384,7 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
                                     .border(2.dp, Color.Gray, CircleShape)
                             )
                             Text(
-                                text = "Ong Ming Zheng",
+                                text = "Natalie Tan Jie Yin",
                                 fontSize = 12.sp,
                                 modifier = Modifier
                                     .align(Alignment.CenterHorizontally)
@@ -401,7 +401,7 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
                             .padding(top = 8.dp)) {
                         Column {
                             Image(
-                                painterResource(id = R.drawable.img_leon),
+                                painterResource(id = R.drawable.img_mickey),
                                 contentDescription = "",
                                 modifier = Modifier
                                     .size(96.dp)
@@ -409,7 +409,7 @@ fun AppDrawer(closeDrawer: () -> Unit = {}) {
                                     .border(2.dp, Color.Gray, CircleShape)
                             )
                             Text(
-                                text = "Ong Ming Zheng",
+                                text = "Tan Ching Yee",
                                 fontSize = 12.sp,
                                 modifier = Modifier
                                     .align(Alignment.CenterHorizontally)
