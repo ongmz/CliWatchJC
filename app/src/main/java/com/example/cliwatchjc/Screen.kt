@@ -114,8 +114,8 @@ object Routes {
         PERSONAL_GOAL to "Personal Goal",
         SUMMARY to "Summary",
         CHALLENGES to "Challenges",
-        TRACKER to "tracker",
-        CHALLENGES to  "challenges",
+        TRACKER to "Tracker",
+        CHALLENGES to  "Challenge",
         CHALLENGES_LIST to  "challengesList",
         CONTENT to "content",
         PROGRESS to "progress"
