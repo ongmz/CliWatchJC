@@ -51,10 +51,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -192,7 +188,10 @@ fun MyApp() {
                         )
                         NavigationBarItem(
                             label = { Text(Routes.labels[Routes.TRACKER] ?: "") },
-                            icon = { /* Placeholder */ },
+                            icon = { Icon(
+                                painter = painterResource(R.drawable.ic_tracker),
+                                contentDescription = ""
+                            ) },
                             selected = currentRoute == Routes.TRACKER,
                             onClick = {
                                 navController.navigate(Routes.TRACKER) {
@@ -202,7 +201,10 @@ fun MyApp() {
                         )
                         NavigationBarItem(
                             label = { Text(Routes.labels[Routes.CHALLENGES] ?: "") },
-                            icon = { /* Placeholder */ },
+                            icon = { Icon(
+                                painter = painterResource(R.drawable.ic_challenge),
+                                contentDescription = ""
+                            ) },
                             selected = currentRoute == Routes.CHALLENGES,
                             onClick = {
                                 navController.navigate(Routes.CHALLENGES) {
@@ -277,16 +279,9 @@ fun MyApp() {
                         CalculatorResultScreen(navController, result)
                     }
                     composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }
-                    composable(Routes.SUMMARY) { SummaryScreen()}
-                    composable(Routes.CHALLENGES) { ChallengesScreen() }
-                    composable(Routes.TRACKER) { TrackerScreen() }
-
+                    composable(Routes.SUMMARY) { SummaryScreen() }
                     composable(Routes.CHALLENGES) { ChallengesScreen(navController) }
-
-                    composable(Routes.CHALLENGES_LIST) {
-                        ChallengesListScreen(navController)
-                    }
-
+                    composable(Routes.CHALLENGES_LIST) { ChallengesListScreen(navController) }
                     composable(
                         route = "${Routes.CONTENT}/{challengesId}")
                     { backStackEntry ->
@@ -295,29 +290,16 @@ fun MyApp() {
                         ChallengesContentScreen(challengesId, navController)
 
                     }
-
-
                     composable(Routes.PROGRESS) {
-                        // Assuming you have a list of challenges and an update function in your ViewModel
                         val challengesViewModel: ChallengesViewModel = hiltViewModel()
                         val selectedChallengeId by challengesViewModel.selectedChallengeId.collectAsState()
                         val challenges = challengesViewModel.challenges.collectAsState().value
 
-                        // Define your updateChallengeStatus function here
                         val updateChallengeStatus: (Challenges, String) -> Unit = { challenge, status ->
-                            // Define your logic to update the challenge status here
-                            // This function should be provided by your ViewModel
                             challengesViewModel.updateChallengeStatus(challenge, status)
                         }
-
                         ChallengesProgressTab(selectedChallengeId, challenges, updateChallengeStatus)
                     }
-
-
-
-                }
-                if (showSideMenu) {
-                    SideMenu(onClose = { showSideMenu = false })
                 }
             }
         }

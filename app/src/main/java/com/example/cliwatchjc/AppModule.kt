@@ -133,6 +133,7 @@ object AppModule {
     @Singleton
     fun providePersonalGoalDetailsDao(database: AppDatabase): PersonalGoalDetailsDao {
         return database.personalGoalDetailsDao()
+    }
 
     @Provides
     @Singleton

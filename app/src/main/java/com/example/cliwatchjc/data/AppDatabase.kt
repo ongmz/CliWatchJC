@@ -1,8 +1,6 @@
 package com.example.cliwatchjc.data
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.cliwatchjc.data.education.Article
@@ -17,8 +15,6 @@ import com.example.cliwatchjc.data.tracker.PersonalGoalDetails
 import com.example.cliwatchjc.data.tracker.PersonalGoalDao
 import com.example.cliwatchjc.data.tracker.PersonalGoalDetailsDao
 import com.example.cliwatchjc.modules.tracker.Converters
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.cliwatchjc.data.challenges.Challenges
 import com.example.cliwatchjc.data.challenges.ChallengesDao
 
