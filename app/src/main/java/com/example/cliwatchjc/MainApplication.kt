@@ -1,9 +1,9 @@
 package com.example.cliwatchjc
 
 import android.app.Application
+import androidx.room.Room
 import com.example.cliwatchjc.data.AppDatabase
-import com.example.cliwatchjc.data.tracker.PersonalGoal
-import com.example.cliwatchjc.data.tracker.PersonalGoalDetails
+import com.example.cliwatchjc.data.education.Article
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

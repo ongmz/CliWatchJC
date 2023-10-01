@@ -17,14 +17,21 @@ import com.example.cliwatchjc.data.tracker.PersonalGoalDetails
 import com.example.cliwatchjc.data.tracker.PersonalGoalDao
 import com.example.cliwatchjc.data.tracker.PersonalGoalDetailsDao
 import com.example.cliwatchjc.modules.tracker.Converters
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.cliwatchjc.data.challenges.Challenges
+import com.example.cliwatchjc.data.challenges.ChallengesDao
+
 
 @Database(entities = [User::class, Article::class, UserQuizScore::class, UserQuestionAttempt::class, Question::class, Option::class,
-                      ClimateNews::class, PersonalGoal::class, PersonalGoalDetails::class], version = 10)
+                      ClimateNews::class, PersonalGoal::class, PersonalGoalDetails::class, Challenges::class], version = 11)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun educationDao(): EducationDao
     abstract fun personalGoalDao(): PersonalGoalDao
     abstract fun personalGoalDetailsDao(): PersonalGoalDetailsDao
+    abstract fun challengesDao(): ChallengesDao
+
 }
 

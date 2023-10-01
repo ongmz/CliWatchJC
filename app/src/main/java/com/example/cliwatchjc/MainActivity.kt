@@ -3,6 +3,7 @@ package com.example.cliwatchjc
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.example.cliwatchjc.data.challenges.repository.ChallengesRepository
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.room.Room
@@ -22,6 +23,7 @@ class MainActivity : ComponentActivity() {
     lateinit var educationRepository: ArticleRepository
     lateinit var personalGoalRepository: PersonalGoalRepository
     lateinit var personalGoalDetailsRepository: PersonalGoalDetailsRepository
+    lateinit var challengesRepository: ChallengesRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

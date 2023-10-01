@@ -36,6 +36,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -50,12 +51,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.cliwatchjc.data.UserViewModel
+import androidx.navigation.navArgument
+import com.example.cliwatchjc.data.challenges.Challenges
+import com.example.cliwatchjc.modules.challenges.ChallengesContentScreen
+import com.example.cliwatchjc.modules.challenges.ChallengesListScreen
+import com.example.cliwatchjc.modules.challenges.ChallengesProgressTab
 import com.example.cliwatchjc.modules.challenges.ChallengesScreen
 import com.example.cliwatchjc.modules.education.ArticleContentScreen
 import com.example.cliwatchjc.modules.education.ClimateNewsScreen
@@ -65,6 +75,7 @@ import com.example.cliwatchjc.modules.education.QuizComplete
 import com.example.cliwatchjc.modules.education.QuizScreen
 import com.example.cliwatchjc.modules.education.WebViewScreen
 import com.example.cliwatchjc.modules.tracker.CalculatorResultScreen
+import com.example.cliwatchjc.modules.challenges.ChallengesViewModel
 import com.example.cliwatchjc.modules.tracker.TrackerScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -88,6 +99,9 @@ object Routes {
     const val PERSONAL_GOAL = "personalGoal"
     const val SUMMARY = "summary"
     const val CHALLENGES = "challenges"
+    const val CHALLENGES_LIST = "challengesList"
+    const val CONTENT = "content"
+    const val PROGRESS = "progress"
 
     val labels = mapOf(
         MAIN_AUTHENTICATION to "Main Authentication",
@@ -103,7 +117,12 @@ object Routes {
         CALCULATOR_RESULT to "Calculator Result",
         PERSONAL_GOAL to "Personal Goal",
         SUMMARY to "Summary",
-        CHALLENGES to "Challenges"
+        CHALLENGES to "Challenges",
+        TRACKER to "tracker",
+        CHALLENGES to  "challenges",
+        CHALLENGES_LIST to  "challengesList",
+        CONTENT to "content",
+        PROGRESS to "progress"
     )
 }
 
@@ -260,6 +279,45 @@ fun MyApp() {
                     composable(Routes.PERSONAL_GOAL) { PersonalGoalScreen() }
                     composable(Routes.SUMMARY) { SummaryScreen()}
                     composable(Routes.CHALLENGES) { ChallengesScreen() }
+                    composable(Routes.TRACKER) { TrackerScreen() }
+
+                    composable(Routes.CHALLENGES) { ChallengesScreen(navController) }
+
+                    composable(Routes.CHALLENGES_LIST) {
+                        ChallengesListScreen(navController)
+                    }
+
+                    composable(
+                        route = "${Routes.CONTENT}/{challengesId}")
+                    { backStackEntry ->
+                        val challengesIdSTring = backStackEntry.arguments?.getString("challengesId")
+                        val challengesId = challengesIdSTring?.toLongOrNull() ?: 0L
+                        ChallengesContentScreen(challengesId, navController)
+
+                    }
+
+
+                    composable(Routes.PROGRESS) {
+                        // Assuming you have a list of challenges and an update function in your ViewModel
+                        val challengesViewModel: ChallengesViewModel = hiltViewModel()
+                        val selectedChallengeId by challengesViewModel.selectedChallengeId.collectAsState()
+                        val challenges = challengesViewModel.challenges.collectAsState().value
+
+                        // Define your updateChallengeStatus function here
+                        val updateChallengeStatus: (Challenges, String) -> Unit = { challenge, status ->
+                            // Define your logic to update the challenge status here
+                            // This function should be provided by your ViewModel
+                            challengesViewModel.updateChallengeStatus(challenge, status)
+                        }
+
+                        ChallengesProgressTab(selectedChallengeId, challenges, updateChallengeStatus)
+                    }
+
+
+
+                }
+                if (showSideMenu) {
+                    SideMenu(onClose = { showSideMenu = false })
                 }
             }
         }
@@ -405,6 +463,3 @@ fun DrawerHeader() {
 fun DrawerHeaderPreview() {
     AppDrawer()
 }
-
-
-

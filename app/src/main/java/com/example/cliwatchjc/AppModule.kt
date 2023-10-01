@@ -12,6 +12,7 @@ import com.example.cliwatchjc.data.tracker.PersonalGoalDao
 import com.example.cliwatchjc.data.tracker.PersonalGoalDetailsDao
 import com.example.cliwatchjc.data.tracker.repository.PersonalGoalDetailsRepository
 import com.example.cliwatchjc.data.tracker.repository.PersonalGoalRepository
+import com.example.cliwatchjc.data.challenges.repository.ChallengesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -132,5 +133,10 @@ object AppModule {
     @Singleton
     fun providePersonalGoalDetailsDao(database: AppDatabase): PersonalGoalDetailsDao {
         return database.personalGoalDetailsDao()
+
+    @Provides
+    @Singleton
+    fun provideChallengesRepository(database: AppDatabase): ChallengesRepository {
+        return ChallengesRepository(database.challengesDao())
     }
 }
